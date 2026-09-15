@@ -2848,6 +2848,157 @@ function resolveFeeMetadata(uni) {
   };
 }
 
+// Helper to deduce accurate Letter of Recommendation (LOR) requirements for Master's programs
+function resolveLORMetadata(uni) {
+  if (uni.Application_Documents && typeof uni.Application_Documents === "object" && uni.Application_Documents.LOR_Requirement) {
+    return {
+      LOR_Requirement: uni.Application_Documents.LOR_Requirement,
+      LOR_Count: typeof uni.Application_Documents.LOR_Count === "number" ? uni.Application_Documents.LOR_Count : 2,
+      LOR_Type: Array.isArray(uni.Application_Documents.LOR_Type) && uni.Application_Documents.LOR_Type.length > 0
+        ? uni.Application_Documents.LOR_Type
+        : ["Academic"],
+      LOR_Format: uni.Application_Documents.LOR_Format || "Free-form PDF",
+      LOR_Instructions: uni.Application_Documents.LOR_Instructions || "Official letterhead signed and stamped by the referee.",
+      SOP_Required: uni.Application_Documents.SOP_Required !== false,
+      CV_Resume_Required: uni.Application_Documents.CV_Resume_Required !== false,
+      Transcripts_Required: uni.Application_Documents.Transcripts_Required !== false,
+      APS_Certificate_Required: uni.apsRequired || false
+    };
+  }
+
+  const c = (uni.country || "").trim();
+  const id = (uni.id || "").toLowerCase();
+  const name = (uni.name || "").toLowerCase();
+
+  // USA & Canada: 3 LORs (Academic & Professional), Direct Referee Portal Link
+  if (c === "USA" || c === "United States" || c === "Canada") {
+    return {
+      LOR_Requirement: "Mandatory",
+      LOR_Count: 3,
+      LOR_Type: ["Academic", "Professional"],
+      LOR_Format: "University Specific Portal Link",
+      LOR_Instructions: "Referees receive an automated secure direct upload link to submit confidential evaluation forms.",
+      SOP_Required: true,
+      CV_Resume_Required: true,
+      Transcripts_Required: true,
+      APS_Certificate_Required: false
+    };
+  }
+
+  // UK, Ireland, Australia, New Zealand: 2 LORs (Academic), Referee Portal Link
+  if (c === "UK" || c === "United Kingdom" || c === "Ireland" || c === "Australia" || c === "New Zealand") {
+    return {
+      LOR_Requirement: "Mandatory",
+      LOR_Count: 2,
+      LOR_Type: ["Academic"],
+      LOR_Format: "University Specific Portal Link",
+      LOR_Instructions: "Referees must be registered with their official institutional domain email to receive electronic submission links.",
+      SOP_Required: true,
+      CV_Resume_Required: true,
+      Transcripts_Required: true,
+      APS_Certificate_Required: false
+    };
+  }
+
+  // Switzerland / Netherlands: 2 LORs (Academic), Portal Link
+  if (c === "Switzerland" || c === "Netherlands") {
+    return {
+      LOR_Requirement: "Mandatory",
+      LOR_Count: 2,
+      LOR_Type: ["Academic"],
+      LOR_Format: "University Specific Portal Link",
+      LOR_Instructions: "Confidential appraisal letters must be submitted electronically by academic referees via the university portal.",
+      SOP_Required: true,
+      CV_Resume_Required: true,
+      Transcripts_Required: true,
+      APS_Certificate_Required: false
+    };
+  }
+
+  // Germany:
+  if (c === "Germany") {
+    const isTopTU9 = id.includes("tum") || id.includes("rwth") || id.includes("berlin") || 
+      id.includes("kit") || id.includes("stuttgart") || id.includes("darmstadt") || 
+      id.includes("dresden") || id.includes("heidelberg") || id.includes("lmu") || id.includes("bonn");
+
+    if (isTopTU9) {
+      const isPortal = id.includes("tum"); // TUMonline portal referee links
+      return {
+        LOR_Requirement: "Mandatory",
+        LOR_Count: 2,
+        LOR_Type: ["Academic"],
+        LOR_Format: isPortal ? "University Specific Portal Link" : "Free-form PDF",
+        LOR_Instructions: isPortal
+          ? "Referees will receive an automated invitation link from the TUMonline application portal."
+          : "Free-form PDF printed on official institutional letterhead, signed and stamped with university seal.",
+        SOP_Required: true,
+        CV_Resume_Required: true,
+        Transcripts_Required: true,
+        APS_Certificate_Required: true
+      };
+    } else {
+      return {
+        LOR_Requirement: "Optional",
+        LOR_Count: 1,
+        LOR_Type: ["Academic", "Professional"],
+        LOR_Format: "Free-form PDF",
+        LOR_Instructions: "Letters of recommendation can be uploaded as PDFs to support and strengthen your aptitude assessment.",
+        SOP_Required: true,
+        CV_Resume_Required: true,
+        Transcripts_Required: true,
+        APS_Certificate_Required: true
+      };
+    }
+  }
+
+  // Sweden, Finland, Norway, Denmark (Nordic):
+  if (c === "Sweden" || c === "Finland" || c === "Norway" || c === "Denmark") {
+    const isSelective = id.includes("kth") || id.includes("chalmers") || id.includes("aalto") || id.includes("helsinki") || id.includes("lund");
+    return {
+      LOR_Requirement: isSelective ? "Mandatory" : "Optional",
+      LOR_Count: isSelective ? 2 : 1,
+      LOR_Type: ["Academic"],
+      LOR_Format: "Free-form PDF",
+      LOR_Instructions: "Upload signed PDF letters on official letterhead directly to the central national admissions portal.",
+      SOP_Required: true,
+      CV_Resume_Required: true,
+      Transcripts_Required: true,
+      APS_Certificate_Required: false
+    };
+  }
+
+  // France, Italy, Spain, Austria, Belgium:
+  if (c === "France" || c === "Italy" || c === "Spain" || c === "Austria" || c === "Belgium") {
+    const isPortalUni = id.includes("polytechnique") || id.includes("polimi") || id.includes("bologna") || id.includes("sorbonne") || id.includes("leuven");
+    return {
+      LOR_Requirement: isPortalUni ? "Mandatory" : "Optional",
+      LOR_Count: isPortalUni ? 2 : 1,
+      LOR_Type: ["Academic"],
+      LOR_Format: isPortalUni ? "University Specific Portal Link" : "Free-form PDF",
+      LOR_Instructions: isPortalUni
+        ? "Online referee evaluation link will be sent to professors' institutional email addresses."
+        : "Standard academic recommendation letter on institutional letterhead signed by referee.",
+      SOP_Required: true,
+      CV_Resume_Required: true,
+      Transcripts_Required: true,
+      APS_Certificate_Required: false
+    };
+  }
+
+  // Default European & other public universities:
+  return {
+    LOR_Requirement: "Mandatory",
+    LOR_Count: 2,
+    LOR_Type: ["Academic"],
+    LOR_Format: "Free-form PDF",
+    LOR_Instructions: "Letters must be on official university letterhead signed and stamped by the academic referee.",
+    SOP_Required: true,
+    CV_Resume_Required: true,
+    Transcripts_Required: true,
+    APS_Certificate_Required: false
+  };
+}
+
 // Known university coordinates dictionary
 const UNIVERSITY_GEO_MAP = {
   // Germany
@@ -3084,7 +3235,8 @@ const allPublicUniversities = allPublicUniversitiesRaw.map((uni) => {
     Degree_Level: uni.Degree_Level || uni.degreesOffered || ["Master's", "Bachelor's"],
     degreesOffered: uni.degreesOffered || ["Master's", "Bachelor's"],
     countryAliases,
-    programsAvailable: uni.programsAvailable || uni.fields || ["Computer Science", "Data Science", "Software Engineering"]
+    programsAvailable: uni.programsAvailable || uni.fields || ["Computer Science", "Data Science", "Software Engineering"],
+    Application_Documents: resolveLORMetadata(uni)
   };
 });
 

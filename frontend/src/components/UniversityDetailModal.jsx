@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
-import { X, Building2, ExternalLink, Globe2, Compass, Award } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Building2, ExternalLink, Globe2, Compass, Award, FileText, Info, HelpCircle, CheckSquare, ShieldCheck, PenTool } from "lucide-react";
 import StudentLifeMapView from "./StudentLifeMapView";
 import IndianVisaBadge from "./IndianVisaBadge";
+import { getLORBadge, getLORRequirements, getLORTooltipText } from "../services/lorRequirements";
 
 export default function UniversityDetailModal({
   isOpen,
   onClose,
   university
 }) {
+  const [showLORTooltip, setShowLORTooltip] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -19,6 +22,11 @@ export default function UniversityDetailModal({
   }, [isOpen, onClose]);
 
   if (!isOpen || !university) return null;
+
+  const lorBadge = getLORBadge(university);
+  const lorReqs = getLORRequirements(university);
+  const lorTooltip = getLORTooltipText(university);
+  const isPortalUpload = lorReqs.LOR_Format?.toLowerCase().includes("portal");
 
   return (
     <div style={{
@@ -225,6 +233,242 @@ export default function UniversityDetailModal({
 
           {/* Detailed Indian Student Visa Breakdown */}
           <IndianVisaBadge university={university} variant="detailed" style={{ marginTop: "12px", marginBottom: "0" }} />
+
+          {/* Document Requirements Section (Below Tuition and Visa Financial Cards) */}
+          <div style={{
+            marginTop: "14px",
+            background: "#FFFFFF",
+            border: "1px solid var(--border-warm)",
+            borderRadius: "10px",
+            padding: "14px 16px"
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <FileText size={16} color="var(--accent-green)" />
+                <span style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  Required Documents
+                </span>
+              </div>
+
+              {/* High-Visibility LOR Badge (Yellow #FFD700 Accent Color) */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span 
+                  style={{
+                    background: lorBadge.badgeBg,
+                    color: lorBadge.badgeColor,
+                    border: `1px solid ${lorBadge.badgeBorder}`,
+                    borderRadius: "6px",
+                    padding: "3px 10px",
+                    fontWeight: 800,
+                    fontSize: "0.78rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    boxShadow: lorBadge.isRequired ? "0 2px 8px rgba(234, 179, 8, 0.35)" : "none"
+                  }}
+                >
+                  {lorBadge.text}
+                </span>
+
+                {/* Tooltip Info Icon */}
+                <div style={{ position: "relative", display: "inline-block" }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowLORTooltip(!showLORTooltip)}
+                    onMouseEnter={() => setShowLORTooltip(true)}
+                    onMouseLeave={() => setShowLORTooltip(false)}
+                    style={{
+                      background: "var(--bg-secondary)",
+                      border: "1px solid var(--border-warm)",
+                      borderRadius: "50%",
+                      width: "24px",
+                      height: "24px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--text-secondary)",
+                      cursor: "pointer",
+                      padding: 0
+                    }}
+                    title="Click for LOR submission portal link vs PDF instructions"
+                  >
+                    <Info size={14} />
+                  </button>
+
+                  {showLORTooltip && (
+                    <div style={{
+                      position: "absolute",
+                      top: "30px",
+                      right: 0,
+                      zIndex: 110,
+                      width: "320px",
+                      background: "var(--surface-dark, #0b1120)",
+                      border: "1px solid #FFD700",
+                      borderRadius: "10px",
+                      padding: "14px",
+                      boxShadow: "0 15px 35px rgba(0, 0, 0, 0.6)",
+                      color: "#FAF8F5",
+                      fontSize: "0.78rem",
+                      lineHeight: "1.45"
+                    }}>
+                      <div style={{ fontWeight: 800, color: "#FFD700", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span>{lorTooltip.title}</span>
+                      </div>
+                      <p style={{ margin: "0 0 8px 0", color: "#e2e8f0" }}>
+                        {lorTooltip.description}
+                      </p>
+                      <div style={{ 
+                        background: "rgba(255, 215, 0, 0.12)", 
+                        border: "1px solid rgba(255, 215, 0, 0.25)",
+                        padding: "6px 8px", 
+                        borderRadius: "6px", 
+                        color: "#fef08a",
+                        fontSize: "0.72rem"
+                      }}>
+                        💡 <strong>Upload Channel:</strong> {isPortalUpload 
+                          ? "University emails your referee an automated confidential upload link."
+                          : "Student uploads signed/stamped PDF on official institutional letterhead."}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Document Checklist Items Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: "10px" }}>
+              
+              {/* Card item 1: LOR */}
+              <div style={{ 
+                background: "var(--bg-secondary)", 
+                border: "1px solid var(--border-subtle)", 
+                borderRadius: "8px", 
+                padding: "10px 12px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between"
+              }}>
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                    <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                      Letters of Recommendation
+                    </span>
+                    <span style={{ 
+                      fontSize: "0.65rem", 
+                      fontWeight: 700, 
+                      padding: "1px 5px", 
+                      borderRadius: "4px",
+                      background: isPortalUpload ? "rgba(37, 99, 235, 0.12)" : "rgba(168, 85, 247, 0.12)",
+                      color: isPortalUpload ? "#2563eb" : "#7c3aed"
+                    }}>
+                      {lorReqs.LOR_Format}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                    {lorReqs.LOR_Count} {lorReqs.LOR_Type?.join(" / ")} LOR{lorReqs.LOR_Count > 1 ? "s" : ""}
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "3px" }}>
+                    {isPortalUpload ? "Direct referee portal upload" : "Free-form signed PDF upload"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Card item 2: Statement of Purpose */}
+              <div style={{ 
+                background: "var(--bg-secondary)", 
+                border: "1px solid var(--border-subtle)", 
+                borderRadius: "8px", 
+                padding: "10px 12px" 
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                  <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                    Statement of Purpose
+                  </span>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#16a34a", background: "rgba(22, 163, 74, 0.12)", padding: "1px 5px", borderRadius: "4px" }}>
+                    Mandatory
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  Academic Essay / Letter of Motivation
+                </div>
+                <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "3px" }}>
+                  Course curriculum-specific rationale (max 1,000 words)
+                </div>
+              </div>
+
+              {/* Card item 3: Academic Transcripts */}
+              <div style={{ 
+                background: "var(--bg-secondary)", 
+                border: "1px solid var(--border-subtle)", 
+                borderRadius: "8px", 
+                padding: "10px 12px" 
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                  <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                    Academic Transcripts
+                  </span>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#16a34a", background: "rgba(22, 163, 74, 0.12)", padding: "1px 5px", borderRadius: "4px" }}>
+                    Mandatory
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  Consolidated & Semester Grade Cards
+                </div>
+                <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "3px" }}>
+                  Official university registrar seal & English translation
+                </div>
+              </div>
+
+              {/* Card item 4: Curriculum Vitae */}
+              <div style={{ 
+                background: "var(--bg-secondary)", 
+                border: "1px solid var(--border-subtle)", 
+                borderRadius: "8px", 
+                padding: "10px 12px" 
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                  <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                    Curriculum Vitae
+                  </span>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#16a34a", background: "rgba(22, 163, 74, 0.12)", padding: "1px 5px", borderRadius: "4px" }}>
+                    Mandatory
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  Academic CV (Europass / Standard)
+                </div>
+                <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "3px" }}>
+                  Chronological academic, research & project background
+                </div>
+              </div>
+
+              {/* Card item 5: APS Certificate (if required) */}
+              {lorReqs.APS_Certificate_Required && (
+                <div style={{ 
+                  background: "rgba(245, 158, 11, 0.08)", 
+                  border: "1px solid rgba(245, 158, 11, 0.3)", 
+                  borderRadius: "8px", 
+                  padding: "10px 12px" 
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                    <span style={{ fontSize: "0.68rem", color: "#d97706", textTransform: "uppercase", fontWeight: 700 }}>
+                      APS India Verification
+                    </span>
+                    <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#b45309", background: "rgba(245, 158, 11, 0.2)", padding: "1px 5px", borderRadius: "4px" }}>
+                      Mandatory
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#92400e" }}>
+                    APS Certificate Original
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "3px" }}>
+                    Required for enrollment & German student visa submission
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
         </div>
 
         {/* Modal Scrollable Body */}

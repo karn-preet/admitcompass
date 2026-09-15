@@ -22,6 +22,7 @@ import {
 import { verifyLivePortalUrl } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
 import IndianVisaBadge from "./IndianVisaBadge";
+import { getLORBadge } from "../services/lorRequirements";
 
 const COUNTRY_FLAGS = {
   "Austria": "🇦🇹",
@@ -596,6 +597,22 @@ export default function UniversityMatches({
                       <span style={{ fontSize: "0.74rem", color: "#38bdf8", background: "rgba(56, 189, 248, 0.1)", padding: "1px 6px", borderRadius: "4px", fontWeight: "600" }}>
                         🏛️ Public
                       </span>
+                      {(() => {
+                        const lorBadge = getLORBadge(uni);
+                        return (
+                          <span style={{
+                            background: lorBadge.badgeBg,
+                            color: lorBadge.badgeColor,
+                            border: `1px solid ${lorBadge.badgeBorder}`,
+                            borderRadius: "4px",
+                            padding: "1px 6px",
+                            fontSize: "0.7rem",
+                            fontWeight: 800
+                          }}>
+                            {lorBadge.shortText || lorBadge.text}
+                          </span>
+                        );
+                      })()}
                     </div>
 
                     {/* Top Right Corner: Indian Visa Odds Badge */}
@@ -752,6 +769,27 @@ export default function UniversityMatches({
                         {uni.applicationDeadlines || "Winter: July 15 | Summer: Jan 15"}
                       </span>
                     </div>
+
+                    {/* LOR Requirement Row */}
+                    {(() => {
+                      const lorBadge = getLORBadge(uni);
+                      return (
+                        <div style={{ gridColumn: "span 2", paddingTop: "5px", borderTop: "1px dashed var(--border-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 600 }}>LOR Requirement:</span>
+                          <span style={{
+                            background: lorBadge.badgeBg,
+                            color: lorBadge.badgeColor,
+                            border: `1px solid ${lorBadge.badgeBorder}`,
+                            borderRadius: "4px",
+                            padding: "1px 6px",
+                            fontSize: "0.72rem",
+                            fontWeight: 800
+                          }}>
+                            {lorBadge.text}
+                          </span>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
 

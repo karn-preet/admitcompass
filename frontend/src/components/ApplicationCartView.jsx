@@ -12,6 +12,9 @@ import {
   ExternalLink
 } from "lucide-react";
 import { calculateApplicationCart } from "../services/api";
+import ApplicationLORTracker from "./ApplicationLORTracker";
+import UniversityDetailModal from "./UniversityDetailModal";
+import { getLORBadge } from "../services/lorRequirements";
 
 export default function ApplicationCartView({
   cartItems = [],
@@ -19,6 +22,7 @@ export default function ApplicationCartView({
   onClearCart,
   originCountry = "India"
 }) {
+  const [selectedUniForModal, setSelectedUniForModal] = useState(null);
   const [selectedExams, setSelectedExams] = useState({
     ielts: true,
     gre: false,
@@ -500,6 +504,28 @@ export default function ApplicationCartView({
                         ⚠️ APS India: {formatMoney(195)} mandatory
                       </div>
                     )}
+
+                    {/* High-visibility LOR Requirement Badge */}
+                    {(() => {
+                      const matchedUni = cartItems.find(it => (it.id || it) === b.universityId);
+                      const lorBadge = getLORBadge(matchedUni || b);
+                      return (
+                        <div style={{ marginTop: "6px" }}>
+                          <span style={{
+                            background: lorBadge.badgeBg,
+                            color: lorBadge.badgeColor,
+                            border: `1px solid ${lorBadge.badgeBorder}`,
+                            fontSize: "0.68rem",
+                            fontWeight: 800,
+                            padding: "2px 6px",
+                            borderRadius: "4px",
+                            display: "inline-block"
+                          }}>
+                            {lorBadge.text}
+                          </span>
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   <div style={{ marginTop: "8px", paddingTop: "4px", borderTop: "1px dashed rgba(255,255,255,0.08)", fontSize: "0.66rem", color: "var(--text-muted)" }}>
@@ -553,6 +579,19 @@ export default function ApplicationCartView({
           ))}
         </div>
       </div>
+
+      {/* Student Dashboard & Checklist: Dynamic LOR Tracker */}
+      <ApplicationLORTracker 
+        universities={cartItems} 
+        onOpenDetailModal={(uni) => setSelectedUniForModal(uni)}
+      />
+
+      {/* University Detail Modal */}
+      <UniversityDetailModal
+        isOpen={Boolean(selectedUniForModal)}
+        onClose={() => setSelectedUniForModal(null)}
+        university={selectedUniForModal}
+      />
 
     </div>
   );

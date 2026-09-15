@@ -48,9 +48,10 @@ async function verifyAndScrapeUrl(targetUrl) {
     const isGovPortal = hostname.endsWith(".gov") || hostname.endsWith(".gov.uk") || hostname.endsWith(".gov.au") || hostname.endsWith(".ca") || hostname.includes("diplo.de") || hostname.includes("daad.de") || hostname.includes("aps-india.de");
     const isEduPortal = hostname.endsWith(".edu") || hostname.endsWith(".ac.uk") || hostname.endsWith(".de") || hostname.includes(".edu.");
 
-    // Detect hidden fee keywords in page content
+    // Detect hidden fee and LOR keywords in page content
     const pageText = $("body").text();
     const hiddenFeeAnalysis = extractHiddenFeeKeywords(pageText);
+    const lorAnalysis = extractLORRequirements(pageText);
 
     const result = {
       isValid: true,
@@ -63,6 +64,7 @@ async function verifyAndScrapeUrl(targetUrl) {
       domainCategory: isGovPortal ? "Official Government Immigration Authority" : isEduPortal ? "Accredited Public University Portal" : "Official Educational Body",
       isLiveVerified: true,
       hiddenFeeAnalysis,
+      lorAnalysis,
       verifiedTimestamp: new Date().toISOString()
     };
 
@@ -483,6 +485,110 @@ function extractHiddenFeeKeywords(text = "") {
 }
 
 /**
+ * Extracts and parses Letter of Recommendation (LOR) requirements from Admissions / How to Apply pages:
+ * Keywords parsed: "Reference Letter", "Letter of Recommendation", "Referee details", "Academic Reference", etc.
+ * Automatically populates: LOR_Requirement, LOR_Count, LOR_Type, LOR_Format
+ */
+function extractLORRequirements(text = "") {
+  if (!text || typeof text !== "string") {
+    return {
+      detected: false,
+      LOR_Requirement: "Not Required",
+      LOR_Count: 0,
+      LOR_Type: ["Academic"],
+      LOR_Format: "Free-form PDF",
+      LOR_Instructions: "Letters must be on official letterhead signed and stamped by the referee.",
+      matchedKeywords: [],
+      rawSnippet: ""
+    };
+  }
+
+  const LOR_KEYWORDS = [
+    { key: "Letter of Recommendation", regex: /letters?\s+of\s+recommendation/i },
+    { key: "Reference Letter", regex: /reference\s+letters?|letters?\s+of\s+reference/i },
+    { key: "Academic Reference", regex: /academic\s+references?|referee\s+reports?/i },
+    { key: "Referee details", regex: /referee\s+details|details\s+of\s+(?:two|three|[0-9])\s+referees?/i },
+    { key: "Confidential Evaluation", regex: /confidential\s+evaluation|recommendation\s+forms?/i },
+    { key: "LOR", regex: /\bLORs?\b/i }
+  ];
+
+  const matchedKeywords = [];
+  LOR_KEYWORDS.forEach(({ key, regex }) => {
+    if (regex.test(text)) {
+      matchedKeywords.push(key);
+    }
+  });
+
+  const hasLOR = matchedKeywords.length > 0;
+
+  // Determine LOR Count
+  let lorCount = 0;
+  if (hasLOR) {
+    if (/three\s+(?:letters?|references?|referees?)|3\s+(?:letters?|references?|referees?|LORs?)/i.test(text)) {
+      lorCount = 3;
+    } else if (/two\s+(?:letters?|references?|referees?)|2\s+(?:letters?|references?|referees?|LORs?)|pair\s+of\s+recommendations?/i.test(text)) {
+      lorCount = 2;
+    } else if (/one\s+(?:letter|reference|referee)|1\s+(?:letter|reference|referee|LOR)|at\s+least\s+one/i.test(text)) {
+      lorCount = 1;
+    } else {
+      lorCount = 2; // Academic Master's standard default
+    }
+  }
+
+  // Determine LOR Requirement Status (Mandatory | Optional | Not Required)
+  let lorRequirement = "Not Required";
+  if (hasLOR) {
+    if (/optional|not\s+mandatory|strongly\s+recommended|encouraged|if\s+available/i.test(text) && !/mandatory|compulsory|strictly\s+required/i.test(text)) {
+      lorRequirement = "Optional";
+    } else if (/not\s+required|no\s+letters?\s+needed|do\s+not\s+submit\s+recommendation/i.test(text)) {
+      lorRequirement = "Not Required";
+      lorCount = 0;
+    } else {
+      lorRequirement = "Mandatory";
+    }
+  }
+
+  // Determine LOR Type (Academic | Professional)
+  const lorType = [];
+  const hasAcademic = /academic|professor|lecturer|faculty|university\s+teacher/i.test(text) || true;
+  const hasProfessional = /professional|employer|supervisor|work\s+experience|manager|industry/i.test(text);
+
+  if (hasAcademic) lorType.push("Academic");
+  if (hasProfessional) lorType.push("Professional");
+  if (lorType.length === 0) lorType.push("Academic");
+
+  // Determine Submission Format (Portal Link vs Free-form PDF)
+  let lorFormat = "Free-form PDF";
+  if (/portal\s+link|online\s+system|referee\s+will\s+receive\s+an\s+email|electronic\s+submission|automated\s+link|institutional\s+email/i.test(text)) {
+    lorFormat = "University Specific Portal Link";
+  } else if (/online\s+form|standardized\s+form|evaluation\s+grid/i.test(text)) {
+    lorFormat = "University Specific Portal Link";
+  } else if (/pdf|upload|scan|hardcopy|letterhead/i.test(text)) {
+    lorFormat = "Free-form PDF";
+  }
+
+  // Extract snippet context
+  let rawSnippet = "";
+  const snippetMatch = text.match(/(?:[^\.\n]+\b(?:letter of recommendation|reference letter|referee|academic reference)\b[^\.\n]+[\.\n]?)/i);
+  if (snippetMatch) {
+    rawSnippet = snippetMatch[0].trim();
+  }
+
+  return {
+    detected: hasLOR,
+    LOR_Requirement: lorRequirement,
+    LOR_Count: lorCount,
+    LOR_Type: lorType,
+    LOR_Format: lorFormat,
+    LOR_Instructions: lorFormat === "University Specific Portal Link"
+      ? "Professors receive an automated secure institutional upload link via the university portal."
+      : "Free-form PDF printed on official institutional letterhead, signed and stamped.",
+    matchedKeywords,
+    rawSnippet
+  };
+}
+
+/**
  * Scrapes & searches English-taught programs at Public Universities
  * Strictly filters:
  * - Language_of_Instruction: "English"
@@ -559,7 +665,14 @@ function scrapePublicPrograms({ country, degreeLevel = "Master's", maxTuitionFee
       officialWebsite: uni.officialWebsite,
       courseCatalogUrl: uni.courseCatalogUrl,
       officialCitation: uni.officialCitation,
-      programsAvailable: uni.programsAvailable || [field, "Software Engineering", "Data Science"]
+      programsAvailable: uni.programsAvailable || [field, "Software Engineering", "Data Science"],
+      Application_Documents: uni.Application_Documents || {
+        LOR_Requirement: "Mandatory",
+        LOR_Count: 2,
+        LOR_Type: ["Academic"],
+        LOR_Format: "Free-form PDF",
+        LOR_Instructions: "Letters must be on official letterhead signed and stamped by the referee."
+      }
     }))
   };
 }
@@ -569,5 +682,6 @@ module.exports = {
   getOfficialCitationsDirectory,
   getOfficialPortalsDirectory,
   scrapePublicPrograms,
-  extractHiddenFeeKeywords
+  extractHiddenFeeKeywords,
+  extractLORRequirements
 };

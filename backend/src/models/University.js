@@ -30,7 +30,17 @@ const UniversitySchema = new mongoose.Schema({
   minCGPA10: { type: Number },
   ieltsMinOverall: { type: Number },
   officialWebsite: { type: String },
-  courseCatalogUrl: { type: String }
+  courseCatalogUrl: { type: String },
+  Application_Documents: {
+    type: Object,
+    default: () => ({
+      LOR_Requirement: "Mandatory",
+      LOR_Count: 2,
+      LOR_Type: ["Academic"],
+      LOR_Format: "Free-form PDF",
+      LOR_Instructions: "Letters must be on official letterhead signed and stamped by the referee."
+    })
+  }
 }, {
   timestamps: true
 });

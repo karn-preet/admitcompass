@@ -17,6 +17,7 @@ import {
 import { fetchUniversities } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
 import IndianVisaBadge from "./IndianVisaBadge";
+import { getLORBadge } from "../services/lorRequirements";
 
 const COUNTRY_FLAGS = {
   "Germany": "🇩🇪",
@@ -605,6 +606,27 @@ export default function WoolmersUniversityGrid({
                             </strong>
                           </div>
                         </div>
+
+                        {/* LOR Requirement Badge */}
+                        {(() => {
+                          const lorBadge = getLORBadge(uni);
+                          return (
+                            <div style={{ gridColumn: "span 2", paddingTop: "5px", borderTop: "1px dashed rgba(0,0,0,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                              <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 600 }}>LOR Requirement:</span>
+                              <span style={{
+                                background: lorBadge.badgeBg,
+                                color: lorBadge.badgeColor,
+                                border: `1px solid ${lorBadge.badgeBorder}`,
+                                borderRadius: "4px",
+                                padding: "1px 6px",
+                                fontSize: "0.7rem",
+                                fontWeight: 800
+                              }}>
+                                {lorBadge.text}
+                              </span>
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
 
