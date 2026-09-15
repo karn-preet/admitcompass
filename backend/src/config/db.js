@@ -24,17 +24,22 @@ const localStore = {
 let isConnectedToMongo = false;
 
 const connectDB = async () => {
-  const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/study_abroad_evaluator";
+  const mongoUri = process.env.MONGODB_URI;
+  if (!mongoUri) {
+    isConnectedToMongo = false;
+    console.log("ℹ️ MONGODB_URI not configured. Using in-memory fallback store with full seed records.");
+    return;
+  }
   try {
     mongoose.set("strictQuery", false);
     await mongoose.connect(mongoUri, {
-      serverSelectionTimeoutMS: 2000 // Quick fallback if local MongoDB is not running
+      serverSelectionTimeoutMS: 2000
     });
     isConnectedToMongo = true;
     console.log("✅ MongoDB Connected successfully:", mongoUri);
   } catch (error) {
     isConnectedToMongo = false;
-    console.warn("ℹ️ MongoDB daemon not active locally. Initializing in-memory fallback store with full persistence & official seed records.");
+    console.warn("ℹ️ MongoDB connection failed. Initializing in-memory fallback store with full persistence.");
   }
 };
 
