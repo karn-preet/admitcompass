@@ -1,0 +1,17 @@
+{
+  "name": "Global ਪੰਜਾਬ",
+  "short_name": "Global ਪੰਜਾਬ",
+  "description": "Global ਪੰਜਾਬ - European Public University, Scholarships & Visa Eligibility Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F6F8",
+  "theme_color": "#FDE047",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

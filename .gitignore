@@ -1,0 +1,36 @@
+# Node dependencies
+node_modules/
+*/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+dist/
+frontend/dist/
+build/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Antigravity temporary task logs
+.system_generated/
+*.log
+scratch/
