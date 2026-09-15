@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { verifyLivePortalUrl } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
+import IndianVisaBadge from "./IndianVisaBadge";
 
 const COUNTRY_FLAGS = {
   "Austria": "🇦🇹",
@@ -584,19 +585,21 @@ export default function UniversityMatches({
               <div>
                 {/* Header: Badges & Title */}
                 <div style={{ marginBottom: "12px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", marginBottom: "6px" }}>
-                    <span className={`badge ${isSafe ? "badge-safe" : isTarget ? "badge-target" : "badge-reach"}`}>
-                      {category} ({probabilityScore}% Odds)
-                    </span>
-                    <span style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontWeight: "600", background: "rgba(255,255,255,0.05)", padding: "1px 6px", borderRadius: "4px" }}>
-                      QS #{uni.qsRanking || "Top Public"}
-                    </span>
-                    <span style={{ fontSize: "0.74rem", color: "#38bdf8", background: "rgba(56, 189, 248, 0.1)", padding: "1px 6px", borderRadius: "4px", fontWeight: "600" }}>
-                      🏛️ Public
-                    </span>
-                    <span style={{ fontSize: "0.74rem", color: "#a78bfa", background: "rgba(167, 139, 250, 0.1)", padding: "1px 6px", borderRadius: "4px", fontWeight: "600" }}>
-                      🇬🇧 English-Taught
-                    </span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "8px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
+                      <span className={`badge ${isSafe ? "badge-safe" : isTarget ? "badge-target" : "badge-reach"}`}>
+                        {category} ({probabilityScore}% Odds)
+                      </span>
+                      <span style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontWeight: "600", background: "rgba(255,255,255,0.05)", padding: "1px 6px", borderRadius: "4px" }}>
+                        QS #{uni.qsRanking || "Top Public"}
+                      </span>
+                      <span style={{ fontSize: "0.74rem", color: "#38bdf8", background: "rgba(56, 189, 248, 0.1)", padding: "1px 6px", borderRadius: "4px", fontWeight: "600" }}>
+                        🏛️ Public
+                      </span>
+                    </div>
+
+                    {/* Top Right Corner: Indian Visa Odds Badge */}
+                    <IndianVisaBadge university={uni} />
                   </div>
 
                   <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem", fontWeight: "700", color: "var(--text-primary)", lineHeight: 1.3 }}>

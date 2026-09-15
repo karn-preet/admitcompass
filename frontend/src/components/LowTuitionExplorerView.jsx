@@ -6,6 +6,7 @@ import {
   Sliders, Award, ShoppingCart, Layers, MapPin
 } from "lucide-react";
 import UniversityDetailModal from "./UniversityDetailModal";
+import IndianVisaBadge from "./IndianVisaBadge";
 
 const COUNTRY_FLAGS = {
   "Austria": "🇦🇹",
@@ -378,28 +379,22 @@ export default function LowTuitionExplorerView({
                 }}
               >
                 <div>
-                  {/* Country Flag & QS Badge */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+                  {/* Country Flag, QS Badge & Indian Visa Odds */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "8px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <span style={{ fontSize: "1.2rem" }}>{flag}</span>
                       <span style={{ fontSize: "0.82rem", fontWeight: "700", color: "#93c5fd" }}>
                         {uni.country}
                       </span>
-                    </div>
-
-                    <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
                       {(uni.qsRank || uni.qsRanking) && (
                         <span style={{ fontSize: "0.74rem", background: "rgba(255, 255, 255, 0.08)", color: "#ffffff", padding: "2px 8px", borderRadius: "4px", fontWeight: "600" }}>
                           QS #{(uni.qsRank || uni.qsRanking)}
                         </span>
                       )}
-                      <span style={{ fontSize: "0.72rem", background: "rgba(56, 189, 248, 0.12)", color: "#38bdf8", padding: "2px 6px", borderRadius: "4px", fontWeight: "600" }}>
-                        Public
-                      </span>
-                      <span style={{ fontSize: "0.72rem", background: "rgba(167, 139, 250, 0.12)", color: "#c084fc", padding: "2px 6px", borderRadius: "4px", fontWeight: "600" }}>
-                        English
-                      </span>
                     </div>
+
+                    {/* Top Right Corner: Indian Visa Odds Badge */}
+                    <IndianVisaBadge university={uni} />
                   </div>
 
                   {/* University Name & Location */}

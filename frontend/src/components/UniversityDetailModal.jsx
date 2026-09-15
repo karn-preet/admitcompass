@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { X, Building2, ExternalLink, Globe2, Compass, Award } from "lucide-react";
 import StudentLifeMapView from "./StudentLifeMapView";
+import IndianVisaBadge from "./IndianVisaBadge";
 
 export default function UniversityDetailModal({
   isOpen,
@@ -72,6 +73,7 @@ export default function UniversityDetailModal({
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <IndianVisaBadge university={university} />
             {university.officialWebsite && (
               <a
                 href={university.courseCatalogUrl || university.officialWebsite}
@@ -220,6 +222,9 @@ export default function UniversityDetailModal({
             </div>
 
           </div>
+
+          {/* Detailed Indian Student Visa Breakdown */}
+          <IndianVisaBadge university={university} variant="detailed" style={{ marginTop: "12px", marginBottom: "0" }} />
         </div>
 
         {/* Modal Scrollable Body */}

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { fetchUniversities } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
+import IndianVisaBadge from "./IndianVisaBadge";
 
 const COUNTRY_FLAGS = {
   "Germany": "🇩🇪",
@@ -399,41 +400,46 @@ export default function WoolmersUniversityGrid({
                     />
 
                     {/* Top Floating Tags */}
-                    <div style={{ position: "absolute", top: "12px", left: "12px", right: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 2 }}>
-                      <span 
-                        style={{
-                          background: "rgba(30, 58, 43, 0.9)",
-                          backdropFilter: "blur(6px)",
-                          color: "#FFFFFF",
-                          fontSize: "0.72rem",
-                          fontWeight: 700,
-                          padding: "3px 9px",
-                          borderRadius: "4px",
-                          letterSpacing: "0.05em",
-                          textTransform: "uppercase"
-                        }}
-                      >
-                        Public University
-                      </span>
+                    <div style={{ position: "absolute", top: "10px", left: "10px", right: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 2, gap: "8px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span 
+                          style={{
+                            background: "rgba(30, 58, 43, 0.9)",
+                            backdropFilter: "blur(6px)",
+                            color: "#FFFFFF",
+                            fontSize: "0.68rem",
+                            fontWeight: 700,
+                            padding: "3px 8px",
+                            borderRadius: "4px",
+                            letterSpacing: "0.04em",
+                            textTransform: "uppercase"
+                          }}
+                        >
+                          Public
+                        </span>
 
-                      <span 
-                        style={{
-                          background: "rgba(255, 255, 255, 0.92)",
-                          backdropFilter: "blur(6px)",
-                          color: "var(--text-primary)",
-                          fontSize: "0.76rem",
-                          fontWeight: 700,
-                          padding: "3px 10px",
-                          borderRadius: "999px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "5px",
-                          boxShadow: "0 2px 6px rgba(0,0,0,0.15)"
-                        }}
-                      >
-                        <span>{flag}</span>
-                        <span>{uni.country}</span>
-                      </span>
+                        <span 
+                          style={{
+                            background: "rgba(255, 255, 255, 0.92)",
+                            backdropFilter: "blur(6px)",
+                            color: "var(--text-primary)",
+                            fontSize: "0.72rem",
+                            fontWeight: 700,
+                            padding: "2px 8px",
+                            borderRadius: "999px",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.15)"
+                          }}
+                        >
+                          <span>{flag}</span>
+                          <span>{uni.country}</span>
+                        </span>
+                      </div>
+
+                      {/* Top Right Corner: Visa Chances for Indians */}
+                      <IndianVisaBadge university={uni} />
                     </div>
 
                     {/* QS Ranking Pill if available */}
