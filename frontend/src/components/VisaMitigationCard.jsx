@@ -13,26 +13,26 @@ import {
 } from "lucide-react";
 
 export default function VisaMitigationCard({ evaluationData }) {
-  if (!evaluationData || !evaluationData.visaEvaluation) {
+  if (!evaluationData) {
     return null;
   }
 
   const {
-    targetCountry,
-    solvencyStatus,
-    solvencyRatio,
-    totalRecognizedLiquidINR,
-    requiredLivingINR,
-    typicalTuitionINR,
-    totalRequiredINR,
-    fundingGapINR,
-    riskScore,
-    riskLevel,
-    approvalProbability,
-    refusalRisks,
-    positiveHighlights,
-    customRoadmap
-  } = evaluationData.visaEvaluation;
+    targetCountry = "Germany",
+    solvencyStatus = "Pending",
+    solvencyRatio = 1.0,
+    totalRecognizedLiquidINR = 0,
+    requiredLivingINR = 0,
+    typicalTuitionINR = 0,
+    totalRequiredINR = 0,
+    fundingGapINR = 0,
+    riskScore = 0,
+    riskLevel = "Moderate Risk",
+    approvalProbability = 75,
+    refusalRisks = [],
+    positiveHighlights = [],
+    customRoadmap = []
+  } = evaluationData.visaEvaluation || {};
 
   const isHighRisk = riskLevel === "High Risk";
   const isModerateRisk = riskLevel === "Moderate Risk";

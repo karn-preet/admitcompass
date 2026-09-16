@@ -16,6 +16,8 @@ import ModernTopNav from "./components/ModernTopNav";
 import MobileCardFeed from "./components/MobileCardFeed";
 import BottomNavBar from "./components/BottomNavBar";
 import VisaGuidesView from "./components/VisaGuidesView";
+import StudentLifeMapView from "./components/StudentLifeMapView";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Woolmers Editorial Design Components
 import WoolmersHero from "./components/WoolmersHero";
@@ -260,51 +262,50 @@ export default function App() {
 
         {/* TAB 5: Profile & Admission Evaluator */}
         {(activeTab === "profile" || activeTab === "evaluator") && (
-          !evaluationResult ? (
-            <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "28px 16px 64px 16px" }}>
-              <div style={{ textAlign: "center", marginBottom: "30px" }}>
-                <span className="pill-dark" style={{ marginBottom: "12px" }}>
-                  OFFICIAL ADMISSIONS INTELLIGENCE
-                </span>
-                <h2 
-                  style={{ 
-                    fontSize: "clamp(1.8rem, 3.5vw, 2.3rem)", 
-                    fontWeight: "800", 
-                    color: "#0F172A",
-                    marginBottom: "10px",
-                    letterSpacing: "-0.02em"
-                  }}
-                >
-                  Calculate Your Admission Odds & Visa Refusal Risks
-                </h2>
-                <p style={{ color: "#64748B", fontSize: "1.02rem", lineHeight: 1.5, maxWidth: "620px", margin: "0 auto" }}>
-                  Enter your academic credentials, standardized tests, and sponsor funds to cross-reference against 147 public universities.
-                </p>
+          <ErrorBoundary onReset={handleReset}>
+            {!evaluationResult ? (
+              <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "28px 16px 64px 16px" }}>
+                <div style={{ textAlign: "center", marginBottom: "30px" }}>
+                  <span className="pill-dark" style={{ marginBottom: "12px" }}>
+                    OFFICIAL ADMISSIONS INTELLIGENCE
+                  </span>
+                  <h2 
+                    style={{ 
+                      fontSize: "clamp(1.8rem, 3.5vw, 2.3rem)", 
+                      fontWeight: "800", 
+                      color: "#0F172A",
+                      marginBottom: "10px",
+                      letterSpacing: "-0.02em"
+                    }}
+                  >
+                    Calculate Your Admission Odds & Visa Refusal Risks
+                  </h2>
+                  <p style={{ color: "#64748B", fontSize: "1.02rem", lineHeight: 1.5, maxWidth: "620px", margin: "0 auto" }}>
+                    Enter your academic credentials, standardized tests, and sponsor funds to cross-reference against 147 public universities.
+                  </p>
+                </div>
+
+                <ProfileIntake 
+                  onSubmit={handleEvaluate}
+                  isLoading={isLoading}
+                  selectedCountry={selectedCountry}
+                  onCountryChange={(c) => setSelectedCountry(c)}
+                />
               </div>
-
-              <ProfileIntake 
-                onSubmit={handleEvaluate}
-                isLoading={isLoading}
-                selectedCountry={selectedCountry}
-                onCountryChange={(c) => setSelectedCountry(c)}
+            ) : (
+              <ResultsDashboard 
+                evaluationData={evaluationResult}
+                onResetForm={handleReset}
+                onOpenCitations={() => setIsCitationsModalOpen(true)}
+                cartItems={cartItems}
+                onToggleCartItem={handleToggleCartItem}
+                onOpenCart={() => setIsCartModalOpen(true)}
+                onRemoveCartItem={handleRemoveCartItem}
+                onClearCart={handleClearCart}
               />
-            </div>
-          ) : (
-            <ResultsDashboard 
-              evaluationData={evaluationResult}
-              onResetForm={handleReset}
-              onOpenCitations={() => setIsCitationsModalOpen(true)}
-              cartItems={cartItems}
-              onToggleCartItem={handleToggleCartItem}
-              onOpenCart={() => setIsCartModalOpen(true)}
-              onRemoveCartItem={handleRemoveCartItem}
-              onClearCart={handleClearCart}
-            />
-          )
+            )}
+          </ErrorBoundary>
         )}
-
-        {/* TAB 2: Campus & Housing Map */}
-        {activeTab === "campusMap" && <StudentLifeMapView />}
 
         {/* TAB 3: RateMyChances */}
         {activeTab === "rateMyChances" && <RateMyChancesView />}

@@ -82,17 +82,36 @@ export default function UniversityMatches({
     return null;
   }
 
-  const { matches, allMatches = [], academicSummary } = evaluationData.academicEvaluation;
+  const { matches, allMatches = [], academicSummary } = evaluationData.academicEvaluation || {};
+
+  const allMatchesList = useMemo(() => {
+    if (Array.isArray(allMatches) && allMatches.length > 0) {
+      return allMatches;
+    }
+    if (Array.isArray(matches)) {
+      return matches;
+    }
+    if (matches && typeof matches === "object") {
+      return [
+        ...(matches.safe || []),
+        ...(matches.target || []),
+        ...(matches.reach || [])
+      ];
+    }
+    return [];
+  }, [allMatches, matches]);
 
   // Extract all distinct countries available in allMatches
   const distinctCountries = useMemo(() => {
     const map = new Map();
-    allMatches.forEach(m => {
-      const c = m.university.country;
-      map.set(c, (map.get(c) || 0) + 1);
+    allMatchesList.forEach(m => {
+      const c = m?.university?.country;
+      if (c) {
+        map.set(c, (map.get(c) || 0) + 1);
+      }
     });
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-  }, [allMatches]);
+  }, [allMatchesList]);
 
   const handleVerifyLive = async (uni) => {
     setVerifyingId(uni.id);
@@ -111,7 +130,7 @@ export default function UniversityMatches({
 
   // Instant multi-criteria filtering without reload
   const filteredMatches = useMemo(() => {
-    return allMatches.filter(m => {
+    return allMatchesList.filter(m => {
       const uni = m.university;
 
       // Category tab
@@ -573,7 +592,7 @@ export default function UniversityMatches({
           const isTarget = category === "Target";
           const verification = liveVerificationInfo[uni.id];
           const fee = Number(uni.Tuition_Fee_International ?? uni.tuitionFeeEUR ?? 0);
-          const colIndex = uni.Cost_of_Living_Index || 60.0;
+          const colIndex = Number(uni.Cost_of_Living_Index || 60.0);
           const flag = COUNTRY_FLAGS[uni.country] || "🏛️";
 
           const appFee = Number(uni.Application_Fee_Amount ?? 0);
@@ -707,7 +726,7 @@ export default function UniversityMatches({
 
                     {/* Dynamic Profile Dual Cutoff Check */}
                     {(() => {
-                      const userCGPA = evaluationData?.academicSummary?.originalCGPA || evaluationData?.profile?.gpa;
+                      const userCGPA = evaluationData?.academicEvaluation?.academicSummary?.originalCGPA ?? evaluationData?.studentProfile?.academic?.currentCGPA ?? null;
                       const officialMin = Number(uni.Official_Min_CGPA || uni.minCGPA10 || 6.5);
                       const histAvg = Number(uni.Historical_Avg_CGPA_India || 8.0);
                       if (userCGPA === undefined || userCGPA === null) return null;
@@ -747,7 +766,7 @@ export default function UniversityMatches({
                         Min: {uni.Official_Min_CGPA || uni.minCGPA10 ? `${uni.Official_Min_CGPA || uni.minCGPA10} CGPA` : "Holistic"} • Indian Avg: {uni.Historical_Avg_CGPA_India || 8.0}
                       </strong>
                       <span style={{ color: "var(--text-secondary)", fontSize: "0.7rem", display: "block", marginTop: "2px" }}>
-                        German: ≤ {uni.minGermanGrade ? uni.minGermanGrade.toFixed(1) : "2.5"} {uni.minUSGPA ? `• US: ≥ ${uni.minUSGPA.toFixed(1)}` : ""}
+                        German: ≤ {uni.minGermanGrade ? Number(uni.minGermanGrade).toFixed(1) : "2.5"} {uni.minUSGPA ? `• US: ≥ ${Number(uni.minUSGPA).toFixed(1)}` : ""}
                       </span>
                     </div>
 

@@ -46,8 +46,22 @@ export default function ResultsDashboard({
 
   if (!evaluationData) return null;
 
-  const { academicEvaluation, visaEvaluation, recommendations, studentProfile } = evaluationData;
-  const { counts, academicSummary } = academicEvaluation;
+  const { 
+    academicEvaluation = {}, 
+    visaEvaluation = {}, 
+    recommendations = {}, 
+    studentProfile = {} 
+  } = evaluationData || {};
+
+  const { 
+    counts = { safe: 0, target: 0, reach: 0 }, 
+    academicSummary = {} 
+  } = academicEvaluation || {};
+
+  const safeCount = counts?.safe || 0;
+  const targetCount = counts?.target || 0;
+  const reachCount = counts?.reach || 0;
+  const totalOptions = safeCount + targetCount + reachCount;
 
   const handlePrint = () => {
     window.print();
@@ -131,10 +145,10 @@ export default function ResultsDashboard({
               Public University Matches
             </span>
             <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#60a5fa", marginTop: "2px" }}>
-              {counts?.safe + counts?.target + counts?.reach} Options
+              {totalOptions} Options
             </div>
             <span style={{ fontSize: "0.72rem", color: "#34d399" }}>
-              {counts?.safe} Safe • {counts?.target} Target • {counts?.reach} Reach
+              {safeCount} Safe • {targetCount} Target • {reachCount} Reach
             </span>
           </div>
 
@@ -181,7 +195,7 @@ export default function ResultsDashboard({
           }}
         >
           <Building2 size={18} />
-          <span>1. University Matches ({counts?.safe + counts?.target + counts?.reach})</span>
+          <span>1. University Matches ({totalOptions})</span>
         </button>
 
         <button

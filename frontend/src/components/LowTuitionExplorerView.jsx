@@ -363,7 +363,7 @@ export default function LowTuitionExplorerView({
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", gap: "20px" }}>
           {sortedUnis.map((uni) => {
             const fee = Number(uni.Tuition_Fee_International ?? uni.tuitionEurPerYear ?? uni.tuitionFeeEUR ?? 0);
-            const colIndex = uni.Cost_of_Living_Index || 60.0;
+            const colIndex = Number(uni.Cost_of_Living_Index || 60.0);
             const flag = COUNTRY_FLAGS[uni.country] || "🏛️";
 
             const appFee = Number(uni.Application_Fee_Amount ?? 0);
@@ -479,7 +479,7 @@ export default function LowTuitionExplorerView({
                         </strong>
                         {uni.minGermanGrade && (
                           <span style={{ display: "block", fontSize: "0.68rem", color: "var(--text-secondary)" }}>
-                            German: ≤ {uni.minGermanGrade.toFixed(1)}
+                            German: ≤ {Number(uni.minGermanGrade).toFixed(1)}
                           </span>
                         )}
                       </div>

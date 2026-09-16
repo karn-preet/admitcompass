@@ -783,7 +783,7 @@ export default function WoolmersUniversityGrid({
                           </strong>
                           {uni.minGermanGrade && (
                             <span style={{ display: "block", fontSize: "0.68rem", color: "var(--text-secondary)", marginTop: "1px" }}>
-                              German: ≤ {uni.minGermanGrade.toFixed(1)} {uni.minUSGPA && `• US: ≥ ${uni.minUSGPA.toFixed(1)}`}
+                              German: ≤ {Number(uni.minGermanGrade).toFixed(1)} {uni.minUSGPA && `• US: ≥ ${Number(uni.minUSGPA).toFixed(1)}`}
                             </span>
                           )}
                         </div>

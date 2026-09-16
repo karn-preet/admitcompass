@@ -12,12 +12,12 @@ import {
 } from "lucide-react";
 
 export default function CompensatoryRoadmap({ evaluationData }) {
-  if (!evaluationData || !evaluationData.recommendations) {
+  if (!evaluationData) {
     return null;
   }
 
-  const { cgpaStatus, compensatoryActionPlan } = evaluationData.recommendations;
-  const originalCGPA = evaluationData.academicEvaluation?.academicSummary?.originalCGPA;
+  const { cgpaStatus = "Average / Moderate", compensatoryActionPlan = [] } = evaluationData.recommendations || {};
+  const originalCGPA = evaluationData.academicEvaluation?.academicSummary?.originalCGPA || evaluationData.studentProfile?.academic?.currentCGPA || "7.0";
 
   return (
     <div style={{ marginTop: "32px" }}>
