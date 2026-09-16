@@ -25,6 +25,7 @@ import Interactive3DGlobe from "./components/Interactive3DGlobe";
 
 import { evaluateProfile, fetchUniversities } from "./services/api";
 import { Sparkles, AlertCircle, Compass, ShieldCheck, MapPin, Award, ExternalLink } from "lucide-react";
+import { useSwipeGesture } from "./hooks/useSwipeGesture";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("home");
@@ -128,6 +129,34 @@ export default function App() {
     scrollToSection("university-grid-section");
   };
 
+  // Mobile Horizontal Tab Swipe Navigation: Home ⇄ Universities ⇄ Map ⇄ Visas ⇄ Profile
+  const MAIN_BOTTOM_TABS = ["home", "universities", "map", "visas", "profile"];
+  const currentTabIndex = MAIN_BOTTOM_TABS.indexOf(activeTab);
+
+  const handleSwipeLeft = () => {
+    if (currentTabIndex !== -1 && currentTabIndex < MAIN_BOTTOM_TABS.length - 1) {
+      handleTabChange(MAIN_BOTTOM_TABS[currentTabIndex + 1]);
+    }
+  };
+
+  const handleSwipeRight = () => {
+    if (currentTabIndex > 0) {
+      handleTabChange(MAIN_BOTTOM_TABS[currentTabIndex - 1]);
+    }
+  };
+
+  const {
+    handlers: tabSwipeHandlers,
+    dragOffset: tabDragOffset,
+    isDragging: isTabDragging
+  } = useSwipeGesture({
+    onSwipeLeft: handleSwipeLeft,
+    onSwipeRight: handleSwipeRight,
+    threshold: 65,
+    swipeResistance: 0.35,
+    ignoreSelectors: "canvas, .leaflet-container, input, textarea, select, button, .no-swipe-tabs, [data-no-swipe], .swipeable-task-item"
+  });
+
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-main)" }}>
       
@@ -139,8 +168,20 @@ export default function App() {
         onOpenCitations={() => setIsCitationsModalOpen(true)}
       />
 
-      {/* Main Content Area */}
-      <main style={{ flex: 1, padding: "0 0 40px 0" }}>
+      {/* Main Content Area with GPU Acceleration & Native Horizontal Tab Swiping */}
+      <main 
+        {...tabSwipeHandlers}
+        className="scrollable-feed"
+        style={{ 
+          flex: 1, 
+          padding: "0 0 40px 0",
+          touchAction: "pan-y",
+          transform: `translate3d(${isTabDragging ? tabDragOffset * 0.35 : 0}px, 0, 0)`,
+          willChange: isTabDragging ? "transform" : "auto",
+          transition: isTabDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+          overflowX: "hidden"
+        }}
+      >
         
         {/* Global Error Alert */}
         {errorMessage && (

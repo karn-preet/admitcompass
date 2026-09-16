@@ -17,15 +17,21 @@ export default function BottomNavBar({ activeTab, onSelectTab, cartCount = 0 }) 
         bottom: 0,
         left: 0,
         right: 0,
-        height: "64px",
+        height: "calc(64px + env(safe-area-inset-bottom, 0px))",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
         backgroundColor: "#FFFFFF",
         borderTop: "1px solid #E2E8F0",
         boxShadow: "0 -2px 12px rgba(0, 0, 0, 0.04)",
         zIndex: 100,
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-around",
-        padding: "0 8px"
+        paddingTop: "6px",
+        paddingLeft: "8px",
+        paddingRight: "8px",
+        transform: "translate3d(0, 0, 0)",
+        WebkitTransform: "translate3d(0, 0, 0)",
+        touchAction: "manipulation"
       }}
     >
       <div

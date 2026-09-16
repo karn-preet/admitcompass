@@ -433,12 +433,27 @@ export default function StudentLifeMap({
   ]);
 
   return (
-    <div style={{ position: "relative", width: "100%", height, borderRadius: "14px", overflow: "hidden", border: "1px solid var(--border-subtle)", background: "#0f172a" }}>
+    <div 
+      className="touch-none gpu-accelerated"
+      style={{ 
+        position: "relative", 
+        width: "100%", 
+        height, 
+        borderRadius: "14px", 
+        overflow: "hidden", 
+        border: "1px solid var(--border-subtle)", 
+        background: "#0f172a",
+        touchAction: "none",
+        transform: "translate3d(0, 0, 0)",
+        WebkitTransform: "translate3d(0, 0, 0)"
+      }}
+    >
       
       {/* Leaflet Map Div Container */}
       <div 
         ref={mapContainerRef} 
-        style={{ width: "100%", height: "100%", zIndex: 1 }} 
+        className="touch-none"
+        style={{ width: "100%", height: "100%", zIndex: 1, touchAction: "none" }} 
       />
 
       {/* Map Symbology Legend Badge (Floating Over Map) */}

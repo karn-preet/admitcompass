@@ -24,6 +24,373 @@ import {
   saveLORChecklistState, 
   generateApplicationTasks 
 } from "../services/lorRequirements";
+import { useSwipeGesture } from "../hooks/useSwipeGesture";
+
+function SwipeableLORCard({
+  task,
+  uniId,
+  currentStatus,
+  isSubmitted,
+  handleUpdateLORStatus,
+  handleUpdateProfessorName
+}) {
+  const getNextStatus = (st) => {
+    if (st === LOR_STATUSES.NOT_CONTACTED) return LOR_STATUSES.PROFESSOR_CONTACTED;
+    if (st === LOR_STATUSES.PROFESSOR_CONTACTED) return LOR_STATUSES.DRAFTING;
+    if (st === LOR_STATUSES.DRAFTING) return LOR_STATUSES.SUBMITTED;
+    return LOR_STATUSES.SUBMITTED;
+  };
+
+  const getPrevStatus = (st) => {
+    if (st === LOR_STATUSES.SUBMITTED) return LOR_STATUSES.DRAFTING;
+    if (st === LOR_STATUSES.DRAFTING) return LOR_STATUSES.PROFESSOR_CONTACTED;
+    if (st === LOR_STATUSES.PROFESSOR_CONTACTED) return LOR_STATUSES.NOT_CONTACTED;
+    return LOR_STATUSES.NOT_CONTACTED;
+  };
+
+  const { handlers, dragOffset, isDragging } = useSwipeGesture({
+    onSwipeRight: () => {
+      const next = getNextStatus(currentStatus);
+      handleUpdateLORStatus(uniId, task.id, next);
+    },
+    onSwipeLeft: () => {
+      const prev = getPrevStatus(currentStatus);
+      handleUpdateLORStatus(uniId, task.id, prev);
+    },
+    threshold: 45,
+    swipeResistance: 0.25,
+    ignoreSelectors: "input, button, select"
+  });
+
+  return (
+    <div
+      className="swipeable-task-item"
+      style={{
+        position: "relative",
+        borderRadius: "12px",
+        overflow: "hidden",
+        background: "#0d1117",
+        touchAction: "pan-y"
+      }}
+    >
+      {/* Background action reveal indicators */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 18px",
+          pointerEvents: "none"
+        }}
+      >
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          color: "#34d399",
+          fontWeight: 700,
+          fontSize: "0.8rem",
+          opacity: dragOffset > 10 ? Math.min(1, dragOffset / 35) : 0,
+          transform: `translate3d(${Math.max(0, dragOffset * 0.15)}px, 0, 0)`
+        }}>
+          <CheckCircle2 size={18} />
+          <span>Advance Stage ➔</span>
+        </div>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          color: "#fbbf24",
+          fontWeight: 700,
+          fontSize: "0.8rem",
+          opacity: dragOffset < -10 ? Math.min(1, Math.abs(dragOffset) / 35) : 0,
+          transform: `translate3d(${Math.min(0, dragOffset * 0.15)}px, 0, 0)`
+        }}>
+          <span>⬅ Revert</span>
+          <Clock size={18} />
+        </div>
+      </div>
+
+      {/* Foreground Swipeable Card */}
+      <div
+        {...handlers}
+        style={{
+          position: "relative",
+          zIndex: 2,
+          background: isSubmitted ? "rgba(16, 185, 129, 0.09)" : "rgba(30, 41, 59, 0.7)",
+          border: isSubmitted ? "1px solid rgba(16, 185, 129, 0.4)" : "1px solid rgba(255, 255, 255, 0.1)",
+          borderRadius: "12px",
+          padding: "14px 16px",
+          transform: `translate3d(${dragOffset}px, 0, 0)`,
+          willChange: isDragging ? "transform" : "auto",
+          transition: isDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)"
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "10px", marginBottom: "10px" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: isSubmitted ? "#34d399" : "#ffffff", margin: 0 }}>
+                {task.title}
+              </h5>
+              <span style={{ 
+                fontSize: "0.68rem", 
+                padding: "1px 6px", 
+                borderRadius: "4px", 
+                background: task.format && task.format.includes("Portal") ? "rgba(59, 130, 246, 0.2)" : "rgba(168, 85, 247, 0.2)",
+                color: task.format && task.format.includes("Portal") ? "#93c5fd" : "#d8b4fe",
+                fontWeight: 600
+              }}>
+                {task.format}
+              </span>
+            </div>
+            <p style={{ fontSize: "0.74rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
+              {task.instructions}
+            </p>
+          </div>
+
+          {/* Optional Professor / Referee Name Input */}
+          <div>
+            <input 
+              type="text"
+              placeholder="Referee Name / Designation..."
+              value={task.professorName || ""}
+              onChange={(e) => handleUpdateProfessorName(uniId, task.id, e.target.value)}
+              style={{
+                background: "rgba(0, 0, 0, 0.3)",
+                border: "1px solid rgba(255, 255, 255, 0.15)",
+                borderRadius: "6px",
+                padding: "4px 8px",
+                color: "#ffffff",
+                fontSize: "0.75rem",
+                width: "190px"
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Multi-Stage Visual Status Tracker */}
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: "repeat(3, 1fr)", 
+          gap: "8px",
+          marginTop: "8px"
+        }}>
+          {/* Stage 1: Professor Contacted */}
+          {(() => {
+            const isActive = currentStatus === LOR_STATUSES.PROFESSOR_CONTACTED;
+            const isPast = currentStatus === LOR_STATUSES.DRAFTING || currentStatus === LOR_STATUSES.SUBMITTED;
+            return (
+              <button
+                type="button"
+                onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.PROFESSOR_CONTACTED)}
+                style={{
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: (isActive || isPast) ? "1px solid #3b82f6" : "1px solid rgba(255, 255, 255, 0.1)",
+                  background: isActive ? "rgba(37, 99, 235, 0.3)" : isPast ? "rgba(37, 99, 235, 0.12)" : "rgba(255, 255, 255, 0.03)",
+                  color: (isActive || isPast) ? "#93c5fd" : "var(--text-muted)",
+                  cursor: "pointer",
+                  fontSize: "0.76rem",
+                  fontWeight: isActive ? 700 : 500,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                <Send size={13} />
+                <span>1. Professor Contacted</span>
+                {isPast && <CheckCircle2 size={12} color="#60a5fa" />}
+              </button>
+            );
+          })()}
+
+          {/* Stage 2: Drafting */}
+          {(() => {
+            const isActive = currentStatus === LOR_STATUSES.DRAFTING;
+            const isPast = currentStatus === LOR_STATUSES.SUBMITTED;
+            return (
+              <button
+                type="button"
+                onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.DRAFTING)}
+                style={{
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: (isActive || isPast) ? "1px solid #f59e0b" : "1px solid rgba(255, 255, 255, 0.1)",
+                  background: isActive ? "rgba(245, 158, 11, 0.3)" : isPast ? "rgba(245, 158, 11, 0.12)" : "rgba(255, 255, 255, 0.03)",
+                  color: (isActive || isPast) ? "#fcd34d" : "var(--text-muted)",
+                  cursor: "pointer",
+                  fontSize: "0.76rem",
+                  fontWeight: isActive ? 700 : 500,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                <PenTool size={13} />
+                <span>2. Drafting</span>
+                {isPast && <CheckCircle2 size={12} color="#fbbf24" />}
+              </button>
+            );
+          })()}
+
+          {/* Stage 3: Submitted / Uploaded */}
+          {(() => {
+            const isActive = currentStatus === LOR_STATUSES.SUBMITTED;
+            return (
+              <button
+                type="button"
+                onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.SUBMITTED)}
+                style={{
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: isActive ? "1px solid #10b981" : "1px solid rgba(255, 255, 255, 0.1)",
+                  background: isActive ? "rgba(16, 185, 129, 0.3)" : "rgba(255, 255, 255, 0.03)",
+                  color: isActive ? "#34d399" : "var(--text-muted)",
+                  cursor: "pointer",
+                  fontSize: "0.76rem",
+                  fontWeight: isActive ? 800 : 500,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                <UploadCloud size={13} />
+                <span>3. Submitted / Uploaded</span>
+                {isActive && <CheckCircle2 size={12} color="#34d399" />}
+              </button>
+            );
+          })()}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SwipeableDocumentItem({
+  task,
+  uniId,
+  handleToggleStandardTask
+}) {
+  const { handlers, dragOffset, isDragging } = useSwipeGesture({
+    onSwipeRight: () => {
+      if (!task.completed) {
+        handleToggleStandardTask(uniId, task.id);
+      }
+    },
+    onSwipeLeft: () => {
+      if (task.completed) {
+        handleToggleStandardTask(uniId, task.id);
+      }
+    },
+    threshold: 40,
+    swipeResistance: 0.25,
+    ignoreSelectors: "input, button, select"
+  });
+
+  return (
+    <div
+      className="swipeable-task-item"
+      style={{
+        position: "relative",
+        borderRadius: "8px",
+        overflow: "hidden",
+        background: "#0d1117",
+        touchAction: "pan-y"
+      }}
+    >
+      {/* Background action reveal */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 14px",
+          pointerEvents: "none"
+        }}
+      >
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "4px",
+          color: "#34d399",
+          fontWeight: 700,
+          fontSize: "0.74rem",
+          opacity: dragOffset > 10 ? Math.min(1, dragOffset / 30) : 0
+        }}>
+          <CheckCircle2 size={16} />
+          <span>Complete ➔</span>
+        </div>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "4px",
+          color: "#94a3b8",
+          fontWeight: 600,
+          fontSize: "0.74rem",
+          opacity: dragOffset < -10 ? Math.min(1, Math.abs(dragOffset) / 30) : 0
+        }}>
+          <span>⬅ Undo</span>
+        </div>
+      </div>
+
+      {/* Foreground item */}
+      <label
+        {...handlers}
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          padding: "8px 12px",
+          borderRadius: "8px",
+          background: task.completed ? "rgba(16, 185, 129, 0.08)" : "rgba(30, 41, 59, 0.7)",
+          border: task.completed ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid rgba(255, 255, 255, 0.08)",
+          cursor: "pointer",
+          transform: `translate3d(${dragOffset}px, 0, 0)`,
+          willChange: isDragging ? "transform" : "auto",
+          transition: isDragging ? "none" : "transform 0.26s cubic-bezier(0.16, 1, 0.3, 1)"
+        }}
+      >
+        <input 
+          type="checkbox"
+          checked={Boolean(task.completed)}
+          onChange={() => handleToggleStandardTask(uniId, task.id)}
+          style={{ cursor: "pointer", width: "15px", height: "15px", accentColor: "#10b981" }}
+        />
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: "0.82rem", fontWeight: 600, color: task.completed ? "#34d399" : "#ffffff" }}>
+            {task.title}
+          </div>
+          <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>
+            {task.subtitle}
+          </div>
+        </div>
+        {task.isMandatory && (
+          <span style={{ fontSize: "0.65rem", color: "#fbbf24", background: "rgba(245, 158, 11, 0.15)", padding: "1px 5px", borderRadius: "3px" }}>
+            Req.
+          </span>
+        )}
+      </label>
+    </div>
+  );
+}
 
 export default function ApplicationLORTracker({ 
   universities = [],
@@ -325,13 +692,17 @@ export default function ApplicationLORTracker({
               {/* Expandable Tasks Body */}
               {!isCollapsed && (
                 <div style={{ padding: "18px 22px" }}>
-                  
-                  {/* SECTION 1: LOR Multi-Stage Tracker Cards */}
+                      {/* SECTION 1: LOR Multi-Stage Tracker Cards */}
                   {lorTasks.length > 0 && (
                     <div style={{ marginBottom: "18px" }}>
-                      <div style={{ fontSize: "0.78rem", fontWeight: "700", color: "#fcd34d", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-                        <PenTool size={14} />
-                        <span>Letters of Recommendation (LOR) Pipeline</span>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "6px" }}>
+                        <div style={{ fontSize: "0.78rem", fontWeight: "700", color: "#fcd34d", textTransform: "uppercase", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: "6px" }}>
+                          <PenTool size={14} />
+                          <span>Letters of Recommendation (LOR) Pipeline</span>
+                        </div>
+                        <span style={{ fontSize: "0.72rem", color: "#93c5fd", background: "rgba(59, 130, 246, 0.15)", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "2px 8px", borderRadius: "12px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                          <span>👉 Swipe right to advance stage</span>
+                        </span>
                       </div>
 
                       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -340,159 +711,15 @@ export default function ApplicationLORTracker({
                           const isSubmitted = currentStatus === LOR_STATUSES.SUBMITTED;
 
                           return (
-                            <div 
+                            <SwipeableLORCard 
                               key={task.id}
-                              style={{
-                                background: isSubmitted ? "rgba(16, 185, 129, 0.08)" : "rgba(255, 255, 255, 0.03)",
-                                border: isSubmitted ? "1px solid rgba(16, 185, 129, 0.4)" : "1px solid rgba(255, 255, 255, 0.1)",
-                                borderRadius: "12px",
-                                padding: "14px 16px"
-                              }}
-                            >
-                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "10px", marginBottom: "10px" }}>
-                                <div>
-                                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                    <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: isSubmitted ? "#34d399" : "#ffffff", margin: 0 }}>
-                                      {task.title}
-                                    </h5>
-                                    <span style={{ 
-                                      fontSize: "0.68rem", 
-                                      padding: "1px 6px", 
-                                      borderRadius: "4px", 
-                                      background: task.format.includes("Portal") ? "rgba(59, 130, 246, 0.2)" : "rgba(168, 85, 247, 0.2)",
-                                      color: task.format.includes("Portal") ? "#93c5fd" : "#d8b4fe",
-                                      fontWeight: 600
-                                    }}>
-                                      {task.format}
-                                    </span>
-                                  </div>
-                                  <p style={{ fontSize: "0.74rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
-                                    {task.instructions}
-                                  </p>
-                                </div>
-
-                                {/* Optional Professor / Referee Name Input */}
-                                <div>
-                                  <input 
-                                    type="text"
-                                    placeholder="Referee Name / Designation..."
-                                    value={task.professorName}
-                                    onChange={(e) => handleUpdateProfessorName(uniId, task.id, e.target.value)}
-                                    style={{
-                                      background: "rgba(0, 0, 0, 0.3)",
-                                      border: "1px solid rgba(255, 255, 255, 0.15)",
-                                      borderRadius: "6px",
-                                      padding: "4px 8px",
-                                      color: "#ffffff",
-                                      fontSize: "0.75rem",
-                                      width: "190px"
-                                    }}
-                                  />
-                                </div>
-                              </div>
-
-                              {/* Multi-Stage Visual Status Tracker */}
-                              <div style={{ 
-                                display: "grid", 
-                                gridTemplateColumns: "repeat(3, 1fr)", 
-                                gap: "8px",
-                                marginTop: "8px"
-                              }}>
-                                
-                                {/* Stage 1: Professor Contacted */}
-                                {(() => {
-                                  const isActive = currentStatus === LOR_STATUSES.PROFESSOR_CONTACTED;
-                                  const isPast = currentStatus === LOR_STATUSES.DRAFTING || currentStatus === LOR_STATUSES.SUBMITTED;
-                                  return (
-                                    <button
-                                      type="button"
-                                      onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.PROFESSOR_CONTACTED)}
-                                      style={{
-                                        padding: "8px 10px",
-                                        borderRadius: "8px",
-                                        border: (isActive || isPast) ? "1px solid #3b82f6" : "1px solid rgba(255, 255, 255, 0.1)",
-                                        background: isActive ? "rgba(37, 99, 235, 0.3)" : isPast ? "rgba(37, 99, 235, 0.12)" : "rgba(255, 255, 255, 0.03)",
-                                        color: (isActive || isPast) ? "#93c5fd" : "var(--text-muted)",
-                                        cursor: "pointer",
-                                        fontSize: "0.76rem",
-                                        fontWeight: isActive ? 700 : 500,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "6px",
-                                        transition: "all 0.2s ease"
-                                      }}
-                                    >
-                                      <Send size={13} />
-                                      <span>1. Professor Contacted</span>
-                                      {isPast && <CheckCircle2 size={12} color="#60a5fa" />}
-                                    </button>
-                                  );
-                                })()}
-
-                                {/* Stage 2: Drafting */}
-                                {(() => {
-                                  const isActive = currentStatus === LOR_STATUSES.DRAFTING;
-                                  const isPast = currentStatus === LOR_STATUSES.SUBMITTED;
-                                  return (
-                                    <button
-                                      type="button"
-                                      onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.DRAFTING)}
-                                      style={{
-                                        padding: "8px 10px",
-                                        borderRadius: "8px",
-                                        border: (isActive || isPast) ? "1px solid #f59e0b" : "1px solid rgba(255, 255, 255, 0.1)",
-                                        background: isActive ? "rgba(245, 158, 11, 0.3)" : isPast ? "rgba(245, 158, 11, 0.12)" : "rgba(255, 255, 255, 0.03)",
-                                        color: (isActive || isPast) ? "#fcd34d" : "var(--text-muted)",
-                                        cursor: "pointer",
-                                        fontSize: "0.76rem",
-                                        fontWeight: isActive ? 700 : 500,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "6px",
-                                        transition: "all 0.2s ease"
-                                      }}
-                                    >
-                                      <PenTool size={13} />
-                                      <span>2. Drafting</span>
-                                      {isPast && <CheckCircle2 size={12} color="#fbbf24" />}
-                                    </button>
-                                  );
-                                })()}
-
-                                {/* Stage 3: Submitted / Uploaded */}
-                                {(() => {
-                                  const isActive = currentStatus === LOR_STATUSES.SUBMITTED;
-                                  return (
-                                    <button
-                                      type="button"
-                                      onClick={() => handleUpdateLORStatus(uniId, task.id, LOR_STATUSES.SUBMITTED)}
-                                      style={{
-                                        padding: "8px 10px",
-                                        borderRadius: "8px",
-                                        border: isActive ? "1px solid #10b981" : "1px solid rgba(255, 255, 255, 0.1)",
-                                        background: isActive ? "rgba(16, 185, 129, 0.3)" : "rgba(255, 255, 255, 0.03)",
-                                        color: isActive ? "#34d399" : "var(--text-muted)",
-                                        cursor: "pointer",
-                                        fontSize: "0.76rem",
-                                        fontWeight: isActive ? 800 : 500,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "6px",
-                                        transition: "all 0.2s ease"
-                                      }}
-                                    >
-                                      <UploadCloud size={13} />
-                                      <span>3. Submitted / Uploaded</span>
-                                      {isActive && <CheckCircle2 size={12} color="#34d399" />}
-                                    </button>
-                                  );
-                                })()}
-
-                              </div>
-                            </div>
+                              task={task}
+                              uniId={uniId}
+                              currentStatus={currentStatus}
+                              isSubmitted={isSubmitted}
+                              handleUpdateLORStatus={handleUpdateLORStatus}
+                              handleUpdateProfessorName={handleUpdateProfessorName}
+                            />
                           );
                         })}
                       </div>
@@ -501,47 +728,24 @@ export default function ApplicationLORTracker({
 
                   {/* SECTION 2: Standard Application Dossier Checklist */}
                   <div>
-                    <div style={{ fontSize: "0.78rem", fontWeight: "700", color: "#93c5fd", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-                      <FileText size={14} />
-                      <span>Complementary Dossier Documents</span>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "6px" }}>
+                      <div style={{ fontSize: "0.78rem", fontWeight: "700", color: "#93c5fd", textTransform: "uppercase", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: "6px" }}>
+                        <FileText size={14} />
+                        <span>Complementary Dossier Documents</span>
+                      </div>
+                      <span style={{ fontSize: "0.72rem", color: "#34d399", background: "rgba(16, 185, 129, 0.15)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "2px 8px", borderRadius: "12px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                        <span>👉 Swipe right to check off</span>
+                      </span>
                     </div>
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "8px" }}>
                       {otherTasks.map((task) => (
-                        <label
+                        <SwipeableDocumentItem 
                           key={task.id}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px",
-                            padding: "8px 12px",
-                            borderRadius: "8px",
-                            background: task.completed ? "rgba(16, 185, 129, 0.08)" : "rgba(255, 255, 255, 0.02)",
-                            border: task.completed ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid rgba(255, 255, 255, 0.08)",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease"
-                          }}
-                        >
-                          <input 
-                            type="checkbox"
-                            checked={task.completed}
-                            onChange={() => handleToggleStandardTask(uniId, task.id)}
-                            style={{ cursor: "pointer", width: "15px", height: "15px" }}
-                          />
-                          <div style={{ flex: 1 }}>
-                            <div style={{ fontSize: "0.82rem", fontWeight: 600, color: task.completed ? "#34d399" : "#ffffff" }}>
-                              {task.title}
-                            </div>
-                            <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>
-                              {task.subtitle}
-                            </div>
-                          </div>
-                          {task.isMandatory && (
-                            <span style={{ fontSize: "0.65rem", color: "#fbbf24", background: "rgba(245, 158, 11, 0.15)", padding: "1px 5px", borderRadius: "3px" }}>
-                              Req.
-                            </span>
-                          )}
-                        </label>
+                          task={task}
+                          uniId={uniId}
+                          handleToggleStandardTask={handleToggleStandardTask}
+                        />
                       ))}
                     </div>
                   </div>

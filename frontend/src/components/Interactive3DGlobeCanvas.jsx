@@ -252,6 +252,7 @@ export default function Interactive3DGlobeCanvas({
 
   return (
     <div
+      className="touch-none globe-canvas-wrapper gpu-accelerated"
       onMouseEnter={() => setIsUserHovering(true)}
       onMouseLeave={() => {
         setIsUserHovering(false);
@@ -263,7 +264,11 @@ export default function Interactive3DGlobeCanvas({
         position: "relative",
         cursor: "grab",
         userSelect: "none",
-        margin: "0 auto"
+        margin: "0 auto",
+        touchAction: "none",
+        transform: "translate3d(0, 0, 0)",
+        WebkitTransform: "translate3d(0, 0, 0)",
+        willChange: "transform"
       }}
     >
       <Globe
