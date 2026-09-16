@@ -55,7 +55,8 @@ export default function Interactive3DGlobeCanvas({
   onSelectCountry,
   universityCounts = {},
   width = 650,
-  height = 540
+  height = 540,
+  isMobile = false
 }) {
   const globeEl = useRef(null);
   const [countriesData, setCountriesData] = useState([]);
@@ -110,9 +111,10 @@ export default function Interactive3DGlobeCanvas({
       controls.enableDamping = true;
     }
 
-    // Default initial POV focused gently toward European academic theater
-    globeEl.current.pointOfView({ lat: 50.0, lng: 14.0, altitude: 2.2 }, 0);
-  }, [globeEl.current]);
+    // Default initial POV focused gently toward European academic theater (responsive altitude for mobile)
+    const initialAlt = isMobile ? 2.7 : 2.2;
+    globeEl.current.pointOfView({ lat: 50.0, lng: 14.0, altitude: initialAlt }, 0);
+  }, [globeEl.current, isMobile]);
 
   // 3. Pause Auto-Rotation on Hover; Resume when unhovered
   useEffect(() => {
@@ -150,11 +152,11 @@ export default function Interactive3DGlobeCanvas({
     const coords = COUNTRY_CENTROIDS[norm] || COUNTRY_CENTROIDS[countryName];
     if (coords) {
       globeEl.current.pointOfView(
-        { lat: coords.lat, lng: coords.lng, altitude: 1.7 },
+        { lat: coords.lat, lng: coords.lng, altitude: isMobile ? 2.1 : 1.7 },
         1200 // 1.2s smooth camera flight
       );
     }
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (selectedCountry && selectedCountry !== "All") {
@@ -259,8 +261,11 @@ export default function Interactive3DGlobeCanvas({
         setHoveredCountry(null);
       }}
       style={{
-        width: `${width}px`,
+        width: "100%",
+        maxWidth: `${width}px`,
         height: `${height}px`,
+        overflow: "hidden",
+        borderRadius: "14px",
         position: "relative",
         cursor: "grab",
         userSelect: "none",
@@ -295,6 +300,116 @@ export default function Interactive3DGlobeCanvas({
         onPolygonClick={handlePolygonClick}
         polygonsTransitionDuration={300}
       />
+
+      {/* Floating Interactive Zoom & Re-Center Controls Overlay */}
+      <div
+        className="globe-ui-interactive"
+        style={{
+          position: "absolute",
+          top: "12px",
+          right: "12px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "6px",
+          zIndex: 15,
+          pointerEvents: "auto"
+        }}
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!globeEl.current) return;
+            const pov = globeEl.current.pointOfView();
+            globeEl.current.pointOfView({ altitude: Math.max(pov.altitude - 0.45, 1.2) }, 300);
+          }}
+          onTouchStart={(e) => e.stopPropagation()}
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "8px",
+            border: "1px solid var(--border-warm)",
+            background: "rgba(255, 255, 255, 0.95)",
+            color: "var(--text-primary)",
+            fontWeight: "800",
+            fontSize: "1.1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            touchAction: "manipulation",
+            userSelect: "none"
+          }}
+          title="Zoom In"
+          aria-label="Zoom In"
+        >
+          +
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!globeEl.current) return;
+            const pov = globeEl.current.pointOfView();
+            globeEl.current.pointOfView({ altitude: Math.min(pov.altitude + 0.45, 3.8) }, 300);
+          }}
+          onTouchStart={(e) => e.stopPropagation()}
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "8px",
+            border: "1px solid var(--border-warm)",
+            background: "rgba(255, 255, 255, 0.95)",
+            color: "var(--text-primary)",
+            fontWeight: "800",
+            fontSize: "1.1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            touchAction: "manipulation",
+            userSelect: "none"
+          }}
+          title="Zoom Out"
+          aria-label="Zoom Out"
+        >
+          -
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!globeEl.current) return;
+            globeEl.current.pointOfView({ lat: 50.0, lng: 14.0, altitude: isMobile ? 2.7 : 2.2 }, 600);
+          }}
+          onTouchStart={(e) => e.stopPropagation()}
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "8px",
+            border: "1px solid var(--border-warm)",
+            background: "rgba(255, 255, 255, 0.95)",
+            color: "var(--accent-gold, #B38E5D)",
+            fontWeight: "700",
+            fontSize: "0.85rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            touchAction: "manipulation",
+            userSelect: "none"
+          }}
+          title="Center on Europe"
+          aria-label="Center on Europe"
+        >
+          🎯
+        </button>
+      </div>
     </div>
   );
 }
