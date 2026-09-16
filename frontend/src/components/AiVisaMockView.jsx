@@ -95,13 +95,13 @@ export default function AiVisaMockView() {
     <div className="container" style={{ paddingBottom: "60px" }}>
       {/* Header Banner */}
       <div style={{ textAlign: "center", maxWidth: "850px", margin: "0 auto 32px auto" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(37, 99, 235, 0.15)", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
-          <ShieldCheck size={16} color="#60a5fa" />
-          <span style={{ fontSize: "0.82rem", color: "#93c5fd", fontWeight: "600" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(37, 99, 235, 0.12)", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
+          <ShieldCheck size={16} color="#2563eb" />
+          <span style={{ fontSize: "0.82rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "700" }}>
             100% Free AI Visa Consular Interviewer • INA Section 214(b) Simulator
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           AI Visa Mock Interview & Refusal Defense
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -112,7 +112,7 @@ export default function AiVisaMockView() {
       {!session ? (
         /* Welcome / Country Selection Screen */
         <div className="glass-panel" style={{ maxWidth: "700px", margin: "0 auto", padding: "36px", textAlign: "center" }}>
-          <h2 style={{ fontSize: "1.4rem", fontWeight: "800", color: "#ffffff", marginBottom: "12px" }}>
+          <h2 style={{ fontSize: "1.4rem", fontWeight: "800", color: "var(--text-primary)", marginBottom: "12px" }}>
             Choose Target Visa Authority
           </h2>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginBottom: "24px" }}>
@@ -134,14 +134,14 @@ export default function AiVisaMockView() {
                   borderRadius: "12px",
                   textAlign: "left",
                   cursor: "pointer",
-                  background: country === item.id ? "rgba(37, 99, 235, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                  border: country === item.id ? "2px solid #3b82f6" : "1px solid var(--border-subtle)",
+                  background: country === item.id ? "rgba(37, 99, 235, 0.12)" : "var(--bg-secondary)",
+                  border: country === item.id ? "2px solid #2563eb" : "1px solid var(--border-subtle)",
                   transition: "all 0.2s ease"
                 }}
               >
                 <div style={{ fontSize: "1.6rem", marginBottom: "6px" }}>{item.flag}</div>
-                <div style={{ fontSize: "1rem", fontWeight: "700", color: "#ffffff" }}>{item.name}</div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "4px" }}>{item.desc}</div>
+                <div style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-primary)" }}>{item.name}</div>
+                <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: "4px" }}>{item.desc}</div>
               </button>
             ))}
           </div>
@@ -159,8 +159,8 @@ export default function AiVisaMockView() {
         /* Final Results Screen */
         <div className="glass-panel" style={{ maxWidth: "750px", margin: "0 auto", padding: "36px" }}>
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
-            <Award color="#34d399" size={48} style={{ margin: "0 auto 12px auto" }} />
-            <h2 style={{ fontSize: "1.6rem", fontWeight: "800", color: "#ffffff" }}>
+            <Award color="#059669" size={48} style={{ margin: "0 auto 12px auto" }} />
+            <h2 style={{ fontSize: "1.6rem", fontWeight: "800", color: "var(--text-primary)" }}>
               Consular Interview Completed!
             </h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem" }}>
@@ -169,24 +169,24 @@ export default function AiVisaMockView() {
             
             <div style={{ display: "inline-block", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", padding: "16px 28px", borderRadius: "12px", marginTop: "16px" }}>
               <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>Average Readiness Score</div>
-              <div style={{ fontSize: "2.8rem", fontWeight: "900", color: totalScore >= 7 ? "#34d399" : "#fbbf24" }}>
+              <div style={{ fontSize: "2.8rem", fontWeight: "900", color: totalScore >= 7 ? "#047857" : "#b45309" }}>
                 {totalScore} / 10
               </div>
-              <div style={{ fontSize: "0.85rem", color: totalScore >= 7 ? "#34d399" : "#fbbf24", fontWeight: "600" }}>
+              <div style={{ fontSize: "0.85rem", color: totalScore >= 7 ? "#047857" : "#b45309", fontWeight: "600" }}>
                 {totalScore >= 7 ? "Cleared for Official Consular Appointment" : "Review Recommended Model Answers Below"}
               </div>
             </div>
           </div>
 
-          <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#ffffff", marginBottom: "16px" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "16px" }}>
             Transcript Breakdown
           </h3>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "28px" }}>
             {completedInterviews.map((item, idx) => (
-              <div key={idx} style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "16px" }}>
+              <div key={idx} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "16px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                  <span style={{ fontSize: "0.85rem", fontWeight: "700", color: "#93c5fd" }}>
+                  <span style={{ fontSize: "0.85rem", fontWeight: "700", color: "#1d4ed8" }}>
                     Q{idx + 1}: {item.question}
                   </span>
                   <span className={item.evaluation?.score >= 7 ? "badge badge-safe" : "badge badge-danger"}>
@@ -196,7 +196,7 @@ export default function AiVisaMockView() {
                 <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "8px" }}>
                   <strong>Your Answer:</strong> "{item.answer}"
                 </div>
-                <div style={{ fontSize: "0.82rem", color: "#34d399", background: "rgba(16, 185, 129, 0.08)", padding: "8px 12px", borderRadius: "6px" }}>
+                <div style={{ fontSize: "0.82rem", color: "#047857", background: "rgba(16, 185, 129, 0.12)", padding: "8px 12px", borderRadius: "6px" }}>
                   <strong>Model Answer:</strong> {item.evaluation?.modelAnswer}
                 </div>
               </div>
@@ -255,14 +255,14 @@ export default function AiVisaMockView() {
               </div>
               
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: "0.76rem", color: "#60a5fa", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>
+                <div style={{ fontSize: "0.76rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>
                   Officer Question
                 </div>
-                <h2 style={{ fontSize: "1.3rem", fontWeight: "800", color: "#ffffff", lineHeight: 1.4 }}>
+                <h2 style={{ fontSize: "1.3rem", fontWeight: "800", color: "var(--text-primary)", lineHeight: 1.4 }}>
                   "{currentQuestion?.question}"
                 </h2>
                 {currentQuestion?.intent && (
-                  <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "6px" }}>
+                  <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "6px" }}>
                     🔍 <em>Intent: {currentQuestion.intent}</em>
                   </div>
                 )}
@@ -270,7 +270,7 @@ export default function AiVisaMockView() {
             </div>
 
             {currentQuestion?.tip && (
-              <div style={{ marginTop: "16px", padding: "10px 14px", background: "rgba(255, 255, 255, 0.03)", borderRadius: "8px", border: "1px solid var(--border-subtle)", fontSize: "0.8rem", color: "#fbbf24" }}>
+              <div style={{ marginTop: "16px", padding: "10px 14px", background: "rgba(245, 158, 11, 0.12)", borderRadius: "8px", border: "1px solid rgba(245, 158, 11, 0.35)", fontSize: "0.8rem", color: "#b45309" }}>
                 💡 <strong>Officer Tip:</strong> {currentQuestion.tip}
               </div>
             )}
@@ -279,8 +279,8 @@ export default function AiVisaMockView() {
           {/* User Answer Card */}
           <div className="glass-panel" style={{ padding: "24px", marginBottom: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-              <User size={18} color="#38bdf8" />
-              <label style={{ fontSize: "0.9rem", fontWeight: "700", color: "#ffffff" }}>
+              <User size={18} color="#2563eb" />
+              <label style={{ fontSize: "0.9rem", fontWeight: "700", color: "var(--text-primary)" }}>
                 Your Spoken Answer
               </label>
             </div>
@@ -297,7 +297,7 @@ export default function AiVisaMockView() {
                 borderRadius: "10px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.92rem",
                 lineHeight: 1.5,
                 outline: "none",
@@ -329,12 +329,12 @@ export default function AiVisaMockView() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
                 <div>
                   <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Assessment</span>
-                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#ffffff" }}>
-                    Risk: <span style={{ color: evalResult.evaluation.score >= 7 ? "#34d399" : "#fb7185" }}>{evalResult.evaluation.riskRating}</span>
+                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)" }}>
+                    Risk: <span style={{ color: evalResult.evaluation.score >= 7 ? "#047857" : "#e11d48" }}>{evalResult.evaluation.riskRating}</span>
                   </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: "1.8rem", fontWeight: "900", color: evalResult.evaluation.score >= 7 ? "#34d399" : "#fb7185" }}>
+                  <div style={{ fontSize: "1.8rem", fontWeight: "900", color: evalResult.evaluation.score >= 7 ? "#047857" : "#e11d48" }}>
                     {evalResult.evaluation.score} / 10
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function AiVisaMockView() {
               {/* Strengths */}
               {evalResult.evaluation.strengthsIdentified && evalResult.evaluation.strengthsIdentified.length > 0 && (
                 <div style={{ marginBottom: "12px" }}>
-                  <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+                  <div style={{ fontSize: "0.78rem", color: "#047857", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
                     <CheckCircle2 size={14} /> Strengths:
                   </div>
                   <ul style={{ fontSize: "0.82rem", color: "var(--text-secondary)", paddingLeft: "20px", margin: 0 }}>
@@ -357,10 +357,10 @@ export default function AiVisaMockView() {
               {/* Red Flags */}
               {evalResult.evaluation.redFlagsDetected && evalResult.evaluation.redFlagsDetected.length > 0 && (
                 <div style={{ marginBottom: "14px" }}>
-                  <div style={{ fontSize: "0.78rem", color: "#fb7185", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+                  <div style={{ fontSize: "0.78rem", color: "#be123c", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
                     <AlertTriangle size={14} /> Refusal Risks:
                   </div>
-                  <ul style={{ fontSize: "0.82rem", color: "#fb7185", paddingLeft: "20px", margin: 0 }}>
+                  <ul style={{ fontSize: "0.82rem", color: "#be123c", paddingLeft: "20px", margin: 0 }}>
                     {evalResult.evaluation.redFlagsDetected.map((risk, i) => (
                       <li key={i}>{risk}</li>
                     ))}
@@ -369,17 +369,17 @@ export default function AiVisaMockView() {
               )}
 
               {/* Feedback paragraph */}
-              <p style={{ fontSize: "0.86rem", color: "var(--text-primary)", background: "rgba(0, 0, 0, 0.2)", padding: "10px 14px", borderRadius: "8px", marginBottom: "14px" }}>
+              <p style={{ fontSize: "0.86rem", color: "var(--text-primary)", background: "var(--bg-secondary)", padding: "10px 14px", borderRadius: "8px", marginBottom: "14px" }}>
                 💬 {evalResult.evaluation.feedback}
               </p>
 
               {/* Model Answer */}
               {evalResult.evaluation.modelAnswer && (
-                <div style={{ background: "rgba(37, 99, 235, 0.1)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "8px", padding: "14px", marginBottom: "18px" }}>
-                  <div style={{ fontSize: "0.78rem", color: "#93c5fd", fontWeight: "700", marginBottom: "4px" }}>
+                <div style={{ background: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "8px", padding: "14px", marginBottom: "18px" }}>
+                  <div style={{ fontSize: "0.78rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "700", marginBottom: "4px" }}>
                     ✨ Recommended Model Answer:
                   </div>
-                  <div style={{ fontSize: "0.88rem", color: "#ffffff", fontStyle: "italic", lineHeight: 1.5 }}>
+                  <div style={{ fontSize: "0.88rem", color: "var(--text-primary)", fontStyle: "italic", lineHeight: 1.5 }}>
                     "{evalResult.evaluation.modelAnswer}"
                   </div>
                 </div>

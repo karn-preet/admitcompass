@@ -48,8 +48,8 @@ export default function UniversityDetailModal({
     }}>
       
       <div style={{
-        background: "var(--surface-dark, #0b1120)",
-        border: "1px solid rgba(255, 255, 255, 0.15)",
+        background: "#FFFFFF",
+        border: "1px solid var(--border-warm)",
         borderRadius: "20px",
         width: "100%",
         maxWidth: "1400px",
@@ -57,7 +57,7 @@ export default function UniversityDetailModal({
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.7)"
+        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.25)"
       }}>
         
         {/* Modal Top Bar */}

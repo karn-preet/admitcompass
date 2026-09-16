@@ -86,9 +86,9 @@ export default function ApplicationCartView({
     return (
       <div className="glass-panel" style={{ textAlign: "center", padding: "60px 20px", borderRadius: "16px", margin: "20px 0" }}>
         <div style={{ width: "68px", height: "68px", borderRadius: "50%", background: "rgba(59, 130, 246, 0.12)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px auto" }}>
-          <ShoppingCart size={34} color="#60a5fa" />
+          <ShoppingCart size={34} color="#2563eb" />
         </div>
-        <h4 style={{ fontSize: "1.3rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+        <h4 style={{ fontSize: "1.3rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
           Your Application Cart is Empty
         </h4>
         <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", maxWidth: "520px", margin: "0 auto 20px auto" }}>
@@ -103,8 +103,8 @@ export default function ApplicationCartView({
       
       {/* Top Banner: Sunk Cost Pipeline Overview */}
       <div style={{
-        background: "linear-gradient(135deg, rgba(37, 99, 235, 0.16) 0%, rgba(6, 182, 212, 0.1) 100%)",
-        border: "1px solid rgba(59, 130, 246, 0.4)",
+        background: "linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(6, 182, 212, 0.06) 100%)",
+        border: "1px solid rgba(59, 130, 246, 0.3)",
         borderRadius: "16px",
         padding: "24px 28px",
         marginBottom: "24px"
@@ -113,7 +113,7 @@ export default function ApplicationCartView({
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
               <span className="badge badge-safe">Pre-Admission Budget Simulator</span>
-              <span style={{ fontSize: "0.78rem", color: "#93c5fd" }}>
+              <span style={{ fontSize: "0.78rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "600" }}>
                 {cartItems.length} {cartItems.length === 1 ? "Program" : "Programs"} Shortlisted
               </span>
             </div>
@@ -122,7 +122,7 @@ export default function ApplicationCartView({
               Total Sunk Cost Budget (Non-Refundable Upfront Outlay)
             </span>
             <div style={{ display: "flex", alignItems: "baseline", gap: "12px", marginTop: "4px" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: "800", color: "#ffffff" }}>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: "800", color: "var(--text-primary)" }}>
                 {formatMoney(budget?.totalSunkCostEUR)}
               </span>
               {currency === "EUR" && (
@@ -162,20 +162,20 @@ export default function ApplicationCartView({
 
             {totalSavings > 0 && (
               <div style={{
-                background: "rgba(16, 185, 129, 0.15)",
+                background: "rgba(16, 185, 129, 0.12)",
                 border: "1px solid #10b981",
                 borderRadius: "10px",
                 padding: "8px 14px",
                 textAlign: "right"
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#34d399", fontWeight: "700", fontSize: "0.82rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#047857", fontWeight: "700", fontSize: "0.82rem" }}>
                   <TrendingDown size={15} />
                   <span>Bundled Portal Savings</span>
                 </div>
-                <div style={{ fontSize: "1.3rem", fontWeight: "800", color: "#34d399" }}>
+                <div style={{ fontSize: "1.3rem", fontWeight: "800", color: "#047857" }}>
                   +{formatMoney(totalSavings)}
                 </div>
-                <span style={{ fontSize: "0.7rem", color: "#a7f3d0" }}>
+                <span style={{ fontSize: "0.7rem", color: "#065f46", fontWeight: "600" }}>
                   Multi-application discount applied
                 </span>
               </div>
@@ -186,14 +186,14 @@ export default function ApplicationCartView({
         {/* Sunk cost progress bar */}
         <div style={{ marginTop: "18px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.74rem", color: "var(--text-muted)", marginBottom: "6px" }}>
-            <span>Application Fees: <strong style={{ color: "#38bdf8" }}>{formatMoney(calculationData?.applicationFees?.totalBundledEUR)}</strong> ({budget?.breakdown?.applicationFeesPercent || 0}%)</span>
-            <span>Standardized Exams: <strong style={{ color: "#c084fc" }}>{formatMoney(exams?.totalEUR)}</strong> ({budget?.breakdown?.examsPercent || 0}%)</span>
-            <span>Document Legalization/APS: <strong style={{ color: "#34d399" }}>{formatMoney(docs?.totalEUR)}</strong> ({budget?.breakdown?.verificationPercent || 0}%)</span>
+            <span>Application Fees: <strong style={{ color: "#1d4ed8" }}>{formatMoney(calculationData?.applicationFees?.totalBundledEUR)}</strong> ({budget?.breakdown?.applicationFeesPercent || 0}%)</span>
+            <span>Standardized Exams: <strong style={{ color: "#7e22ce" }}>{formatMoney(exams?.totalEUR)}</strong> ({budget?.breakdown?.examsPercent || 0}%)</span>
+            <span>Document Legalization/APS: <strong style={{ color: "#047857" }}>{formatMoney(docs?.totalEUR)}</strong> ({budget?.breakdown?.verificationPercent || 0}%)</span>
           </div>
-          <div style={{ height: "8px", width: "100%", background: "rgba(255,255,255,0.08)", borderRadius: "999px", overflow: "hidden", display: "flex" }}>
-            <div style={{ width: `${budget?.breakdown?.applicationFeesPercent || 0}%`, background: "#3b82f6", transition: "width 0.3s ease" }} />
-            <div style={{ width: `${budget?.breakdown?.examsPercent || 0}%`, background: "#a855f7", transition: "width 0.3s ease" }} />
-            <div style={{ width: `${budget?.breakdown?.verificationPercent || 0}%`, background: "#10b981", transition: "width 0.3s ease" }} />
+          <div style={{ height: "8px", width: "100%", background: "rgba(0,0,0,0.08)", borderRadius: "999px", overflow: "hidden", display: "flex" }}>
+            <div style={{ width: `${budget?.breakdown?.applicationFeesPercent || 0}%`, background: "#2563eb", transition: "width 0.3s ease" }} />
+            <div style={{ width: `${budget?.breakdown?.examsPercent || 0}%`, background: "#9333ea", transition: "width 0.3s ease" }} />
+            <div style={{ width: `${budget?.breakdown?.verificationPercent || 0}%`, background: "#059669", transition: "width 0.3s ease" }} />
           </div>
         </div>
       </div>
@@ -201,15 +201,15 @@ export default function ApplicationCartView({
       {/* Grid: Grouped Application Portals */}
       <div style={{ marginBottom: "26px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "#ffffff", display: "flex", alignItems: "center", gap: "8px", margin: 0 }}>
-            <Layers size={20} color="#38bdf8" />
+          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px", margin: 0 }}>
+            <Layers size={20} color="#2563eb" />
             <span>Grouped Application Portals & Multi-App Discounts</span>
           </h3>
           <button
             type="button"
             onClick={onClearCart}
             className="btn btn-secondary"
-            style={{ fontSize: "0.76rem", color: "#fb7185", borderColor: "rgba(244,63,94,0.3)" }}
+            style={{ fontSize: "0.76rem", color: "#e11d48", borderColor: "rgba(225,29,72,0.3)" }}
           >
             <Trash2 size={13} />
             <span>Clear Cart</span>
@@ -238,10 +238,10 @@ export default function ApplicationCartView({
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ fontWeight: "800", fontSize: "1.05rem", color: "#ffffff" }}>
+                        <span style={{ fontWeight: "800", fontSize: "1.05rem", color: "var(--text-primary)" }}>
                           {pData.portalName}
                         </span>
-                        <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontSize: "0.7rem" }}>
+                        <span className="badge" style={{ background: "rgba(37, 99, 235, 0.1)", color: "#1d4ed8", fontSize: "0.7rem", fontWeight: "700" }}>
                           {pData.count} {pData.count === 1 ? "Program" : "Programs"}
                         </span>
                       </div>
@@ -251,11 +251,11 @@ export default function ApplicationCartView({
                     </div>
 
                     <div style={{ textAlign: "right" }}>
-                      <div style={{ fontSize: "1.25rem", fontWeight: "800", color: "#ffffff" }}>
+                      <div style={{ fontSize: "1.25rem", fontWeight: "800", color: "var(--text-primary)" }}>
                         {formatMoney(pData.bundledFee)}
                       </div>
                       {pData.savings > 0 && (
-                        <div style={{ fontSize: "0.72rem", color: "#34d399", fontWeight: "700" }}>
+                        <div style={{ fontSize: "0.72rem", color: "#047857", fontWeight: "700" }}>
                           Saved {formatMoney(pData.savings)}
                         </div>
                       )}
@@ -265,20 +265,21 @@ export default function ApplicationCartView({
                   {/* Bundling discount highlight */}
                   {pData.discountNote && (
                     <div style={{
-                      background: pData.savings > 0 ? "rgba(16, 185, 129, 0.1)" : "rgba(255, 255, 255, 0.03)",
+                      background: pData.savings > 0 ? "rgba(16, 185, 129, 0.1)" : "var(--bg-secondary)",
                       borderLeft: pData.savings > 0 ? "3px solid #10b981" : "3px solid var(--border-subtle)",
                       padding: "6px 10px",
                       borderRadius: "4px",
                       fontSize: "0.75rem",
-                      color: pData.savings > 0 ? "#a7f3d0" : "var(--text-muted)",
-                      margin: "8px 0"
+                      color: pData.savings > 0 ? "#065f46" : "var(--text-secondary)",
+                      margin: "8px 0",
+                      fontWeight: "500"
                     }}>
                       💡 {pData.discountNote}
                     </div>
                   )}
 
                   {/* Programs under this portal */}
-                  <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "8px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ marginTop: "12px", borderTop: "1px dashed var(--border-subtle)", paddingTop: "8px", display: "flex", flexDirection: "column", gap: "6px" }}>
                     {pData.items.map(item => (
                       <div 
                         key={item.id}
@@ -292,7 +293,7 @@ export default function ApplicationCartView({
                         }}
                       >
                         <span>
-                          🏛️ <strong style={{ color: "#ffffff" }}>{item.name}</strong> ({item.country})
+                          🏛️ <strong style={{ color: "var(--text-primary)" }}>{item.name}</strong> ({item.country})
                         </span>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                           <span style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>
@@ -304,7 +305,7 @@ export default function ApplicationCartView({
                             style={{
                               background: "transparent",
                               border: "none",
-                              color: "#fb7185",
+                              color: "#e11d48",
                               cursor: "pointer",
                               padding: "2px",
                               display: "flex",
@@ -332,20 +333,20 @@ export default function ApplicationCartView({
         {/* Standardized Exams */}
         <div className="glass-panel" style={{ padding: "18px", borderRadius: "14px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "0.95rem", color: "#ffffff" }}>
+            <span style={{ fontWeight: "700", fontSize: "0.95rem", color: "var(--text-primary)" }}>
               📝 Standardized Exam Sunk Costs
             </span>
-            <strong style={{ color: "#c084fc", fontSize: "0.95rem" }}>
+            <strong style={{ color: "#7e22ce", fontSize: "0.95rem" }}>
               {formatMoney(exams?.totalEUR || 0)}
             </strong>
           </div>
-          <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", margin: "0 0 12px 0" }}>
+          <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: "0 0 12px 0" }}>
             Select standardized exams required for your shortlisted universities:
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.82rem" }}>
-            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.ielts ? "rgba(168, 85, 247, 0.1)" : "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.ielts ? "rgba(168, 85, 247, 0.1)" : "var(--bg-secondary)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-primary)" }}>
                 <input 
                   type="checkbox" 
                   checked={selectedExams.ielts} 
@@ -353,11 +354,11 @@ export default function ApplicationCartView({
                 />
                 <span>IELTS Academic Exam</span>
               </span>
-              <strong style={{ color: "#ffffff" }}>{formatMoney(185)}</strong>
+              <strong style={{ color: "var(--text-primary)" }}>{formatMoney(185)}</strong>
             </label>
 
-            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.gre ? "rgba(168, 85, 247, 0.1)" : "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.gre ? "rgba(168, 85, 247, 0.1)" : "var(--bg-secondary)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-primary)" }}>
                 <input 
                   type="checkbox" 
                   checked={selectedExams.gre} 
@@ -365,11 +366,11 @@ export default function ApplicationCartView({
                 />
                 <span>GRE General Exam</span>
               </span>
-              <strong style={{ color: "#ffffff" }}>{formatMoney(245)}</strong>
+              <strong style={{ color: "var(--text-primary)" }}>{formatMoney(245)}</strong>
             </label>
 
-            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.testas ? "rgba(168, 85, 247, 0.1)" : "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: selectedExams.testas ? "rgba(168, 85, 247, 0.1)" : "var(--bg-secondary)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-primary)" }}>
                 <input 
                   type="checkbox" 
                   checked={selectedExams.testas} 
@@ -377,7 +378,7 @@ export default function ApplicationCartView({
                 />
                 <span>TestAS Exam</span>
               </span>
-              <strong style={{ color: "#ffffff" }}>{formatMoney(150)}</strong>
+              <strong style={{ color: "var(--text-primary)" }}>{formatMoney(150)}</strong>
             </label>
           </div>
         </div>
@@ -385,31 +386,31 @@ export default function ApplicationCartView({
         {/* Verification & Legalization */}
         <div className="glass-panel" style={{ padding: "18px", borderRadius: "14px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "0.95rem", color: "#ffffff", display: "flex", alignItems: "center", gap: "6px" }}>
-              <FileCheck size={18} color="#10b981" />
+            <span style={{ fontWeight: "700", fontSize: "0.95rem", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "6px" }}>
+              <FileCheck size={18} color="#059669" />
               <span>Document Verification & Legalization</span>
             </span>
-            <strong style={{ color: "#10b981", fontSize: "0.95rem" }}>
+            <strong style={{ color: "#047857", fontSize: "0.95rem" }}>
               {formatMoney(docs?.totalEUR || 0)}
             </strong>
           </div>
-          <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", margin: "0 0 12px 0" }}>
+          <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: "0 0 12px 0" }}>
             Mandatory credentials verification and government certifications:
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.82rem" }}>
             {docs?.apsApplicable && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", background: "rgba(245, 158, 11, 0.14)", border: "1px solid rgba(245, 158, 11, 0.35)", borderRadius: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", background: "rgba(245, 158, 11, 0.12)", border: "1px solid rgba(245, 158, 11, 0.35)", borderRadius: "8px" }}>
                 <div>
-                  <strong style={{ color: "#fcd34d" }}>APS India Certificate</strong>
+                  <strong style={{ color: "#b45309" }}>APS India Certificate</strong>
                   <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>Mandatory verification for all German public universities</div>
                 </div>
-                <strong style={{ color: "#ffffff" }}>{formatMoney(195)}</strong>
+                <strong style={{ color: "var(--text-primary)" }}>{formatMoney(195)}</strong>
               </div>
             )}
 
-            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: includeApostille ? "rgba(16, 185, 129, 0.08)" : "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: includeApostille ? "rgba(16, 185, 129, 0.08)" : "var(--bg-secondary)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-primary)" }}>
                 <input 
                   type="checkbox" 
                   checked={includeApostille} 
@@ -417,11 +418,11 @@ export default function ApplicationCartView({
                 />
                 <span>Apostille, Notary & Transcripts Verification</span>
               </span>
-              <strong style={{ color: "#ffffff" }}>{formatMoney(60)}</strong>
+              <strong style={{ color: "var(--text-primary)" }}>{formatMoney(60)}</strong>
             </label>
 
-            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: includeCourier ? "rgba(16, 185, 129, 0.08)" : "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "8px 10px", background: includeCourier ? "rgba(16, 185, 129, 0.08)" : "var(--bg-secondary)", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-primary)" }}>
                 <input 
                   type="checkbox" 
                   checked={includeCourier} 
@@ -429,7 +430,7 @@ export default function ApplicationCartView({
                 />
                 <span>International Courier Dossier (DHL/FedEx)</span>
               </span>
-              <strong style={{ color: "#ffffff" }}>{formatMoney(40)}</strong>
+              <strong style={{ color: "var(--text-primary)" }}>{formatMoney(40)}</strong>
             </label>
           </div>
         </div>
@@ -438,7 +439,7 @@ export default function ApplicationCartView({
 
       {/* Itemized University Breakdown: Pre- vs Post-Admission Costs */}
       <div style={{ marginBottom: "20px" }}>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "12px" }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "12px" }}>
           Itemized Pre- vs. Post-Admission Breakdown for Shortlisted Programs ({itemBreakdowns.length})
         </h3>
 
@@ -451,7 +452,7 @@ export default function ApplicationCartView({
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
                 <div>
-                  <h4 style={{ fontSize: "1.05rem", fontWeight: "700", color: "#ffffff", margin: 0 }}>
+                  <h4 style={{ fontSize: "1.05rem", fontWeight: "700", color: "var(--text-primary)", margin: 0 }}>
                     {b.universityName}
                   </h4>
                   <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
@@ -462,7 +463,7 @@ export default function ApplicationCartView({
                   type="button"
                   onClick={() => onRemoveItem && onRemoveItem(b.universityId)}
                   className="btn btn-secondary"
-                  style={{ padding: "3px 8px", fontSize: "0.72rem", color: "#fb7185" }}
+                  style={{ padding: "3px 8px", fontSize: "0.72rem", color: "#e11d48" }}
                 >
                   <Trash2 size={12} />
                   <span>Remove</span>
@@ -474,8 +475,8 @@ export default function ApplicationCartView({
                 
                 {/* Card 1: Pre-Admission Costs */}
                 <div style={{
-                  background: "rgba(245, 158, 11, 0.06)",
-                  border: "1px solid rgba(245, 158, 11, 0.3)",
+                  background: "rgba(245, 158, 11, 0.08)",
+                  border: "1px solid rgba(245, 158, 11, 0.35)",
                   borderRadius: "10px",
                   padding: "10px",
                   display: "flex",
@@ -484,15 +485,15 @@ export default function ApplicationCartView({
                 }}>
                   <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                      <span style={{ fontSize: "0.7rem", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase" }}>
+                      <span style={{ fontSize: "0.7rem", fontWeight: "700", color: "#b45309", textTransform: "uppercase" }}>
                         Pre-Admission (Sunk)
                       </span>
-                      <span className="badge" style={{ fontSize: "0.62rem", padding: "1px 5px", background: "rgba(245, 158, 11, 0.15)", color: "#fcd34d" }}>
+                      <span className="badge" style={{ fontSize: "0.62rem", padding: "1px 5px", background: "rgba(245, 158, 11, 0.2)", color: "#92400e", fontWeight: "700" }}>
                         {b.preAdmissionCard.applicationPortalType}
                       </span>
                     </div>
 
-                    <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>
                       {formatMoney(b.preAdmissionCard.applicationFeeEUR)}
                     </div>
                     <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", margin: "3px 0 0 0" }}>
@@ -500,7 +501,7 @@ export default function ApplicationCartView({
                     </p>
 
                     {b.preAdmissionCard.apsRequirement.isRequired && (
-                      <div style={{ marginTop: "6px", fontSize: "0.68rem", color: "#fcd34d", background: "rgba(245, 158, 11, 0.12)", padding: "3px 6px", borderRadius: "4px" }}>
+                      <div style={{ marginTop: "6px", fontSize: "0.68rem", color: "#92400e", background: "rgba(245, 158, 11, 0.15)", padding: "3px 6px", borderRadius: "4px", fontWeight: "600" }}>
                         ⚠️ APS India: {formatMoney(195)} mandatory
                       </div>
                     )}
@@ -528,15 +529,15 @@ export default function ApplicationCartView({
                     })()}
                   </div>
 
-                  <div style={{ marginTop: "8px", paddingTop: "4px", borderTop: "1px dashed rgba(255,255,255,0.08)", fontSize: "0.66rem", color: "var(--text-muted)" }}>
+                  <div style={{ marginTop: "8px", paddingTop: "4px", borderTop: "1px dashed var(--border-subtle)", fontSize: "0.66rem", color: "var(--text-muted)" }}>
                     Non-refundable before admission
                   </div>
                 </div>
 
                 {/* Card 2: Post-Admission Costs */}
                 <div style={{
-                  background: "rgba(16, 185, 129, 0.06)",
-                  border: "1px solid rgba(16, 185, 129, 0.3)",
+                  background: "rgba(16, 185, 129, 0.08)",
+                  border: "1px solid rgba(16, 185, 129, 0.35)",
                   borderRadius: "10px",
                   padding: "10px",
                   display: "flex",
@@ -545,30 +546,30 @@ export default function ApplicationCartView({
                 }}>
                   <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                      <span style={{ fontSize: "0.7rem", fontWeight: "700", color: "#34d399", textTransform: "uppercase" }}>
+                      <span style={{ fontSize: "0.7rem", fontWeight: "700", color: "#047857", textTransform: "uppercase" }}>
                         Post-Admission (Reg.)
                       </span>
-                      <span className="badge" style={{ fontSize: "0.62rem", padding: "1px 5px", background: "rgba(16, 185, 129, 0.15)", color: "#6ee7b7" }}>
+                      <span className="badge" style={{ fontSize: "0.62rem", padding: "1px 5px", background: "rgba(16, 185, 129, 0.2)", color: "#065f46", fontWeight: "700" }}>
                         Mandatory
                       </span>
                     </div>
 
-                    <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>
                       {formatMoney(b.postAdmissionCard.mandatorySemesterFeeEUR)}/sem
                     </div>
                     <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", margin: "3px 0 0 0", lineHeight: "1.25" }}>
                       {b.postAdmissionCard.semesterFeeBreakdown}
                     </p>
 
-                    <div style={{ marginTop: "6px", fontSize: "0.7rem", color: "#93c5fd" }}>
+                    <div style={{ marginTop: "6px", fontSize: "0.7rem", color: "#1d4ed8", fontWeight: "600" }}>
                       🛡️ Visa Funds: {formatMoney(b.postAdmissionCard.visaProofOfFundsEUR)}/yr
                     </div>
-                    <div style={{ fontSize: "0.7rem", color: "#34d399", marginTop: "2px" }}>
+                    <div style={{ fontSize: "0.7rem", color: "#047857", marginTop: "2px", fontWeight: "600" }}>
                       💰 Tuition: {b.postAdmissionCard.tuitionDisplay}
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "8px", paddingTop: "4px", borderTop: "1px dashed rgba(255,255,255,0.08)", fontSize: "0.66rem", color: "var(--text-muted)" }}>
+                  <div style={{ marginTop: "8px", paddingTop: "4px", borderTop: "1px dashed var(--border-subtle)", fontSize: "0.66rem", color: "var(--text-muted)" }}>
                     Includes transit pass & student union
                   </div>
                 </div>

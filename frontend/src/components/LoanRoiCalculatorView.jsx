@@ -71,12 +71,12 @@ export default function LoanRoiCalculatorView() {
       {/* Header Banner */}
       <div style={{ textAlign: "center", maxWidth: "850px", margin: "0 auto 32px auto" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.15)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
-          <Landmark size={16} color="#34d399" />
-          <span style={{ fontSize: "0.82rem", color: "#6ee7b7", fontWeight: "600" }}>
+          <Landmark size={16} color="#059669" />
+          <span style={{ fontSize: "0.82rem", color: "#047857", fontWeight: "700" }}>
             Free Education Loan & Section 80E Tax Savings Engine
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           Study Abroad Loan & EMI Calculator
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -89,18 +89,18 @@ export default function LoanRoiCalculatorView() {
         
         {/* Left Column: Interactive Sliders */}
         <div className="glass-panel" style={{ padding: "28px" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
-            <Calculator color="#38bdf8" size={20} />
+          <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
+            <Calculator color="#2563eb" size={20} />
             Loan Parameters
           </h3>
 
           {/* Loan Amount Slider */}
           <div style={{ marginBottom: "24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <label style={{ fontSize: "0.86rem", color: "#cbd5e1", fontWeight: "600" }}>
+              <label style={{ fontSize: "0.86rem", color: "var(--text-primary)", fontWeight: "600" }}>
                 Loan Amount (₹ INR)
               </label>
-              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#38bdf8" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#1d4ed8" }}>
                 ₹{loanAmountLakhs} Lakhs
               </span>
             </div>
@@ -123,10 +123,10 @@ export default function LoanRoiCalculatorView() {
           {/* Interest Rate Slider */}
           <div style={{ marginBottom: "24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <label style={{ fontSize: "0.86rem", color: "#cbd5e1", fontWeight: "600" }}>
+              <label style={{ fontSize: "0.86rem", color: "var(--text-primary)", fontWeight: "600" }}>
                 Annual Interest Rate (% p.a.)
               </label>
-              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#fbbf24" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#b45309" }}>
                 {interestRate}%
               </span>
             </div>
@@ -149,10 +149,10 @@ export default function LoanRoiCalculatorView() {
           {/* Repayment Tenure Slider */}
           <div style={{ marginBottom: "24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <label style={{ fontSize: "0.86rem", color: "#cbd5e1", fontWeight: "600" }}>
+              <label style={{ fontSize: "0.86rem", color: "var(--text-primary)", fontWeight: "600" }}>
                 Repayment Tenure (Years)
               </label>
-              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#ffffff" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--text-primary)" }}>
                 {tenureYears} Years
               </span>
             </div>
@@ -175,10 +175,10 @@ export default function LoanRoiCalculatorView() {
           {/* Moratorium Period Slider */}
           <div style={{ marginBottom: "20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <label style={{ fontSize: "0.86rem", color: "#cbd5e1", fontWeight: "600" }}>
+              <label style={{ fontSize: "0.86rem", color: "var(--text-primary)", fontWeight: "600" }}>
                 Moratorium Period (Course Duration + Buffer)
               </label>
-              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#34d399" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "#047857" }}>
                 {moratoriumMonths} Months
               </span>
             </div>
@@ -211,11 +211,12 @@ export default function LoanRoiCalculatorView() {
                   style={{
                     fontSize: "0.74rem",
                     padding: "4px 8px",
-                    background: "rgba(255, 255, 255, 0.05)",
+                    background: "var(--bg-secondary)",
                     border: "1px solid var(--border-subtle)",
                     borderRadius: "6px",
-                    color: "#cbd5e1",
-                    cursor: "pointer"
+                    color: "var(--text-primary)",
+                    cursor: "pointer",
+                    fontWeight: "600"
                   }}
                 >
                   {p.bankName.split(" ")[0]} ({p.interestRateMin}%)
@@ -246,44 +247,44 @@ export default function LoanRoiCalculatorView() {
                 <div style={{ 
                   fontSize: "3.2rem", 
                   fontWeight: "900", 
-                  color: "#38bdf8", 
+                  color: "#1d4ed8", 
                   fontFamily: "var(--font-display)",
                   lineHeight: 1.1,
                   margin: "8px 0"
                 }}>
                   {calcResult.formatted.monthlyEmi}
                 </div>
-                <div style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
                   Repayment starts after your {moratoriumMonths}-month moratorium period.
                 </div>
               </div>
 
               {/* Breakdown Grid */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
-                <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
+                <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
                   <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Principal Borrowed</div>
-                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>
+                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>
                     {calcResult.formatted.loanAmount}
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
+                <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
                   <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Total Interest Payable</div>
-                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#fbbf24", marginTop: "2px" }}>
+                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#b45309", marginTop: "2px" }}>
                     {calcResult.formatted.totalInterest}
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
+                <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
                   <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Total Repayment</div>
-                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>
+                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>
                     {calcResult.formatted.totalPayment}
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
+                <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
                   <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Moratorium Interest</div>
-                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#f43f5e", marginTop: "2px" }}>
+                  <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "#e11d48", marginTop: "2px" }}>
                     ₹{(calcResult.moratoriumInterestAccumulated / 100000).toFixed(2)} Lakhs
                   </div>
                 </div>
@@ -291,8 +292,8 @@ export default function LoanRoiCalculatorView() {
 
               {/* Section 80E Tax Deduction Box */}
               <div style={{ 
-                background: "rgba(16, 185, 129, 0.1)", 
-                border: "1px solid rgba(16, 185, 129, 0.3)", 
+                background: "rgba(16, 185, 129, 0.12)", 
+                border: "1px solid rgba(16, 185, 129, 0.35)", 
                 borderRadius: "12px", 
                 padding: "16px", 
                 marginBottom: "16px" 
@@ -302,14 +303,14 @@ export default function LoanRoiCalculatorView() {
                     <span className="badge badge-safe" style={{ fontSize: "0.72rem", marginBottom: "4px" }}>
                       🇮🇳 Section 80E Indian IT Act Benefit
                     </span>
-                    <h4 style={{ fontSize: "1rem", fontWeight: "800", color: "#ffffff", marginTop: "4px" }}>
+                    <h4 style={{ fontSize: "1rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "4px" }}>
                       Estimated Tax Savings: ~{calcResult.formatted.estimatedTaxSavedPerYear}
                     </h4>
                     <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: "4px 0 0 0" }}>
                       100% of interest paid on education loans from RBI-recognized banks is deductible from taxable income for up to 8 years without any upper limit!
                     </p>
                   </div>
-                  <ShieldCheck size={28} color="#34d399" />
+                  <ShieldCheck size={28} color="#059669" />
                 </div>
               </div>
 
@@ -325,8 +326,8 @@ export default function LoanRoiCalculatorView() {
 
       {/* Comparison Table of Leading Bank Providers */}
       <div className="glass-panel" style={{ padding: "28px" }}>
-        <h3 style={{ fontSize: "1.25rem", fontWeight: "800", color: "#ffffff", marginBottom: "16px", display: "flex", alignItems: "center", gap: "10px" }}>
-          <Landmark color="#38bdf8" size={22} />
+        <h3 style={{ fontSize: "1.25rem", fontWeight: "800", color: "var(--text-primary)", marginBottom: "16px", display: "flex", alignItems: "center", gap: "10px" }}>
+          <Landmark color="#2563eb" size={22} />
           Leading Study Abroad Education Loan Lenders Compared (2025/2026)
         </h3>
 
@@ -345,19 +346,19 @@ export default function LoanRoiCalculatorView() {
             </thead>
             <tbody>
               {providers.map((p) => (
-                <tr key={p.id} style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.04)" }}>
-                  <td style={{ padding: "14px 12px", fontWeight: "700", color: "#ffffff" }}>
+                <tr key={p.id} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                  <td style={{ padding: "14px 12px", fontWeight: "700", color: "var(--text-primary)" }}>
                     {p.bankName}
                   </td>
                   <td style={{ padding: "14px 12px" }}>
-                    <span style={{ fontSize: "0.74rem", background: "rgba(255, 255, 255, 0.06)", padding: "2px 8px", borderRadius: "4px", color: "#93c5fd" }}>
+                    <span style={{ fontSize: "0.74rem", background: "rgba(37, 99, 235, 0.1)", padding: "2px 8px", borderRadius: "4px", color: "#1d4ed8", fontWeight: "600" }}>
                       {p.bankType}
                     </span>
                   </td>
-                  <td style={{ padding: "14px 12px", fontWeight: "700", color: "#fbbf24" }}>
+                  <td style={{ padding: "14px 12px", fontWeight: "700", color: "#b45309" }}>
                     {p.interestRateMin}% – {p.interestRateMax}%
                   </td>
-                  <td style={{ padding: "14px 12px", color: p.collateralRequired ? "#cbd5e1" : "#34d399" }}>
+                  <td style={{ padding: "14px 12px", color: p.collateralRequired ? "var(--text-secondary)" : "#047857", fontWeight: "600" }}>
                     {p.collateralRequired ? "Required (Property/FD)" : "Non-Collateral"}
                   </td>
                   <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>

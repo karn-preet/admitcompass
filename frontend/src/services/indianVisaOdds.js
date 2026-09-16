@@ -314,33 +314,33 @@ export function getIndianVisaOdds(university = {}) {
     adjustedOdds = 68;
   }
 
-  // Color Coding & Visual Tokens
-  let badgeColor = "#10b981"; // Emerald
+  // Color Coding & Visual Tokens (High-Contrast WCAG 2.1 AA Compliant on Light Surfaces)
+  let badgeColor = "#047857"; // Emerald 700 (4.6:1+ contrast)
   let badgeBg = "rgba(16, 185, 129, 0.12)";
   let badgeBorder = "rgba(16, 185, 129, 0.35)";
   let tagText = "High Approval";
   let statusIcon = "ShieldCheck";
 
   if (adjustedOdds >= 90) {
-    badgeColor = "#10b981";
+    badgeColor = "#047857";
     badgeBg = "linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.08) 100%)";
     badgeBorder = "rgba(16, 185, 129, 0.4)";
     tagText = "Very High";
     statusIcon = "ShieldCheck";
   } else if (adjustedOdds >= 80) {
-    badgeColor = "#3b82f6";
+    badgeColor = "#1d4ed8";
     badgeBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(37, 99, 235, 0.08) 100%)";
     badgeBorder = "rgba(59, 130, 246, 0.35)";
     tagText = "Safe / High";
     statusIcon = "ShieldCheck";
   } else if (adjustedOdds >= 70) {
-    badgeColor = "#f59e0b";
+    badgeColor = "#b45309";
     badgeBg = "linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(217, 119, 6, 0.08) 100%)";
     badgeBorder = "rgba(245, 158, 11, 0.35)";
     tagText = "Moderate";
     statusIcon = "AlertTriangle";
   } else {
-    badgeColor = "#ef4444";
+    badgeColor = "#b91c1c";
     badgeBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(185, 28, 28, 0.08) 100%)";
     badgeBorder = "rgba(239, 68, 68, 0.4)";
     tagText = "Scrutiny";

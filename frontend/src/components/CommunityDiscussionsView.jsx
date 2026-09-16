@@ -108,13 +108,13 @@ export default function CommunityDiscussionsView() {
     <div className="container" style={{ paddingBottom: "60px" }}>
       {/* Header Banner */}
       <div style={{ textAlign: "center", maxWidth: "850px", margin: "0 auto 32px auto" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(59, 130, 246, 0.15)", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
-          <MessageSquare size={16} color="#60a5fa" />
-          <span style={{ fontSize: "0.82rem", color: "#93c5fd", fontWeight: "600" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(59, 130, 246, 0.12)", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
+          <MessageSquare size={16} color="#2563eb" />
+          <span style={{ fontSize: "0.82rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "700" }}>
             100% Free Study Abroad Student Forum • No Sign-up Required
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           Community Q&A & Visa Experiences
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -140,7 +140,7 @@ export default function CommunityDiscussionsView() {
                   borderRadius: "8px",
                   background: "var(--bg-surface-elevated)",
                   border: "1px solid var(--border-subtle)",
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                   fontSize: "0.88rem",
                   outline: "none"
                 }}
@@ -160,7 +160,7 @@ export default function CommunityDiscussionsView() {
                 borderRadius: "8px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.85rem"
               }}
             >
@@ -217,10 +217,10 @@ export default function CommunityDiscussionsView() {
                       justifyContent: "center",
                       padding: "8px 12px",
                       borderRadius: "10px",
-                      background: "rgba(255, 255, 255, 0.04)",
-                      border: "1px solid var(--border-subtle)",
+                      background: "rgba(37, 99, 235, 0.08)",
+                      border: "1px solid rgba(37, 99, 235, 0.25)",
                       cursor: "pointer",
-                      color: "#93c5fd",
+                      color: "#1d4ed8",
                       transition: "all 0.2s ease"
                     }}
                     title="Upvote helpful post"
@@ -242,7 +242,7 @@ export default function CommunityDiscussionsView() {
                       </span>
                     </div>
 
-                    <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+                    <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
                       {thread.title}
                     </h3>
 
@@ -254,7 +254,7 @@ export default function CommunityDiscussionsView() {
                     {thread.tags && thread.tags.length > 0 && (
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "10px" }}>
                         {thread.tags.map((tag, idx) => (
-                          <span key={idx} style={{ fontSize: "0.7rem", background: "rgba(255, 255, 255, 0.05)", padding: "2px 8px", borderRadius: "4px", color: "var(--text-muted)" }}>
+                          <span key={idx} style={{ fontSize: "0.7rem", background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "4px", color: "var(--text-secondary)", border: "1px solid var(--border-subtle)" }}>
                             #{tag}
                           </span>
                         ))}
@@ -273,16 +273,16 @@ export default function CommunityDiscussionsView() {
                 {/* Expanded Replies Section */}
                 {isExpanded && thread.replies && thread.replies.length > 0 && (
                   <div style={{ marginTop: "20px", borderTop: "1px solid var(--border-subtle)", paddingTop: "16px" }}>
-                    <h4 style={{ fontSize: "0.9rem", fontWeight: "700", color: "#cbd5e1", marginBottom: "12px" }}>
+                    <h4 style={{ fontSize: "0.9rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "12px" }}>
                       Community Replies ({thread.replies.length})
                     </h4>
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                       {thread.replies.map((reply, idx) => (
-                        <div key={idx} style={{ background: "rgba(255, 255, 255, 0.03)", padding: "12px 14px", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
-                          <div style={{ fontSize: "0.75rem", color: "#93c5fd", fontWeight: "600", marginBottom: "4px" }}>
+                        <div key={idx} style={{ background: "var(--bg-secondary)", padding: "12px 14px", borderRadius: "8px", border: "1px solid var(--border-subtle)" }}>
+                          <div style={{ fontSize: "0.75rem", color: "#1d4ed8", fontWeight: "700", marginBottom: "4px" }}>
                             {reply.author} • {reply.date}
                           </div>
-                          <div style={{ fontSize: "0.85rem", color: "#e2e8f0" }}>
+                          <div style={{ fontSize: "0.85rem", color: "var(--text-primary)" }}>
                             {reply.content}
                           </div>
                         </div>
@@ -315,7 +315,7 @@ export default function CommunityDiscussionsView() {
         }}>
           <div className="glass-panel" style={{ width: "100%", maxWidth: "550px", padding: "28px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px" }}>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: "800", color: "#ffffff" }}>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)" }}>
                 Ask a Question / Share Experience
               </h3>
               <button onClick={() => setIsModalOpen(false)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.2rem" }}>
@@ -325,24 +325,24 @@ export default function CommunityDiscussionsView() {
 
             <form onSubmit={handleCreateThread}>
               <div style={{ marginBottom: "12px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Title / Question</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Title / Question</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. F-1 Visa Interview Experience at Mumbai Consulate (Approved)"
                   value={newTitle}
                   onChange={e => setNewTitle(e.target.value)}
-                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "12px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Category</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Category</label>
                   <select
                     value={newCategory}
                     onChange={e => setNewCategory(e.target.value)}
-                    style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   >
                     {categories.map(c => (
                       <option key={c} value={c}>{c}</option>
@@ -350,37 +350,37 @@ export default function CommunityDiscussionsView() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Your Handle / Name</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Your Handle / Name</label>
                   <input
                     type="text"
                     placeholder="e.g. Rahul_CS or Anonymous"
                     value={newAuthor}
                     onChange={e => setNewAuthor(e.target.value)}
-                    style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
               </div>
 
               <div style={{ marginBottom: "12px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Tags (comma-separated)</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Tags (comma-separated)</label>
                 <input
                   type="text"
                   placeholder="e.g. F1 Visa, Mumbai, Computer Science"
                   value={newTags}
                   onChange={e => setNewTags(e.target.value)}
-                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Details / Body</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Details / Body</label>
                 <textarea
                   rows={4}
                   required
                   placeholder="Share details, questions asked, timelines, or your profile stats..."
                   value={newContent}
                   onChange={e => setNewContent(e.target.value)}
-                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 

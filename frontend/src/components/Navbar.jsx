@@ -336,9 +336,9 @@ export default function Navbar({
             <span>Cart</span>
             <span style={{
               background: cartCount > 0 ? "var(--accent-gold)" : "var(--bg-secondary)",
-              color: cartCount > 0 ? "#FFFFFF" : "var(--text-muted)",
+              color: cartCount > 0 ? "#0F172A" : "var(--text-muted)",
               fontSize: "0.7rem",
-              fontWeight: "700",
+              fontWeight: "800",
               padding: "1px 7px",
               borderRadius: "999px"
             }}>

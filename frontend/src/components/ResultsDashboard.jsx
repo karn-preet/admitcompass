@@ -172,9 +172,11 @@ export default function ResultsDashboard({
           onClick={() => setActiveTab("universities")}
           className="btn"
           style={{
-            background: activeTab === "universities" ? "rgba(37, 99, 235, 0.25)" : "transparent",
-            border: activeTab === "universities" ? "1px solid #3b82f6" : "1px solid transparent",
-            color: activeTab === "universities" ? "#93c5fd" : "var(--text-secondary)",
+            background: activeTab === "universities" ? "var(--accent-blue)" : "var(--bg-surface)",
+            border: activeTab === "universities" ? "1px solid var(--accent-blue)" : "1px solid var(--border-warm)",
+            color: activeTab === "universities" ? "#ffffff" : "var(--text-primary)",
+            fontWeight: activeTab === "universities" ? "700" : "500",
+            boxShadow: activeTab === "universities" ? "0 2px 8px rgba(37, 99, 235, 0.3)" : "none",
             padding: "10px 18px"
           }}
         >
@@ -186,9 +188,11 @@ export default function ResultsDashboard({
           onClick={() => setActiveTab("visa")}
           className="btn"
           style={{
-            background: activeTab === "visa" ? "rgba(37, 99, 235, 0.25)" : "transparent",
-            border: activeTab === "visa" ? "1px solid #3b82f6" : "1px solid transparent",
-            color: activeTab === "visa" ? "#93c5fd" : "var(--text-secondary)",
+            background: activeTab === "visa" ? "var(--accent-blue)" : "var(--bg-surface)",
+            border: activeTab === "visa" ? "1px solid var(--accent-blue)" : "1px solid var(--border-warm)",
+            color: activeTab === "visa" ? "#ffffff" : "var(--text-primary)",
+            fontWeight: activeTab === "visa" ? "700" : "500",
+            boxShadow: activeTab === "visa" ? "0 2px 8px rgba(37, 99, 235, 0.3)" : "none",
             padding: "10px 18px"
           }}
         >
@@ -200,9 +204,11 @@ export default function ResultsDashboard({
           onClick={() => setActiveTab("compensatory")}
           className="btn"
           style={{
-            background: activeTab === "compensatory" ? "rgba(37, 99, 235, 0.25)" : "transparent",
-            border: activeTab === "compensatory" ? "1px solid #3b82f6" : "1px solid transparent",
-            color: activeTab === "compensatory" ? "#93c5fd" : "var(--text-secondary)",
+            background: activeTab === "compensatory" ? "var(--accent-blue)" : "var(--bg-surface)",
+            border: activeTab === "compensatory" ? "1px solid var(--accent-blue)" : "1px solid var(--border-warm)",
+            color: activeTab === "compensatory" ? "#ffffff" : "var(--text-primary)",
+            fontWeight: activeTab === "compensatory" ? "700" : "500",
+            boxShadow: activeTab === "compensatory" ? "0 2px 8px rgba(37, 99, 235, 0.3)" : "none",
             padding: "10px 18px"
           }}
         >
@@ -214,9 +220,11 @@ export default function ResultsDashboard({
           onClick={() => setActiveTab("cart")}
           className="btn"
           style={{
-            background: activeTab === "cart" ? "rgba(37, 99, 235, 0.25)" : "transparent",
-            border: activeTab === "cart" ? "1px solid #3b82f6" : "1px solid transparent",
-            color: activeTab === "cart" ? "#93c5fd" : "var(--text-secondary)",
+            background: activeTab === "cart" ? "var(--accent-blue)" : "var(--bg-surface)",
+            border: activeTab === "cart" ? "1px solid var(--accent-blue)" : "1px solid var(--border-warm)",
+            color: activeTab === "cart" ? "#ffffff" : "var(--text-primary)",
+            fontWeight: activeTab === "cart" ? "700" : "500",
+            boxShadow: activeTab === "cart" ? "0 2px 8px rgba(37, 99, 235, 0.3)" : "none",
             padding: "10px 18px"
           }}
         >

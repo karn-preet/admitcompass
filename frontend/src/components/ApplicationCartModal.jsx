@@ -39,9 +39,9 @@ export default function ApplicationCartModal({
           display: "flex",
           flexDirection: "column",
           borderRadius: "20px",
-          border: "1px solid rgba(59, 130, 246, 0.4)",
-          boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(37, 99, 235, 0.25)",
-          background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%)",
+          border: "1px solid var(--border-warm)",
+          boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.25)",
+          background: "#FFFFFF",
           overflow: "hidden"
         }}
         onClick={(e) => e.stopPropagation()}
@@ -53,7 +53,7 @@ export default function ApplicationCartModal({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: "rgba(255, 255, 255, 0.02)"
+          background: "#FFFFFF"
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{
@@ -64,13 +64,13 @@ export default function ApplicationCartModal({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.35)"
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.25)"
             }}>
               <ShoppingCart size={20} color="#ffffff" />
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "800", color: "#ffffff", margin: 0 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "800", color: "var(--text-primary)", margin: 0 }}>
                   Application Cart & Pre-Admission Sunk Cost Simulator
                 </h3>
                 <span className="badge badge-safe" style={{ fontSize: "0.68rem" }}>
@@ -87,9 +87,9 @@ export default function ApplicationCartModal({
             type="button"
             onClick={onClose}
             style={{
-              background: "rgba(255, 255, 255, 0.06)",
-              border: "1px solid var(--border-subtle)",
-              color: "var(--text-muted)",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-warm)",
+              color: "var(--text-primary)",
               width: "32px",
               height: "32px",
               borderRadius: "8px",

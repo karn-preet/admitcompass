@@ -243,17 +243,17 @@ export default function UniversityMatches({
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "8px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <Sliders size={18} color="#3b82f6" />
-              <label style={{ fontSize: "0.92rem", fontWeight: "700", color: "#ffffff" }}>
+              <label style={{ fontSize: "0.92rem", fontWeight: "700", color: "var(--text-primary)" }}>
                 Interactive Maximum Annual Tuition Budget:
               </label>
               <span style={{ 
                 fontSize: "0.95rem", 
                 fontWeight: "800", 
-                color: maxTuition === 0 ? "#34d399" : maxTuition < 30000 ? "#60a5fa" : "#e2e8f0",
-                background: maxTuition === 0 ? "rgba(16, 185, 129, 0.15)" : "rgba(37, 99, 235, 0.15)",
+                color: maxTuition === 0 ? "#059669" : maxTuition < 30000 ? "#1d4ed8" : "var(--text-primary)",
+                background: maxTuition === 0 ? "rgba(16, 185, 129, 0.15)" : maxTuition < 30000 ? "rgba(37, 99, 235, 0.15)" : "var(--bg-secondary)",
                 padding: "2px 10px",
                 borderRadius: "6px",
-                border: "1px solid rgba(255, 255, 255, 0.1)"
+                border: "1px solid var(--border-subtle)"
               }}>
                 {maxTuition === 0 
                   ? "€0 / year (Tuition-Free Only)" 
@@ -272,8 +272,10 @@ export default function UniversityMatches({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 0 ? "#059669" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 0 ? "#059669" : "var(--bg-secondary)",
+                  color: maxTuition === 0 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 0 ? "700" : "500"
                 }}
               >
                 €0 (Free)
@@ -285,8 +287,10 @@ export default function UniversityMatches({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 3500 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 3500 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 3500 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 3500 ? "700" : "500"
                 }}
               >
                 ≤ €3,500 (Low Fee)
@@ -298,8 +302,10 @@ export default function UniversityMatches({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 10000 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 10000 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 10000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 10000 ? "700" : "500"
                 }}
               >
                 ≤ €10,000 (Moderate)
@@ -311,8 +317,10 @@ export default function UniversityMatches({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 16000 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 16000 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 16000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 16000 ? "700" : "500"
                 }}
               >
                 ≤ €16,000
@@ -324,8 +332,10 @@ export default function UniversityMatches({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition >= 30000 ? "#4f46e5" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition >= 30000 ? "#4f46e5" : "var(--bg-secondary)",
+                  color: maxTuition >= 30000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition >= 30000 ? "700" : "500"
                 }}
               >
                 Any Budget (All)
@@ -439,7 +449,7 @@ export default function UniversityMatches({
           </div>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ fontWeight: "700", fontSize: "0.92rem", color: "#ffffff" }}>
+              <span style={{ fontWeight: "700", fontSize: "0.92rem", color: "var(--text-primary)" }}>
                 Application Cart & Sunk Cost Simulator
               </span>
               <span className="badge badge-safe" style={{ fontSize: "0.68rem" }}>
@@ -483,7 +493,8 @@ export default function UniversityMatches({
               padding: "6px 14px",
               fontSize: "0.82rem",
               background: activeTab === "all" ? "#2563eb" : "transparent",
-              color: "#ffffff"
+              color: activeTab === "all" ? "#ffffff" : "var(--text-primary)",
+              fontWeight: activeTab === "all" ? "700" : "500"
             }}
           >
             All Matches ({currentCategoryCounts.total})
@@ -495,7 +506,8 @@ export default function UniversityMatches({
               padding: "6px 14px",
               fontSize: "0.82rem",
               background: activeTab === "Safe" ? "#059669" : "transparent",
-              color: "#ffffff"
+              color: activeTab === "Safe" ? "#ffffff" : "var(--text-primary)",
+              fontWeight: activeTab === "Safe" ? "700" : "500"
             }}
           >
             🟢 Safe ({currentCategoryCounts.safe})
@@ -507,7 +519,8 @@ export default function UniversityMatches({
               padding: "6px 14px",
               fontSize: "0.82rem",
               background: activeTab === "Target" ? "#2563eb" : "transparent",
-              color: "#ffffff"
+              color: activeTab === "Target" ? "#ffffff" : "var(--text-primary)",
+              fontWeight: activeTab === "Target" ? "700" : "500"
             }}
           >
             🔵 Target ({currentCategoryCounts.target})
@@ -519,7 +532,8 @@ export default function UniversityMatches({
               padding: "6px 14px",
               fontSize: "0.82rem",
               background: activeTab === "Reach" ? "#d97706" : "transparent",
-              color: "#ffffff"
+              color: activeTab === "Reach" ? "#ffffff" : "var(--text-primary)",
+              fontWeight: activeTab === "Reach" ? "700" : "500"
             }}
           >
             🟡 Reach ({currentCategoryCounts.reach})
@@ -531,7 +545,7 @@ export default function UniversityMatches({
       {filteredMatches.length === 0 && (
         <div className="glass-panel" style={{ padding: "40px 20px", textAlign: "center", borderRadius: "16px", margin: "20px 0" }}>
           <AlertCircle size={40} color="#f59e0b" style={{ margin: "0 auto 12px auto" }} />
-          <h4 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+          <h4 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
             No universities match your current budget filter (€{maxTuition.toLocaleString()}/yr)
           </h4>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", maxWidth: "500px", margin: "0 auto 16px auto" }}>
@@ -900,7 +914,7 @@ export default function UniversityMatches({
                     padding: "8px 12px", 
                     borderRadius: "8px", 
                     fontSize: "0.76rem", 
-                    color: "#93c5fd",
+                    color: "#1d4ed8",
                     marginBottom: "12px"
                   }}>
                     <Sparkles size={13} style={{ display: "inline", marginRight: "5px", verticalAlign: "text-bottom" }} />
@@ -1016,12 +1030,13 @@ export default function UniversityMatches({
                     style={{
                       padding: "4px 10px",
                       fontSize: "0.74rem",
-                      background: isInCart ? "rgba(16, 185, 129, 0.2)" : "rgba(37, 99, 235, 0.2)",
-                      border: isInCart ? "1px solid #10b981" : "1px solid #3b82f6",
-                      color: isInCart ? "#34d399" : "#93c5fd",
+                      background: isInCart ? "var(--accent-green)" : "var(--accent-blue)",
+                      border: "none",
+                      color: "#ffffff",
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "4px"
+                      gap: "4px",
+                      fontWeight: "600"
                     }}
                     title="Add to Application Cart & Sunk Cost Simulator"
                   >

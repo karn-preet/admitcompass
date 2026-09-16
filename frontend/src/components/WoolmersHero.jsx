@@ -325,10 +325,10 @@ export default function WoolmersHero({
               className="btn"
               style={{
                 backgroundColor: "var(--accent-gold)",
-                color: "#FFFFFF",
+                color: "#0F172A",
                 padding: "12px 24px",
                 borderRadius: "8px",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: "0.92rem",
                 boxShadow: "0 6px 16px rgba(179, 142, 93, 0.35)"
               }}

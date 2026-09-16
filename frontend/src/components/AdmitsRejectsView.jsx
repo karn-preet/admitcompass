@@ -124,13 +124,13 @@ export default function AdmitsRejectsView() {
     <div className="container" style={{ paddingBottom: "60px" }}>
       {/* Header Banner */}
       <div style={{ textAlign: "center", maxWidth: "850px", margin: "0 auto 32px auto" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.15)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
-          <Database size={16} color="#34d399" />
-          <span style={{ fontSize: "0.82rem", color: "#6ee7b7", fontWeight: "600" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.12)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
+          <Database size={16} color="#059669" />
+          <span style={{ fontSize: "0.82rem", color: "#047857", fontWeight: "700" }}>
             100% Free Crowdsourced Admits & Rejects Database (100+ Verified Profiles)
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           Historical Admits & Rejects Explorer
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -141,32 +141,32 @@ export default function AdmitsRejectsView() {
       {/* Stats Summary Bar */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "28px" }}>
         <div className="glass-panel" style={{ padding: "18px 22px", display: "flex", alignItems: "center", gap: "14px" }}>
-          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(59, 130, 246, 0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Database size={22} color="#60a5fa" />
+          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(59, 130, 246, 0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Database size={22} color="#2563eb" />
           </div>
           <div>
             <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Decisions Tracked</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#ffffff" }}>{totalDecisions}</div>
+            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "var(--text-primary)" }}>{totalDecisions}</div>
           </div>
         </div>
 
         <div className="glass-panel" style={{ padding: "18px 22px", display: "flex", alignItems: "center", gap: "14px" }}>
-          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(16, 185, 129, 0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <CheckCircle2 size={22} color="#34d399" />
+          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(16, 185, 129, 0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <CheckCircle2 size={22} color="#059669" />
           </div>
           <div>
             <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Admit Rate</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#34d399" }}>{admitRate}%</div>
+            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#047857" }}>{admitRate}%</div>
           </div>
         </div>
 
         <div className="glass-panel" style={{ padding: "18px 22px", display: "flex", alignItems: "center", gap: "14px" }}>
-          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(245, 158, 11, 0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <GraduationCap size={22} color="#fbbf24" />
+          <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(245, 158, 11, 0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <GraduationCap size={22} color="#b45309" />
           </div>
           <div>
             <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Avg Admitted CGPA</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#fbbf24" }}>{avgCgpa} / 10</div>
+            <div style={{ fontSize: "1.5rem", fontWeight: "800", color: "#b45309" }}>{avgCgpa} / 10</div>
           </div>
         </div>
 
@@ -201,7 +201,7 @@ export default function AdmitsRejectsView() {
                   borderRadius: "8px",
                   background: "var(--bg-surface-elevated)",
                   border: "1px solid var(--border-subtle)",
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                   fontSize: "0.88rem",
                   outline: "none"
                 }}
@@ -222,7 +222,7 @@ export default function AdmitsRejectsView() {
                 borderRadius: "8px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.85rem"
               }}
             >
@@ -247,7 +247,7 @@ export default function AdmitsRejectsView() {
                 borderRadius: "8px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.85rem"
               }}
             >
@@ -264,7 +264,7 @@ export default function AdmitsRejectsView() {
                 borderRadius: "8px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.85rem"
               }}
             >
@@ -320,10 +320,10 @@ export default function AdmitsRejectsView() {
                 {/* Status Badge & Term */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
                   <div>
-                    <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#ffffff", marginBottom: "2px" }}>
+                    <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "2px" }}>
                       {dec.university}
                     </h3>
-                    <div style={{ fontSize: "0.84rem", color: "#93c5fd", fontWeight: "500" }}>
+                    <div style={{ fontSize: "0.84rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "600" }}>
                       {dec.program} ({dec.degree})
                     </div>
                   </div>
@@ -341,34 +341,34 @@ export default function AdmitsRejectsView() {
 
                 {/* Country Pill */}
                 <div style={{ marginBottom: "14px" }}>
-                  <span style={{ fontSize: "0.75rem", background: "rgba(255, 255, 255, 0.05)", padding: "2px 8px", borderRadius: "4px", color: "var(--text-secondary)" }}>
+                  <span style={{ fontSize: "0.75rem", background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "4px", color: "var(--text-secondary)", border: "1px solid var(--border-subtle)" }}>
                     📍 {dec.country}
                   </span>
                 </div>
 
                 {/* Metric Pills */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", background: "rgba(0, 0, 0, 0.2)", padding: "10px 12px", borderRadius: "8px", marginBottom: "12px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", background: "var(--bg-secondary)", padding: "10px 12px", borderRadius: "8px", marginBottom: "12px", border: "1px solid var(--border-subtle)" }}>
                   <div>
                     <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>CGPA</div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "#ffffff" }}>
+                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "var(--text-primary)" }}>
                       {dec.cgpa} / {dec.cgpaScale}
                     </div>
                   </div>
                   <div>
                     <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>German GPA</div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "#38bdf8" }}>
+                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "#1d4ed8" }}>
                       {dec.germanGpa || "N/A"}
                     </div>
                   </div>
                   <div>
                     <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>GRE</div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "#ffffff" }}>
+                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "var(--text-primary)" }}>
                       {dec.greTotal || "Waived"}
                     </div>
                   </div>
                   <div>
                     <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>IELTS / TOEFL</div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "#ffffff" }}>
+                    <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "var(--text-primary)" }}>
                       {dec.ielts || "N/A"}
                     </div>
                   </div>
@@ -376,20 +376,20 @@ export default function AdmitsRejectsView() {
 
                 {/* Profile attributes */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "0.74rem", color: "var(--text-secondary)", marginBottom: "10px" }}>
-                  <span style={{ background: "rgba(255, 255, 255, 0.04)", padding: "2px 8px", borderRadius: "4px" }}>
+                  <span style={{ background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "4px", border: "1px solid var(--border-subtle)" }}>
                     💼 {dec.workExpMonths} mos Exp
                   </span>
-                  <span style={{ background: "rgba(255, 255, 255, 0.04)", padding: "2px 8px", borderRadius: "4px" }}>
+                  <span style={{ background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "4px", border: "1px solid var(--border-subtle)" }}>
                     📄 {dec.researchPapers} Paper(s)
                   </span>
-                  <span style={{ background: "rgba(255, 255, 255, 0.04)", padding: "2px 8px", borderRadius: "4px" }}>
+                  <span style={{ background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "4px", border: "1px solid var(--border-subtle)" }}>
                     🏫 {dec.undergradTier}
                   </span>
                 </div>
 
                 {/* Funding / Scholarship Badge */}
                 {dec.scholarshipOrFunding && (
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.76rem", color: "#34d399", background: "rgba(16, 185, 129, 0.1)", padding: "4px 8px", borderRadius: "6px", marginBottom: "8px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.76rem", color: "#047857", background: "rgba(16, 185, 129, 0.12)", padding: "4px 8px", borderRadius: "6px", marginBottom: "8px", fontWeight: "600" }}>
                     <Award size={14} />
                     <span>Funding: {dec.scholarshipOrFunding}</span>
                   </div>
@@ -425,7 +425,7 @@ export default function AdmitsRejectsView() {
         }}>
           <div className="glass-panel" style={{ width: "100%", maxWidth: "600px", maxHeight: "90vh", overflowY: "auto", padding: "28px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-              <h2 style={{ fontSize: "1.25rem", fontWeight: "800", color: "#ffffff" }}>
+              <h2 style={{ fontSize: "1.25rem", fontWeight: "800", color: "var(--text-primary)" }}>
                 Submit Your Admission Decision (Anonymous)
               </h2>
               <button onClick={() => setIsModalOpen(false)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.2rem" }}>
@@ -435,8 +435,8 @@ export default function AdmitsRejectsView() {
 
             {submitSuccess ? (
               <div style={{ padding: "40px", textAlign: "center" }}>
-                <CheckCircle2 color="#34d399" size={48} style={{ margin: "0 auto 16px auto" }} />
-                <h3 style={{ fontSize: "1.2rem", color: "#ffffff", marginBottom: "8px" }}>Decision Added!</h3>
+                <CheckCircle2 color="#059669" size={48} style={{ margin: "0 auto 16px auto" }} />
+                <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "8px" }}>Decision Added!</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
                   Thank you for empowering future study abroad applicants!
                 </p>
@@ -445,22 +445,22 @@ export default function AdmitsRejectsView() {
               <form onSubmit={handleCreateDecision}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>University Name</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>University Name</label>
                     <input 
                       type="text" 
                       required 
                       placeholder="e.g. RWTH Aachen" 
                       value={newUni} 
                       onChange={e => setNewUni(e.target.value)}
-                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Country</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Country</label>
                     <select 
                       value={newCountry} 
                       onChange={e => setNewCountry(e.target.value)}
-                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     >
                       <option value="Germany">Germany</option>
                       <option value="USA">USA</option>
@@ -477,22 +477,22 @@ export default function AdmitsRejectsView() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "12px", marginBottom: "14px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Program / Major</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Program / Major</label>
                     <input 
                       type="text" 
                       required 
                       placeholder="e.g. M.Sc Computer Science" 
                       value={newProgram} 
                       onChange={e => setNewProgram(e.target.value)}
-                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Decision Status</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Decision Status</label>
                     <select 
                       value={newStatus} 
                       onChange={e => setNewStatus(e.target.value)}
-                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     >
                       <option value="Admit">Admit</option>
                       <option value="Reject">Reject</option>
@@ -502,22 +502,22 @@ export default function AdmitsRejectsView() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "14px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>CGPA</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>CGPA</label>
                     <input 
                       type="number" 
                       step="0.01" 
                       required 
                       value={newCgpa} 
                       onChange={e => setNewCgpa(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>Scale</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Scale</label>
                     <select 
                       value={newCgpaScale} 
                       onChange={e => setNewCgpaScale(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     >
                       <option value="10">10.0</option>
                       <option value="4">4.0</option>
@@ -525,42 +525,42 @@ export default function AdmitsRejectsView() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>GRE (optional)</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>GRE (optional)</label>
                     <input 
                       type="number" 
                       value={newGre} 
                       onChange={e => setNewGre(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "14px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>IELTS / TOEFL</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>IELTS / TOEFL</label>
                     <input 
                       type="number" 
                       step="0.5" 
                       value={newIelts} 
                       onChange={e => setNewIelts(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>Work Exp (Mos)</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Work Exp (Mos)</label>
                     <input 
                       type="number" 
                       value={newWorkExp} 
                       onChange={e => setNewWorkExp(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.78rem", color: "#cbd5e1", marginBottom: "4px" }}>College Tier</label>
+                    <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>College Tier</label>
                     <select 
                       value={newTier} 
                       onChange={e => setNewTier(e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                      style={{ width: "100%", padding: "8px 10px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                     >
                       <option value="Tier 1">Tier 1</option>
                       <option value="Tier 2">Tier 2</option>
@@ -570,24 +570,24 @@ export default function AdmitsRejectsView() {
                 </div>
 
                 <div style={{ marginBottom: "14px" }}>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Scholarship / Funding Received</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Scholarship / Funding Received</label>
                   <input 
                     type="text" 
                     placeholder="e.g. $10,000 Dean's Fellowship or Tuition Waiver" 
                     value={newFunding} 
                     onChange={e => setNewFunding(e.target.value)}
-                    style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
 
                 <div style={{ marginBottom: "20px" }}>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Applicant Advice / Notes</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Applicant Advice / Notes</label>
                   <textarea 
                     rows={2}
                     placeholder="Any tips on SOP, professor contact, or timeline?" 
                     value={newNotes} 
                     onChange={e => setNewNotes(e.target.value)}
-                    style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
 

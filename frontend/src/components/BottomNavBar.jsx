@@ -65,7 +65,7 @@ export default function BottomNavBar({ activeTab, onSelectTab, cartCount = 0 }) 
                 flex: 1,
                 padding: "6px 0",
                 cursor: "pointer",
-                color: isActive ? "#0F172A" : "#94A3B8",
+                color: isActive ? "#0F172A" : "#475569",
                 transition: "color 0.15s ease",
                 position: "relative"
               }}
@@ -74,7 +74,7 @@ export default function BottomNavBar({ activeTab, onSelectTab, cartCount = 0 }) 
                 <Icon
                   size={21}
                   strokeWidth={isActive ? 2.5 : 1.75}
-                  color={isActive ? "#0F172A" : "#94A3B8"}
+                  color={isActive ? "#0F172A" : "#475569"}
                 />
                 {tab.id === "profile" && cartCount > 0 && (
                   <span

@@ -131,7 +131,7 @@ export function getLORBadge(university) {
       isOptional: true,
       count,
       format: reqs.LOR_Format,
-      badgeColor: "#D97706",
+      badgeColor: "#B45309",
       badgeBg: "rgba(254, 240, 138, 0.25)",
       badgeBorder: "rgba(245, 158, 11, 0.4)",
       shortText: "LOR Optional"
@@ -144,7 +144,7 @@ export function getLORBadge(university) {
     isOptional: false,
     count: 0,
     format: "Not Applicable",
-    badgeColor: "#059669",
+    badgeColor: "#047857",
     badgeBg: "rgba(16, 185, 129, 0.12)",
     badgeBorder: "rgba(16, 185, 129, 0.3)",
     shortText: "No LOR"

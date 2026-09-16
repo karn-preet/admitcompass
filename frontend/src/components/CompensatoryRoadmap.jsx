@@ -38,11 +38,11 @@ export default function CompensatoryRoadmap({ evaluationData }) {
               <span className="badge badge-target">
                 Profile Strategy
               </span>
-              <span style={{ fontSize: "0.82rem", color: "#93c5fd", fontWeight: "600" }}>
+              <span style={{ fontSize: "0.82rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "700" }}>
                 CGPA Standing: {originalCGPA} / 10 • {cgpaStatus}
               </span>
             </div>
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.45rem", fontWeight: "800", color: "#ffffff", margin: 0 }}>
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.45rem", fontWeight: "800", color: "var(--text-primary)", margin: 0 }}>
               Dynamic Profile Compensation Roadmap
             </h3>
             <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", marginTop: "4px", margin: 0 }}>
@@ -55,11 +55,11 @@ export default function CompensatoryRoadmap({ evaluationData }) {
               display: "inline-flex", 
               alignItems: "center", 
               gap: "6px", 
-              background: "rgba(16, 185, 129, 0.2)", 
-              border: "1px solid #10b981", 
+              background: "rgba(16, 185, 129, 0.15)", 
+              border: "1px solid #059669", 
               padding: "6px 14px", 
               borderRadius: "999px",
-              color: "#34d399",
+              color: "#047857",
               fontSize: "0.82rem",
               fontWeight: "700"
             }}>
@@ -90,7 +90,7 @@ export default function CompensatoryRoadmap({ evaluationData }) {
                   <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: "700", letterSpacing: "0.5px" }}>
                     {plan.pillar}
                   </span>
-                  <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "700", color: "#ffffff", marginTop: "2px", lineHeight: 1.3 }}>
+                  <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "700", color: "var(--text-primary)", marginTop: "2px", lineHeight: 1.3 }}>
                     {plan.title}
                   </h4>
                 </div>
@@ -100,19 +100,19 @@ export default function CompensatoryRoadmap({ evaluationData }) {
               </div>
 
               {/* Time to complete */}
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.78rem", color: "#60a5fa", marginBottom: "12px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.78rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "600", marginBottom: "12px" }}>
                 <Clock size={14} />
                 <span>Estimated Time: {plan.timeToComplete}</span>
               </div>
 
               {/* Rationale */}
               <div style={{ 
-                background: "rgba(255, 255, 255, 0.03)", 
-                borderLeft: "3px solid #3b82f6", 
+                background: "var(--bg-secondary)", 
+                borderLeft: "3px solid #2563eb", 
                 padding: "10px 14px", 
                 borderRadius: "0 8px 8px 0",
                 fontSize: "0.82rem",
-                color: "#cbd5e1",
+                color: "var(--text-primary)",
                 lineHeight: 1.5,
                 marginBottom: "16px"
               }}>
@@ -127,7 +127,7 @@ export default function CompensatoryRoadmap({ evaluationData }) {
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
                   {plan.actionSteps.map((step, sIdx) => (
                     <li key={sIdx} style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "0.82rem", color: "var(--text-secondary)" }}>
-                      <CheckCircle size={14} color="#34d399" style={{ flexShrink: 0, marginTop: "3px" }} />
+                      <CheckCircle size={14} color="#059669" style={{ flexShrink: 0, marginTop: "3px" }} />
                       <span>{step}</span>
                     </li>
                   ))}
@@ -140,7 +140,7 @@ export default function CompensatoryRoadmap({ evaluationData }) {
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
                 Execution Priority: Top Recommendation
               </span>
-              <span style={{ color: "#38bdf8", fontSize: "0.78rem", fontWeight: "600" }}>
+              <span style={{ color: "var(--accent-blue-dark, #1d4ed8)", fontSize: "0.78rem", fontWeight: "700" }}>
                 Step {index + 1} of {compensatoryActionPlan.length}
               </span>
             </div>

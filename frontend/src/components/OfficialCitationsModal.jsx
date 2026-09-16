@@ -90,9 +90,9 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
           maxHeight: "90vh",
           display: "flex",
           flexDirection: "column",
-          background: "#0d1527",
-          border: "1px solid rgba(59, 130, 246, 0.3)",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.8)",
+          background: "#FFFFFF",
+          border: "1px solid var(--border-warm)",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.25)",
           borderRadius: "20px",
           overflow: "hidden"
         }}
@@ -104,14 +104,15 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
           borderBottom: "1px solid var(--border-subtle)",
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "center",
+          background: "#FFFFFF"
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(56, 189, 248, 0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <ShieldCheck color="#38bdf8" size={22} />
+            <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(37, 99, 235, 0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ShieldCheck color="#2563eb" size={22} />
             </div>
             <div>
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "#ffffff", margin: 0 }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "var(--text-primary)", margin: 0 }}>
                 Official Government & University Source Citations
               </h3>
               <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: 0 }}>
@@ -123,12 +124,12 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
           <button 
             onClick={onClose}
             style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "none",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-warm)",
               borderRadius: "50%",
               width: "32px",
               height: "32px",
-              color: "#94a3b8",
+              color: "var(--text-primary)",
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
@@ -144,12 +145,12 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
           
           {/* Live Scraper Verification Tester */}
           <div style={{ 
-            background: "rgba(15, 23, 42, 0.6)", 
-            border: "1px solid rgba(59, 130, 246, 0.2)", 
+            background: "var(--bg-main)", 
+            border: "1px solid var(--border-warm)", 
             borderRadius: "12px", 
             padding: "16px" 
           }}>
-            <h4 style={{ fontSize: "0.88rem", fontWeight: "700", color: "#60a5fa", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
+            <h4 style={{ fontSize: "0.88rem", fontWeight: "700", color: "#1d4ed8", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
               <Globe2 size={16} />
               <span>Real-Time Web Scraper Verification Test</span>
             </h4>
@@ -178,14 +179,14 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
             </form>
 
             {customVerification && (
-              <div style={{ marginTop: "12px", background: "rgba(0,0,0,0.3)", borderRadius: "8px", padding: "12px", fontSize: "0.8rem" }}>
+              <div style={{ marginTop: "12px", background: "#FFFFFF", border: "1px solid var(--border-subtle)", borderRadius: "8px", padding: "12px", fontSize: "0.8rem" }}>
                 {customVerification.isValid ? (
                   <div>
-                    <div style={{ color: "#34d399", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px" }}>
+                    <div style={{ color: "#047857", fontWeight: "700", display: "flex", alignItems: "center", gap: "6px" }}>
                       <CheckCircle2 size={16} />
                       <span>Live Verified: HTTP {customVerification.httpStatus} OK ({customVerification.domainCategory})</span>
                     </div>
-                    <div style={{ color: "#ffffff", marginTop: "4px" }}>
+                    <div style={{ color: "var(--text-primary)", marginTop: "4px" }}>
                       <strong>Page Title:</strong> {customVerification.pageTitle}
                     </div>
                     <div style={{ color: "var(--text-secondary)", fontSize: "0.74rem", marginTop: "2px" }}>
@@ -193,7 +194,7 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
                     </div>
                   </div>
                 ) : (
-                  <div style={{ color: "#fb7185", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <div style={{ color: "#b91c1c", display: "flex", alignItems: "center", gap: "6px" }}>
                     <AlertCircle size={16} />
                     <span>Error: {customVerification.error}</span>
                   </div>
@@ -211,8 +212,9 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
               style={{
                 padding: "8px 16px",
                 fontSize: "0.84rem",
-                background: activeTab === "portals" ? "#2563eb" : "rgba(255,255,255,0.05)",
-                color: "#ffffff"
+                background: activeTab === "portals" ? "#2563eb" : "var(--bg-secondary)",
+                color: activeTab === "portals" ? "#ffffff" : "var(--text-primary)",
+                fontWeight: activeTab === "portals" ? 700 : 500
               }}
             >
               🏛️ Official 27 EU National Portals ({portals.length})
@@ -224,8 +226,9 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
               style={{
                 padding: "8px 16px",
                 fontSize: "0.84rem",
-                background: activeTab === "citations" ? "#2563eb" : "rgba(255,255,255,0.05)",
-                color: "#ffffff"
+                background: activeTab === "citations" ? "#2563eb" : "var(--bg-secondary)",
+                color: activeTab === "citations" ? "#ffffff" : "var(--text-primary)",
+                fontWeight: activeTab === "citations" ? 700 : 500
               }}
             >
               📜 Immigration & Visa Citations ({citations.length})
@@ -262,8 +265,9 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
                   <div 
                     key={idx}
                     style={{
-                      background: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid var(--border-subtle)",
+                      background: "#FFFFFF",
+                      border: "1px solid var(--border-warm)",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
                       borderRadius: "12px",
                       padding: "16px",
                       display: "flex",
@@ -277,11 +281,11 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
                         <span className="badge badge-safe" style={{ fontSize: "0.72rem" }}>
                           {item.country}
                         </span>
-                        <span style={{ fontSize: "0.74rem", color: "#38bdf8", fontWeight: "600" }}>
+                        <span style={{ fontSize: "0.74rem", color: "#1d4ed8", fontWeight: "700" }}>
                           Official National Study Gateway
                         </span>
                       </div>
-                      <h5 style={{ fontSize: "1rem", fontWeight: "700", color: "#ffffff", marginBottom: "2px" }}>
+                      <h5 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "2px" }}>
                         {item.portalName}
                       </h5>
                       <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", margin: 0 }}>
@@ -308,8 +312,9 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
                 <div 
                   key={idx}
                   style={{
-                    background: "rgba(255, 255, 255, 0.02)",
-                    border: "1px solid var(--border-subtle)",
+                    background: "#FFFFFF",
+                    border: "1px solid var(--border-warm)",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
                     borderRadius: "12px",
                     padding: "16px",
                     display: "flex",
@@ -327,10 +332,10 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
                         {item.category}
                       </span>
                     </div>
-                    <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: "#ffffff", marginBottom: "2px" }}>
+                    <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "2px" }}>
                       {item.title}
                     </h5>
-                    <p style={{ fontSize: "0.8rem", color: "#38bdf8", marginBottom: "4px" }}>
+                    <p style={{ fontSize: "0.8rem", color: "#1d4ed8", fontWeight: "600", marginBottom: "4px" }}>
                       🏛️ {item.authority}
                     </p>
                     <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", margin: 0 }}>
@@ -361,7 +366,7 @@ export default function OfficialCitationsModal({ isOpen, onClose }) {
           borderTop: "1px solid var(--border-subtle)",
           display: "flex",
           justifyContent: "flex-end",
-          background: "rgba(10, 15, 29, 0.6)"
+          background: "var(--bg-secondary)"
         }}>
           <button onClick={onClose} className="btn btn-secondary" style={{ padding: "8px 20px" }}>
             Close

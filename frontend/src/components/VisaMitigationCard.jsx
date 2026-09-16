@@ -166,7 +166,7 @@ export default function VisaMitigationCard({ evaluationData }) {
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
           <FileText color="#38bdf8" size={22} />
           <div>
-            <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", margin: 0 }}>
+            <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", margin: 0 }}>
               Step-by-Step Financial Solvency Roadmap ({targetCountry})
             </h4>
             <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", margin: 0 }}>
@@ -199,13 +199,13 @@ export default function VisaMitigationCard({ evaluationData }) {
                 alignItems: "center", 
                 justifyContent: "center", 
                 fontWeight: "700", 
-                fontSize: "0.9rem",
+                fontSize: "0.9rem", 
                 flexShrink: 0
               }}>
                 {item.order}
               </div>
               <div>
-                <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: "#e2e8f0", marginBottom: "4px" }}>
+                <h5 style={{ fontSize: "0.95rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "4px" }}>
                   {item.title}
                 </h5>
                 <p style={{ fontSize: "0.84rem", color: "var(--text-secondary)", lineHeight: 1.5, margin: 0 }}>

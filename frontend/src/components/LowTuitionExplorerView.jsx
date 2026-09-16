@@ -130,7 +130,7 @@ export default function LowTuitionExplorerView({
             Unbiased 27 EU Nations Directory • 100% English-Taught Public Universities
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           All 27 EU Nations & Global Universities Explorer
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -146,16 +146,17 @@ export default function LowTuitionExplorerView({
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <Sliders size={18} color="#3b82f6" />
-              <label style={{ fontSize: "0.92rem", fontWeight: "700", color: "#ffffff" }}>
+              <label style={{ fontSize: "0.92rem", fontWeight: "700", color: "var(--text-primary)" }}>
                 Maximum Annual Tuition Budget:
               </label>
               <span style={{ 
                 fontSize: "0.92rem", 
                 fontWeight: "800", 
-                color: maxTuition === 0 ? "#34d399" : maxTuition < 30000 ? "#60a5fa" : "#ffffff",
-                background: maxTuition === 0 ? "rgba(16, 185, 129, 0.2)" : "rgba(37, 99, 235, 0.2)",
+                color: maxTuition === 0 ? "#059669" : maxTuition < 30000 ? "#1d4ed8" : "var(--text-primary)",
+                background: maxTuition === 0 ? "rgba(16, 185, 129, 0.15)" : maxTuition < 30000 ? "rgba(37, 99, 235, 0.15)" : "var(--bg-secondary)",
                 padding: "2px 10px",
-                borderRadius: "6px"
+                borderRadius: "6px",
+                border: "1px solid var(--border-subtle)"
               }}>
                 {maxTuition === 0 
                   ? "€0 / year (Tuition-Free Public Only)" 
@@ -174,8 +175,10 @@ export default function LowTuitionExplorerView({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 0 ? "#059669" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 0 ? "#059669" : "var(--bg-secondary)",
+                  color: maxTuition === 0 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 0 ? "700" : "500"
                 }}
               >
                 €0 Free Only
@@ -187,8 +190,10 @@ export default function LowTuitionExplorerView({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 2500 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 2500 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 2500 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 2500 ? "700" : "500"
                 }}
               >
                 ≤ €2,500 / yr
@@ -200,8 +205,10 @@ export default function LowTuitionExplorerView({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 5000 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 5000 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 5000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 5000 ? "700" : "500"
                 }}
               >
                 ≤ €5,000 / yr
@@ -213,8 +220,10 @@ export default function LowTuitionExplorerView({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition === 15000 ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition === 15000 ? "#2563eb" : "var(--bg-secondary)",
+                  color: maxTuition === 15000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition === 15000 ? "700" : "500"
                 }}
               >
                 ≤ €15,000 / yr
@@ -226,8 +235,10 @@ export default function LowTuitionExplorerView({
                 style={{
                   padding: "4px 10px",
                   fontSize: "0.76rem",
-                  background: maxTuition >= 30000 ? "#4f46e5" : "rgba(255,255,255,0.06)",
-                  color: "#ffffff"
+                  background: maxTuition >= 30000 ? "#4f46e5" : "var(--bg-secondary)",
+                  color: maxTuition >= 30000 ? "#ffffff" : "var(--text-primary)",
+                  border: "1px solid var(--border-subtle)",
+                  fontWeight: maxTuition >= 30000 ? "700" : "500"
                 }}
               >
                 All (€30,000+)
@@ -257,8 +268,8 @@ export default function LowTuitionExplorerView({
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", justifyContent: "space-between" }}>
           
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={{ fontSize: "0.86rem", color: "#94a3b8" }}>
-              Showing <strong style={{ color: "#ffffff" }}>{sortedUnis.length}</strong> public universities across <strong style={{ color: "#60a5fa" }}>{countries.length}</strong> countries
+            <span style={{ fontSize: "0.86rem", color: "var(--text-secondary)" }}>
+              Showing <strong style={{ color: "var(--text-primary)" }}>{sortedUnis.length}</strong> public universities across <strong style={{ color: "var(--accent-blue, #1d4ed8)" }}>{countries.length}</strong> countries
             </span>
           </div>
 
@@ -277,7 +288,7 @@ export default function LowTuitionExplorerView({
                   borderRadius: "8px",
                   background: "var(--bg-surface-elevated)",
                   border: "1px solid var(--border-subtle)",
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                   fontSize: "0.84rem",
                   outline: "none"
                 }}
@@ -293,7 +304,7 @@ export default function LowTuitionExplorerView({
                 borderRadius: "8px",
                 background: "var(--bg-surface-elevated)",
                 border: "1px solid var(--border-subtle)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 fontSize: "0.84rem"
               }}
             >
@@ -330,7 +341,7 @@ export default function LowTuitionExplorerView({
       ) : sortedUnis.length === 0 ? (
         <div className="glass-panel" style={{ padding: "48px", textAlign: "center" }}>
           <Globe2 size={48} color="var(--text-muted)" style={{ margin: "0 auto 16px auto" }} />
-          <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
             No universities found for your budget filter
           </h3>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", maxWidth: "450px", margin: "0 auto 16px auto" }}>
@@ -383,11 +394,11 @@ export default function LowTuitionExplorerView({
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "8px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <span style={{ fontSize: "1.2rem" }}>{flag}</span>
-                      <span style={{ fontSize: "0.82rem", fontWeight: "700", color: "#93c5fd" }}>
+                      <span style={{ fontSize: "0.82rem", fontWeight: "700", color: "var(--accent-blue, #1d4ed8)" }}>
                         {uni.country}
                       </span>
                       {(uni.qsRank || uni.qsRanking) && (
-                        <span style={{ fontSize: "0.74rem", background: "rgba(255, 255, 255, 0.08)", color: "#ffffff", padding: "2px 8px", borderRadius: "4px", fontWeight: "600" }}>
+                        <span style={{ fontSize: "0.74rem", background: "var(--bg-secondary)", color: "var(--text-primary)", border: "1px solid var(--border-subtle)", padding: "2px 8px", borderRadius: "4px", fontWeight: "600" }}>
                           QS #{(uni.qsRank || uni.qsRanking)}
                         </span>
                       )}
@@ -647,12 +658,13 @@ export default function LowTuitionExplorerView({
                       style={{
                         padding: "4px 10px",
                         fontSize: "0.74rem",
-                        background: isInCart ? "rgba(16, 185, 129, 0.2)" : "rgba(37, 99, 235, 0.2)",
-                        border: isInCart ? "1px solid #10b981" : "1px solid #3b82f6",
-                        color: isInCart ? "#34d399" : "#93c5fd",
+                        background: isInCart ? "var(--accent-green)" : "var(--accent-blue)",
+                        border: "none",
+                        color: "#ffffff",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "4px"
+                        gap: "4px",
+                        fontWeight: "600"
                       }}
                       title="Add to Application Cart & Sunk Cost Simulator"
                     >

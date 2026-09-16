@@ -492,7 +492,7 @@ export default function ApplicationLORTracker({
               Multi-Stage Referee Status Pipeline
             </span>
           </div>
-          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "#ffffff", margin: "4px 0 0 0" }}>
+          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: "700", color: "var(--text-primary)", margin: "4px 0 0 0" }}>
             Letter of Recommendation (LOR) & Dossier Tracker
           </h3>
         </div>

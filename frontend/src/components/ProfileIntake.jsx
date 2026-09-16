@@ -271,7 +271,7 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Calculator color="#60a5fa" size={20} />
           <div>
-            <span style={{ fontSize: "0.85rem", fontWeight: "600", color: "#93c5fd" }}>
+            <span style={{ fontSize: "0.85rem", fontWeight: "600", color: "var(--accent-blue-dark, #1d4ed8)" }}>
               Live Grade Equivalence (Bavarian & US Standard):
             </span>
             <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
@@ -307,9 +307,9 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
           style={{
             background: "none",
             border: "none",
-            borderBottom: step === 1 ? "2px solid #3b82f6" : "2px solid transparent",
+            borderBottom: step === 1 ? "2px solid #2563eb" : "2px solid transparent",
             padding: "10px 16px",
-            color: step === 1 ? "#ffffff" : "var(--text-secondary)",
+            color: step === 1 ? "#2563eb" : "var(--text-secondary)",
             fontWeight: step === 1 ? "700" : "500",
             fontSize: "0.92rem",
             cursor: "pointer",
@@ -318,7 +318,7 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
             gap: "8px"
           }}
         >
-          <GraduationCap size={18} color={step === 1 ? "#3b82f6" : "gray"} />
+          <GraduationCap size={18} color={step === 1 ? "#2563eb" : "var(--text-muted)"} />
           <span>1. Academic Background</span>
         </button>
 
@@ -328,9 +328,9 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
           style={{
             background: "none",
             border: "none",
-            borderBottom: step === 2 ? "2px solid #3b82f6" : "2px solid transparent",
+            borderBottom: step === 2 ? "2px solid #2563eb" : "2px solid transparent",
             padding: "10px 16px",
-            color: step === 2 ? "#ffffff" : "var(--text-secondary)",
+            color: step === 2 ? "#2563eb" : "var(--text-secondary)",
             fontWeight: step === 2 ? "700" : "500",
             fontSize: "0.92rem",
             cursor: "pointer",
@@ -339,7 +339,7 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
             gap: "8px"
           }}
         >
-          <FileCheck size={18} color={step === 2 ? "#3b82f6" : "gray"} />
+          <FileCheck size={18} color={step === 2 ? "#2563eb" : "var(--text-muted)"} />
           <span>2. Scores & Tests</span>
         </button>
 
@@ -349,9 +349,9 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
           style={{
             background: "none",
             border: "none",
-            borderBottom: step === 3 ? "2px solid #3b82f6" : "2px solid transparent",
+            borderBottom: step === 3 ? "2px solid #2563eb" : "2px solid transparent",
             padding: "10px 16px",
-            color: step === 3 ? "#ffffff" : "var(--text-secondary)",
+            color: step === 3 ? "#2563eb" : "var(--text-secondary)",
             fontWeight: step === 3 ? "700" : "500",
             fontSize: "0.92rem",
             cursor: "pointer",
@@ -360,7 +360,7 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
             gap: "8px"
           }}
         >
-          <Wallet size={18} color={step === 3 ? "#3b82f6" : "gray"} />
+          <Wallet size={18} color={step === 3 ? "#2563eb" : "var(--text-muted)"} />
           <span>3. Financials & Visa Solvency</span>
         </button>
       </div>

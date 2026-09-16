@@ -102,13 +102,13 @@ export default function AiSopStudioView() {
     <div className="container" style={{ paddingBottom: "60px" }}>
       {/* Header Banner */}
       <div style={{ textAlign: "center", maxWidth: "850px", margin: "0 auto 32px auto" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(139, 92, 246, 0.15)", border: "1px solid rgba(139, 92, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
-          <Sparkles size={16} color="#c084fc" />
-          <span style={{ fontSize: "0.82rem", color: "#d8b4fe", fontWeight: "600" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(139, 92, 246, 0.12)", border: "1px solid rgba(139, 92, 246, 0.3)", padding: "6px 16px", borderRadius: "999px", marginBottom: "16px" }}>
+          <Sparkles size={16} color="#7c3aed" />
+          <span style={{ fontSize: "0.82rem", color: "#6d28d9", fontWeight: "700" }}>
             Free Alternative to YMGrad SOP Studio • Unlimited Generations & Reviews
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "#ffffff", letterSpacing: "-1px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", fontWeight: "800", color: "var(--text-primary)", letterSpacing: "-1px" }}>
           AI Statement of Purpose (SOP) Studio
         </h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", marginTop: "12px" }}>
@@ -169,94 +169,94 @@ export default function AiSopStudioView() {
           
           {/* Input Form */}
           <div className="glass-panel" style={{ padding: "28px" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "#ffffff", marginBottom: "18px", display: "flex", alignItems: "center", gap: "10px" }}>
-              <Layers color="#38bdf8" size={20} />
+            <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "18px", display: "flex", alignItems: "center", gap: "10px" }}>
+              <Layers color="#2563eb" size={20} />
               Applicant Profile & Academic Alignment
             </h3>
 
             <form onSubmit={handleGenerate}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Target University</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Target University</label>
                   <input
                     type="text"
                     required
                     value={targetUniversity}
                     onChange={e => setTargetUniversity(e.target.value)}
                     placeholder="e.g. TUM / TU Delft / CMU"
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Target Program</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Target Program</label>
                   <input
                     type="text"
                     required
                     value={targetProgram}
                     onChange={e => setTargetProgram(e.target.value)}
                     placeholder="e.g. M.Sc Computer Science"
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Undergrad Major</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Undergrad Major</label>
                   <input
                     type="text"
                     required
                     value={undergradMajor}
                     onChange={e => setUndergradMajor(e.target.value)}
                     placeholder="e.g. B.Tech Computer Engineering"
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Undergrad College</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Undergrad College</label>
                   <input
                     type="text"
                     required
                     value={undergradUni}
                     onChange={e => setUndergradUni(e.target.value)}
                     placeholder="e.g. Anna University / VIT"
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                   />
                 </div>
               </div>
 
               <div style={{ marginBottom: "14px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Key Technical Project / Research Highlight</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Key Technical Project / Research Highlight</label>
                 <textarea
                   rows={2}
                   required
                   value={notableProject}
                   onChange={e => setNotableProject(e.target.value)}
                   placeholder="Describe technical stack, problem solved, and quantitative metrics (e.g. reduced latency by 35%)."
-                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 
               <div style={{ marginBottom: "14px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Long-term Career Vision</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Long-term Career Vision</label>
                 <textarea
                   rows={2}
                   required
                   value={careerGoals}
                   onChange={e => setCareerGoals(e.target.value)}
                   placeholder="Where do you see yourself 5 years post graduation? Industry role or PhD?"
-                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <label style={{ display: "block", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "4px" }}>Specific Faculty / Labs at Target Uni</label>
+                <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Specific Faculty / Labs at Target Uni</label>
                 <input
                   type="text"
                   value={whyUniversity}
                   onChange={e => setWhyUniversity(e.target.value)}
                   placeholder="e.g. Prof. X's Distributed Systems Lab and elective in Cloud Architecture"
-                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "#ffffff", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "9px 12px", borderRadius: "8px", background: "var(--bg-surface-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontSize: "0.85rem" }}
                 />
               </div>
 
@@ -291,7 +291,7 @@ export default function AiSopStudioView() {
               <div className="glass-panel" style={{ padding: "28px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "14px" }}>
                   <div>
-                    <h3 style={{ fontSize: "1.1rem", fontWeight: "800", color: "#ffffff" }}>
+                    <h3 style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--text-primary)" }}>
                       Generated Statement of Purpose
                     </h3>
                     <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
@@ -305,7 +305,7 @@ export default function AiSopStudioView() {
                       className="btn btn-secondary"
                       style={{ padding: "6px 12px", fontSize: "0.8rem" }}
                     >
-                      {copied ? <Check size={14} color="#34d399" /> : <Copy size={14} />}
+                      {copied ? <Check size={14} color="#059669" /> : <Copy size={14} />}
                       {copied ? "Copied!" : "Copy"}
                     </button>
 
@@ -326,11 +326,11 @@ export default function AiSopStudioView() {
                   padding: "20px", 
                   borderRadius: "10px", 
                   maxHeight: "550px", 
-                  overflowY: "auto",
+                  overflowY: "auto", 
                   border: "1px solid var(--border-subtle)",
                   fontSize: "0.9rem",
                   lineHeight: 1.7,
-                  color: "#e2e8f0",
+                  color: "var(--text-primary)",
                   whiteSpace: "pre-line"
                 }}>
                   {generatedSop.fullText}
@@ -343,9 +343,9 @@ export default function AiSopStudioView() {
             ) : (
               <div className="glass-panel" style={{ padding: "48px 24px", textAlign: "center" }}>
                 <div style={{ width: "56px", height: "56px", borderRadius: "14px", background: "rgba(139, 92, 246, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px auto" }}>
-                  <FileText color="#c084fc" size={26} />
+                  <FileText color="#7c3aed" size={26} />
                 </div>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
                   Ready to Craft Your SOP
                 </h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", maxWidth: "380px", margin: "0 auto" }}>
@@ -364,11 +364,11 @@ export default function AiSopStudioView() {
           
           {/* Paste Form */}
           <div className="glass-panel" style={{ padding: "28px" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px", display: "flex", alignItems: "center", gap: "10px" }}>
-              <FileText color="#38bdf8" size={20} />
+            <h3 style={{ fontSize: "1.15rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "10px" }}>
+              <FileText color="#2563eb" size={20} />
               Paste Your Draft Statement of Purpose
             </h3>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", marginBottom: "16px" }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.82rem", marginBottom: "16px" }}>
               Our review engine scans for overused clichés ("since childhood", "stepping stone"), calculates paragraph specificity, and verifies academic hook strength.
             </p>
 
@@ -385,7 +385,7 @@ export default function AiSopStudioView() {
                   borderRadius: "10px",
                   background: "var(--bg-surface-elevated)",
                   border: "1px solid var(--border-subtle)",
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                   fontSize: "0.9rem",
                   lineHeight: 1.6,
                   outline: "none",
@@ -410,7 +410,7 @@ export default function AiSopStudioView() {
             </form>
 
             {reviewError && (
-              <div style={{ marginTop: "16px", padding: "12px", background: "rgba(244, 63, 94, 0.15)", border: "1px solid #f43f5e", borderRadius: "8px", color: "#fb7185", fontSize: "0.85rem" }}>
+              <div style={{ marginTop: "16px", padding: "12px", background: "rgba(244, 63, 94, 0.15)", border: "1px solid #f43f5e", borderRadius: "8px", color: "#e11d48", fontSize: "0.85rem" }}>
                 {reviewError}
               </div>
             )}
@@ -420,29 +420,29 @@ export default function AiSopStudioView() {
           <div>
             {reviewResult ? (
               <div className="glass-panel" style={{ padding: "28px" }}>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: "800", color: "#ffffff", marginBottom: "18px" }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)", marginBottom: "18px" }}>
                   SOP Quality & Cliché Audit Report
                 </h3>
 
                 {/* Scores Grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "24px" }}>
-                  <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+                  <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
                     <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>Overall Quality</div>
-                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: (reviewResult.overallScore || reviewResult.hookScore) >= 70 ? "#34d399" : "#fbbf24", marginTop: "2px" }}>
+                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: (reviewResult.overallScore || reviewResult.hookScore) >= 70 ? "#047857" : "#b45309", marginTop: "2px" }}>
                       {reviewResult.overallScore || reviewResult.hookScore}/100
                     </div>
                   </div>
 
-                  <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+                  <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
                     <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>Clichés Flagged</div>
-                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: (reviewResult.foundCliches || reviewResult.clichesDetected || []).length === 0 ? "#34d399" : "#fbbf24", marginTop: "2px" }}>
+                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: (reviewResult.foundCliches || reviewResult.clichesDetected || []).length === 0 ? "#047857" : "#b45309", marginTop: "2px" }}>
                       {(reviewResult.foundCliches || reviewResult.clichesDetected || []).length}
                     </div>
                   </div>
 
-                  <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+                  <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
                     <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>Word Count</div>
-                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>
+                    <div style={{ fontSize: "1.4rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>
                       {reviewResult.wordCount}
                     </div>
                   </div>
@@ -450,33 +450,33 @@ export default function AiSopStudioView() {
 
                 {/* Clichés Alert */}
                 {(reviewResult.foundCliches || reviewResult.clichesDetected || []).length > 0 ? (
-                  <div style={{ marginBottom: "20px", padding: "14px", background: "rgba(244, 63, 94, 0.1)", border: "1px solid rgba(244, 63, 94, 0.3)", borderRadius: "10px" }}>
-                    <div style={{ fontSize: "0.84rem", fontWeight: "700", color: "#fb7185", display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
+                  <div style={{ marginBottom: "20px", padding: "14px", background: "rgba(244, 63, 94, 0.08)", border: "1px solid rgba(244, 63, 94, 0.3)", borderRadius: "10px" }}>
+                    <div style={{ fontSize: "0.84rem", fontWeight: "700", color: "#be123c", display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
                       <AlertCircle size={16} /> Overused Generic Phrases to Eliminate:
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                       {(reviewResult.foundCliches || reviewResult.clichesDetected || []).map((c, idx) => (
-                        <span key={idx} style={{ fontSize: "0.76rem", background: "rgba(244, 63, 94, 0.2)", color: "#fecdd3", padding: "2px 8px", borderRadius: "4px" }}>
+                        <span key={idx} style={{ fontSize: "0.76rem", background: "rgba(244, 63, 94, 0.15)", color: "#9f1239", fontWeight: "600", padding: "2px 8px", borderRadius: "4px" }}>
                           "{typeof c === "string" ? c : c.phrase}" {c.reason ? `— ${c.reason}` : ""}
                         </span>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <div style={{ marginBottom: "20px", padding: "12px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", borderRadius: "8px", color: "#34d399", fontSize: "0.84rem", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <div style={{ marginBottom: "20px", padding: "12px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", borderRadius: "8px", color: "#047857", fontWeight: "600", fontSize: "0.84rem", display: "flex", alignItems: "center", gap: "6px" }}>
                     <CheckCircle2 size={16} /> Zero cliché phrases detected! Excellent authenticity.
                   </div>
                 )}
 
                 {/* Section Review Feedback */}
-                <h4 style={{ fontSize: "0.95rem", fontWeight: "700", color: "#cbd5e1", marginBottom: "10px" }}>
+                <h4 style={{ fontSize: "0.95rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "10px" }}>
                   Detailed Structural Feedback
                 </h4>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
                   {(reviewResult.critique || reviewResult.feedbackList || []).map((item, idx) => (
-                    <div key={idx} style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--border-subtle)", borderRadius: "8px", padding: "12px" }}>
-                      <div style={{ fontSize: "0.84rem", fontWeight: "700", color: "#34d399", marginBottom: "2px" }}>
+                    <div key={idx} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "8px", padding: "12px" }}>
+                      <div style={{ fontSize: "0.84rem", fontWeight: "700", color: "#047857", marginBottom: "2px" }}>
                         {typeof item === "string" ? `Feedback Point ${idx + 1}` : item.title}
                       </div>
                       <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
@@ -487,16 +487,16 @@ export default function AiSopStudioView() {
                 </div>
 
                 {/* Recommended rewrite tip */}
-                <div style={{ background: "rgba(37, 99, 235, 0.1)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "8px", padding: "12px", fontSize: "0.82rem", color: "#93c5fd" }}>
+                <div style={{ background: "rgba(37, 99, 235, 0.1)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "8px", padding: "12px", fontSize: "0.82rem", color: "var(--accent-blue-dark, #1d4ed8)", fontWeight: "500" }}>
                   💡 <strong>Committee Insight:</strong> AdComms read 2,000+ essays. Start directly in media res with your technical breakthrough or intellectual question rather than your high school childhood memories.
                 </div>
               </div>
             ) : (
               <div className="glass-panel" style={{ padding: "48px 24px", textAlign: "center" }}>
                 <div style={{ width: "56px", height: "56px", borderRadius: "14px", background: "rgba(59, 130, 246, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px auto" }}>
-                  <Wand2 color="#60a5fa" size={26} />
+                  <Wand2 color="#2563eb" size={26} />
                 </div>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "8px" }}>
                   Paste Your Essay Draft
                 </h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", maxWidth: "380px", margin: "0 auto" }}>

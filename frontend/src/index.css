@@ -232,7 +232,7 @@ textarea,
 }
 
 /* Typography Classes */
-h1, h2, h3, .font-serif {
+h1, h2, h3, h4, h5, h6, .font-serif {
   font-family: var(--font-serif);
   letter-spacing: -0.015em;
   color: var(--text-primary);
@@ -266,22 +266,6 @@ h3 {
   color: var(--accent-gold);
   display: inline-block;
   margin-bottom: 8px;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-::-webkit-scrollbar-thumb {
-  background: #D8D2C5;
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #B38E5D;
 }
 
 /* Layout Containers */
@@ -370,12 +354,14 @@ h3 {
 
 .btn-gold {
   background-color: var(--accent-gold);
-  color: #FFFFFF;
+  color: #0F172A;
+  font-weight: 700;
 }
 
 .btn-gold:hover {
-  background-color: #9C7747;
-  box-shadow: 0 4px 12px rgba(179, 142, 93, 0.25);
+  background-color: #D97706;
+  color: #0F172A;
+  box-shadow: 0 4px 12px rgba(234, 179, 8, 0.35);
 }
 
 /* Form Controls */
@@ -485,6 +471,7 @@ h3 {
 /* Glass Panel compatibility with Woolmers warm surface */
 .glass-panel {
   background: #FFFFFF;
+  color: var(--text-primary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
