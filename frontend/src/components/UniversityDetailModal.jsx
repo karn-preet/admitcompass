@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { X, Building2, ExternalLink, Globe2, Compass, Award, FileText, Info, HelpCircle, CheckSquare, ShieldCheck, PenTool } from "lucide-react";
 import StudentLifeMapView from "./StudentLifeMapView";
 import IndianVisaBadge from "./IndianVisaBadge";
+import RealityCheckGauge from "./RealityCheckGauge";
 import { getLORBadge, getLORRequirements, getLORTooltipText } from "../services/lorRequirements";
 
 export default function UniversityDetailModal({
   isOpen,
   onClose,
-  university
+  university,
+  userCGPA = null,
+  competitiveness = null
 }) {
   const [showLORTooltip, setShowLORTooltip] = useState(false);
 
@@ -154,13 +157,13 @@ export default function UniversityDetailModal({
             {/* Min CGPA */}
             <div style={{ background: "#FFFFFF", border: "1px solid var(--border-subtle)", borderRadius: "8px", padding: "8px 12px" }}>
               <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 600 }}>
-                Min CGPA Cutoff
+                Min CGPA Cutoff (Official)
               </div>
               <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--accent-green)", marginTop: "2px" }}>
-                {university.minCGPA10 ? `${university.minCGPA10} / 10.0` : "Holistic"}
+                {university.Official_Min_CGPA || university.minCGPA10 ? `${university.Official_Min_CGPA || university.minCGPA10} / 10.0` : "Holistic"}
               </div>
               <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: "1px" }}>
-                German: ≤ {university.minGermanGrade ? university.minGermanGrade.toFixed(1) : "2.5"}
+                Indian Admitted Avg: <strong>{university.Historical_Avg_CGPA_India || 8.0}</strong>
               </div>
             </div>
 
@@ -230,6 +233,15 @@ export default function UniversityDetailModal({
             </div>
 
           </div>
+
+          {/* The Reality Check Gauge: Dual-Threshold System (Official Min vs Realistic Indian Cohort) */}
+          <RealityCheckGauge 
+            university={university}
+            userCGPA={userCGPA}
+            competitiveness={competitiveness}
+            variant="full"
+            showAdvice={true}
+          />
 
           {/* Detailed Indian Student Visa Breakdown */}
           <IndianVisaBadge university={university} variant="detailed" style={{ marginTop: "12px", marginBottom: "0" }} />

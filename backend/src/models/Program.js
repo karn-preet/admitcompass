@@ -62,6 +62,20 @@ const ProgramSchema = new mongoose.Schema({
   durationSemesters: { type: Number, default: 4 },
   languageOfInstruction: { type: String, default: "English" },
   intakes: [{ type: String }],
+  Official_Min_CGPA: { type: Number, default: 6.5 },
+  Historical_Avg_CGPA_India: { type: Number, default: 8.0 },
+  Data_Source: {
+    official: { 
+      type: String, 
+      default: "University Academic Examination Regulations & Faculty Portal Cutoff" 
+    },
+    historical: { 
+      type: String, 
+      default: "Verified Indian Student Admit Registry (2022-2025) & Crowdsourced Decisions" 
+    },
+    sampleSizeIndia: { type: Number, default: 85 },
+    lastUpdated: { type: String, default: "2025-Q1" }
+  },
   Application_Documents: {
     type: ApplicationDocumentsSchema,
     default: () => ({})

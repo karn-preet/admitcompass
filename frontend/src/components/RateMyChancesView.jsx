@@ -5,6 +5,7 @@ import {
   HelpCircle, ArrowRight, Award, BookOpen, GraduationCap, ChevronRight 
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import RealityCheckGauge from "./RealityCheckGauge";
 
 export default function RateMyChancesView() {
   const [universities, setUniversities] = useState([]);
@@ -548,6 +549,15 @@ export default function RateMyChancesView() {
                   Benchmarked against {result.cohortStats?.acceptanceRate || result.university?.acceptanceRate || "historical public"} acceptance rate & minimum cutoffs.
                 </p>
               </div>
+
+              {/* Reality Check Dual-Threshold Gauge: Official Minimum vs Realistic Indian Historical Average */}
+              <RealityCheckGauge 
+                university={result.university}
+                competitiveness={result.competitiveness}
+                userCGPA={parseFloat(cgpa)}
+                variant="full"
+                showAdvice={true}
+              />
 
               {/* Minimum Cutoffs & Cohort Benchmarks Comparison */}
               <h4 style={{ fontSize: "0.95rem", fontWeight: "700", color: "var(--text-primary)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>

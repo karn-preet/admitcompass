@@ -156,6 +156,43 @@ assert(store.scholarships && store.scholarships.length >= 10, `Scholarships data
 assert(store.loanBanks && store.loanBanks.length >= 5, `Loan providers database populated (Count: ${store.loanBanks.length})`);
 assert(store.discussions && store.discussions.length >= 5, `Community discussions populated (Count: ${store.discussions.length})`);
 
+// Test 12: Dual-Cutoff Competitiveness Engine (User Required Test Case)
+// Profile: B.Tech CSE from Indian state university with 7.0 CGPA
+// Target: Program with official min 6.5 and historical Indian avg 8.0 (e.g. RWTH Aachen or TUM)
+const btechStateUniProfile = {
+  degreeTarget: "Master's",
+  backgroundField: "Computer Science",
+  currentCGPA: 7.0,
+  collegeTier: "Tier 2 (State Govt/Top Autonomous/Vellore/Manipal)",
+  targetCountries: ["Germany"]
+};
+
+const evalRun = evaluateAcademicProfile(btechStateUniProfile);
+const rwthOrTum = evalRun.allMatches.find(m => 
+  m.university.id.includes("rwth") || m.university.id.includes("tum")
+);
+
+assert(!!rwthOrTum, "Found target German university (RWTH / TUM) in matches");
+assert(rwthOrTum.competitiveness.officialMinCGPA === 6.5, `Official minimum is 6.5 (Received: ${rwthOrTum.competitiveness.officialMinCGPA})`);
+assert(rwthOrTum.competitiveness.historicalAvgCGPAIndia >= 8.0, `Historical Indian average is >= 8.0 (Received: ${rwthOrTum.competitiveness.historicalAvgCGPAIndia})`);
+assert(rwthOrTum.competitiveness.meetsOfficialMin === true, "User with 7.0 CGPA meets official minimum 6.5");
+assert(rwthOrTum.competitiveness.meetsHistoricalAvg === false, "User with 7.0 CGPA falls below historical Indian average >= 8.0");
+assert(rwthOrTum.category === "Reach", `Engine flags university as 'Reach' despite meeting official minimum (Category: ${rwthOrTum.category}, Score: ${rwthOrTum.probabilityScore}%)`);
+assert(rwthOrTum.competitiveness.realityCheckGauge === "Reach", "Reality check gauge correctly assigned to 'Reach'");
+assert(rwthOrTum.competitiveness.actionableAdvice.length > 10, "Generated actionable advice for reach candidate");
+assert(!!rwthOrTum.competitiveness.dataSource.official, "Attributed official regulatory data source");
+assert(!!rwthOrTum.competitiveness.dataSource.historical, "Attributed historical crowdsourced admit data source");
+
+// Test 13: Catalog Integrity - All 147 Universities have Dual Cutoffs & Data Sources
+const allUnis = store.universities;
+const allHaveDual = allUnis.every(u => 
+  typeof u.Official_Min_CGPA === "number" &&
+  typeof u.Historical_Avg_CGPA_India === "number" &&
+  u.Data_Source && typeof u.Data_Source.official === "string" &&
+  typeof u.Data_Source.historical === "string"
+);
+assert(allHaveDual, `All ${allUnis.length} universities have Official_Min_CGPA, Historical_Avg_CGPA_India, and Data_Source populated`);
+
 console.log("\n==================================================");
 console.log(`📊 TEST RESULTS: ${passedTests}/${totalTests} PASSED (${Math.round(passedTests / totalTests * 100)}%)`);
 console.log("==================================================\n");

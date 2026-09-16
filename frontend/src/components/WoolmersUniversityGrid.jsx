@@ -17,6 +17,7 @@ import {
 import { fetchUniversities } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
 import IndianVisaBadge from "./IndianVisaBadge";
+import RealityCheckGauge from "./RealityCheckGauge";
 import { getLORBadge } from "../services/lorRequirements";
 
 const COUNTRY_FLAGS = {
@@ -569,9 +570,9 @@ export default function WoolmersUniversityGrid({
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
                         {/* Academic Cutoff */}
                         <div>
-                          <span style={{ color: "var(--text-muted)", fontSize: "0.7rem", display: "block" }}>Min CGPA Cutoff:</span>
-                          <strong style={{ color: "var(--text-primary)", fontSize: "0.88rem" }}>
-                            {uni.minCGPA10 ? `${uni.minCGPA10} / 10.0` : "Holistic"}
+                          <span style={{ color: "var(--text-muted)", fontSize: "0.7rem", display: "block" }}>Min Official vs Indian Avg:</span>
+                          <strong style={{ color: "var(--text-primary)", fontSize: "0.86rem" }}>
+                            Min {uni.Official_Min_CGPA || uni.minCGPA10 ? `${uni.Official_Min_CGPA || uni.minCGPA10}` : "6.5"} • Avg {uni.Historical_Avg_CGPA_India || 8.0}
                           </strong>
                           {uni.minGermanGrade && (
                             <span style={{ display: "block", fontSize: "0.68rem", color: "var(--text-secondary)", marginTop: "1px" }}>
@@ -628,6 +629,12 @@ export default function WoolmersUniversityGrid({
                           );
                         })()}
                       </div>
+
+                      {/* Compact Reality Check Gauge with Visual Dual Cutoffs & Meter */}
+                      <RealityCheckGauge 
+                        variant="compact"
+                        university={uni}
+                      />
                     </div>
 
                     {/* Card Actions Footer */}

@@ -22,6 +22,7 @@ import {
 import { verifyLivePortalUrl } from "../services/api";
 import UniversityDetailModal from "./UniversityDetailModal";
 import IndianVisaBadge from "./IndianVisaBadge";
+import RealityCheckGauge from "./RealityCheckGauge";
 import { getLORBadge } from "../services/lorRequirements";
 
 const COUNTRY_FLAGS = {
@@ -681,37 +682,40 @@ export default function UniversityMatches({
                   margin: "12px 0", 
                   fontSize: "0.78rem" 
                 }}>
-                  {/* Cutoff Header & Profile Match Status */}
+                  {/* Cutoff Header & Profile Reality Check Status */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "6px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <Award size={14} color="var(--accent-gold)" />
                       <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.76rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                        Official Minimum Admission Cutoffs
+                        Dual Admission Cutoffs (Official vs Real)
                       </span>
                     </div>
 
-                    {/* Dynamic Profile Cutoff Check */}
+                    {/* Dynamic Profile Dual Cutoff Check */}
                     {(() => {
-                      const userCGPA = evaluationData?.academicSummary?.originalCGPA || 0;
-                      const reqCGPA = uni.minCGPA10 || 0;
-                      const diff = Number((userCGPA - reqCGPA).toFixed(1));
-                      if (diff >= 0) {
+                      const userCGPA = evaluationData?.academicSummary?.originalCGPA || evaluationData?.profile?.gpa;
+                      const officialMin = Number(uni.Official_Min_CGPA || uni.minCGPA10 || 6.5);
+                      const histAvg = Number(uni.Historical_Avg_CGPA_India || 8.0);
+                      if (userCGPA === undefined || userCGPA === null) return null;
+                      const meetsOfficial = userCGPA >= (officialMin - 0.1);
+                      const deltaHist = Number((userCGPA - histAvg).toFixed(1));
+                      if (meetsOfficial && deltaHist <= -0.5) {
+                        return (
+                          <span className="badge-pill badge-gold" style={{ fontSize: "0.68rem" }}>
+                            <span>⚠️ Reach (Eligible min {officialMin}, below Indian avg {histAvg})</span>
+                          </span>
+                        );
+                      } else if (deltaHist >= 0) {
                         return (
                           <span className="badge-pill badge-green" style={{ fontSize: "0.68rem" }}>
                             <Check size={11} />
-                            <span>Cutoff Met ({diff >= 0 ? `+${diff}` : diff} CGPA)</span>
-                          </span>
-                        );
-                      } else if (diff >= -0.4) {
-                        return (
-                          <span className="badge-pill badge-gold" style={{ fontSize: "0.68rem" }}>
-                            <span>⚠️ Borderline ({diff} CGPA)</span>
+                            <span>Competitive (+{deltaHist} vs Indian avg)</span>
                           </span>
                         );
                       } else {
                         return (
-                          <span className="badge-pill badge-danger" style={{ fontSize: "0.68rem" }}>
-                            <span>Below Cutoff ({diff} CGPA)</span>
+                          <span className="badge-pill badge-blue" style={{ fontSize: "0.68rem" }}>
+                            <span>Target ({deltaHist} vs Indian avg)</span>
                           </span>
                         );
                       }
@@ -723,10 +727,10 @@ export default function UniversityMatches({
                     {/* Academic GPA / Grade Cutoff */}
                     <div>
                       <span style={{ color: "var(--text-muted)", fontSize: "0.7rem", display: "block" }}>
-                        Minimum Academic Cutoff:
+                        Dual Academic Cutoffs:
                       </span>
                       <strong style={{ color: "var(--text-primary)", fontSize: "0.92rem", display: "block", marginTop: "1px" }}>
-                        {uni.minCGPA10 ? `${uni.minCGPA10} / 10.0 CGPA` : "Holistic"}
+                        Min: {uni.Official_Min_CGPA || uni.minCGPA10 ? `${uni.Official_Min_CGPA || uni.minCGPA10} CGPA` : "Holistic"} • Indian Avg: {uni.Historical_Avg_CGPA_India || 8.0}
                       </strong>
                       <span style={{ color: "var(--text-secondary)", fontSize: "0.7rem", display: "block", marginTop: "2px" }}>
                         German: ≤ {uni.minGermanGrade ? uni.minGermanGrade.toFixed(1) : "2.5"} {uni.minUSGPA ? `• US: ≥ ${uni.minUSGPA.toFixed(1)}` : ""}
@@ -791,6 +795,14 @@ export default function UniversityMatches({
                       );
                     })()}
                   </div>
+
+                  {/* Compact Reality Check Gauge with Probability Meter & Advice */}
+                  <RealityCheckGauge 
+                    variant="compact"
+                    competitiveness={m.competitiveness}
+                    university={uni}
+                    userCGPA={evaluationData?.academicSummary?.originalCGPA || evaluationData?.profile?.gpa}
+                  />
                 </div>
 
                 {/* TWO-CARD HIDDEN COSTS BREAKDOWN */}
@@ -1029,6 +1041,8 @@ export default function UniversityMatches({
       <UniversityDetailModal 
         isOpen={!!mapUniModal}
         university={mapUniModal}
+        userCGPA={evaluationData?.academicSummary?.originalCGPA || evaluationData?.profile?.gpa}
+        competitiveness={mapUniModal ? allMatches.find(m => m.university.id === mapUniModal.id)?.competitiveness : null}
         onClose={() => setMapUniModal(null)}
       />
 
