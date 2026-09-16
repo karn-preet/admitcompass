@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { 
   GraduationCap, 
   Wallet, 
@@ -11,8 +11,10 @@ import {
   Building2,
   FileCheck
 } from "lucide-react";
+import { useProfile } from "../context/ProfileContext";
 
 export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, onCountryChange }) {
+  const { profile: globalProfile, updateProfile } = useProfile();
   const [step, setStep] = useState(1); // 1: Academic, 2: Standardized Tests, 3: Financials
 
   // Profile Form State
@@ -87,13 +89,29 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
       }
       return updated;
     });
+
+    const patch = {};
+    if (field === "degreeTarget") patch.degreeType = value;
+    if (field === "backgroundField") {
+      patch.field = value;
+      patch.currentDegree = `B.Tech in ${value}`;
+    }
+    if (field === "currentCGPA") patch.cgpa = Number(value);
+    if (field === "ieltsScore") patch.ieltsScore = Number(value);
+    if (field === "annualFamilyIncomeINR") patch.income = Number(value);
+    if (field === "liquidSavingsINR") {
+      patch.liquidSavingsINR = Number(value);
+      patch.financialCapacityEUR = Number(value) / 90;
+    }
+    if (Object.keys(patch).length > 0) {
+      updateProfile(patch);
+    }
   };
 
   // Preset Loaders
   const loadPreset = (type) => {
     if (type === "average-cs") {
-      setFormData(prev => ({
-        ...prev,
+      const p = {
         targetCountry: "Germany",
         degreeTarget: "Master's",
         backgroundField: "Computer Science",
@@ -114,10 +132,20 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
         fixedDepositsINR: 300000,
         loanSanctionedINR: 0,
         hasApsCertificate: false
-      }));
+      };
+      setFormData(prev => ({ ...prev, ...p }));
+      updateProfile({
+        degreeType: p.degreeTarget,
+        field: p.backgroundField,
+        currentDegree: "B.Tech in Computer Science and Engineering",
+        cgpa: p.currentCGPA,
+        ieltsScore: p.ieltsScore,
+        income: p.annualFamilyIncomeINR,
+        liquidSavingsINR: p.liquidSavingsINR,
+        financialCapacityEUR: p.liquidSavingsINR / 90
+      });
     } else if (type === "high-achiever") {
-      setFormData(prev => ({
-        ...prev,
+      const p = {
         targetCountry: "USA",
         degreeTarget: "Master's",
         backgroundField: "Data Science",
@@ -139,10 +167,20 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
         loanBankType: "Public Sector Bank (SBI / Canara / BoB)",
         immovablePropertyValuationINR: 6500000,
         hasApsCertificate: true
-      }));
+      };
+      setFormData(prev => ({ ...prev, ...p }));
+      updateProfile({
+        degreeType: p.degreeTarget,
+        field: p.backgroundField,
+        currentDegree: "B.Tech in Computer Science and Engineering",
+        cgpa: p.currentCGPA,
+        ieltsScore: p.ieltsScore,
+        income: p.annualFamilyIncomeINR,
+        liquidSavingsINR: p.liquidSavingsINR,
+        financialCapacityEUR: p.liquidSavingsINR / 90
+      });
     } else if (type === "budget-germany") {
-      setFormData(prev => ({
-        ...prev,
+      const p = {
         targetCountry: "Germany",
         degreeTarget: "Master's",
         backgroundField: "Mechanical Engineering",
@@ -164,7 +202,18 @@ export default function ProfileIntake({ onSubmit, isLoading, selectedCountry, on
         loanSanctionedINR: 500000,
         loanBankType: "Public Sector Bank (SBI / Canara / BoB)",
         hasApsCertificate: true
-      }));
+      };
+      setFormData(prev => ({ ...prev, ...p }));
+      updateProfile({
+        degreeType: p.degreeTarget,
+        field: p.backgroundField,
+        currentDegree: "B.Tech in Mechanical Engineering",
+        cgpa: p.currentCGPA,
+        ieltsScore: p.ieltsScore,
+        income: p.annualFamilyIncomeINR,
+        liquidSavingsINR: p.liquidSavingsINR,
+        financialCapacityEUR: p.liquidSavingsINR / 90
+      });
     }
   };
 

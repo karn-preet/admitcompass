@@ -2859,28 +2859,31 @@ function resolveDualCutoffs(uni) {
 
   // Specific calibrators for known public universities
   if (id.includes("tum") || name.includes("munich")) {
-    official = 6.5;
-    historical = 8.2;
+    official = 8.0; // TUM Academic Regulations (FPSO) Aptitude stage 1 cutoff
+    historical = 8.8;
   } else if (id.includes("rwth") || name.includes("aachen")) {
-    official = 6.5;
+    official = 6.5; // Official minimum examination regulation cutoff
     historical = 8.0;
   } else if (id.includes("tu-berlin") || name.includes("berlin")) {
-    official = 6.5;
-    historical = 7.8;
+    official = 7.2;
+    historical = 8.0;
   } else if (id.includes("stuttgart")) {
     official = 6.5;
     historical = 7.7;
   } else if (id.includes("karlsruhe") || id.includes("kit")) {
-    official = 6.5;
+    official = 6.8;
     historical = 8.0;
   } else if (id.includes("delft")) {
-    official = 7.0;
-    historical = 8.4;
+    official = 8.0;
+    historical = 8.5;
   } else if (id.includes("oxford") || id.includes("cambridge") || id.includes("imperial")) {
-    official = 7.5;
-    historical = 9.0;
+    official = 8.5;
+    historical = 9.2;
+  } else if (id.includes("eth") || id.includes("epfl") || id.includes("zurich")) {
+    official = 8.5;
+    historical = 9.2;
   } else if (id.includes("ucl") || id.includes("edinburgh") || id.includes("manchester")) {
-    official = 7.0;
+    official = 7.5;
     historical = 8.3;
   } else if (id.includes("kth") || id.includes("chalmers")) {
     official = 6.5;
@@ -2892,20 +2895,18 @@ function resolveDualCutoffs(uni) {
     official = 6.5;
     historical = 7.9;
   } else if (id.includes("illinois") || id.includes("georgia") || id.includes("purdue") || id.includes("michigan")) {
-    official = 6.5;
+    official = 7.5;
     historical = 8.5;
   } else if (id.includes("toronto") || id.includes("ubc") || id.includes("waterloo")) {
-    official = 7.0;
+    official = 8.0;
     historical = 8.6;
   } else {
-    // Standard European & Global public university baseline:
-    // Official regulations specify min 2.5 German grade (approx 6.5 CGPA)
-    // Competitive Indian admitted average is typically 1.0 - 1.5 CGPA higher
+    // Standard European & Global public university baseline
     if (base >= 8.0) {
-      official = 6.5;
-      historical = base;
+      official = 8.0;
+      historical = Math.min(10.0, base + 0.6);
     } else if (base >= 7.5) {
-      official = 6.5;
+      official = 7.2;
       historical = 8.0;
     } else if (base >= 7.0) {
       official = 6.5;

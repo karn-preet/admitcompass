@@ -14,7 +14,8 @@ import {
   GraduationCap,
   Award
 } from "lucide-react";
-import { fetchUniversities } from "../services/api";
+import { fetchUniversities, matchUniversities } from "../services/api";
+import { useProfile } from "../context/ProfileContext";
 import UniversityDetailModal from "./UniversityDetailModal";
 import IndianVisaBadge from "./IndianVisaBadge";
 import RealityCheckGauge from "./RealityCheckGauge";
@@ -109,6 +110,7 @@ export default function WoolmersUniversityGrid({
   onOpenCart,
   onStartEvaluation
 }) {
+  const { profile, setTestProfile, clearProfile, isProfileActive } = useProfile();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCountry, setSelectedCountry] = useState(initialCountry);
@@ -118,21 +120,47 @@ export default function WoolmersUniversityGrid({
   const [selectedUniModal, setSelectedUniModal] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     async function loadUnis() {
       try {
         setLoading(true);
-        const res = await fetchUniversities();
-        if (res && res.success && Array.isArray(res.data)) {
+        let res;
+        if (isProfileActive) {
+          res = await matchUniversities({
+            cgpa: profile.cgpa,
+            currentDegree: profile.currentDegree,
+            degreeType: profile.degreeType,
+            field: profile.field,
+            ieltsScore: profile.ieltsScore,
+            financialCapacityEUR: profile.financialCapacityEUR,
+            country: selectedCountry !== "All" && selectedCountry !== "All Countries" ? selectedCountry : undefined
+          });
+        } else {
+          res = await fetchUniversities({
+            country: selectedCountry !== "All" && selectedCountry !== "All Countries" ? selectedCountry : undefined
+          });
+        }
+        if (isMounted && res && res.success && Array.isArray(res.data)) {
           setUniversities(res.data);
         }
       } catch (err) {
         console.error("Failed to load universities for grid:", err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
     loadUnis();
-  }, []);
+    return () => { isMounted = false; };
+  }, [
+    isProfileActive,
+    profile.cgpa,
+    profile.degreeType,
+    profile.field,
+    profile.financialCapacityEUR,
+    profile.ieltsScore,
+    profile.currentDegree,
+    selectedCountry
+  ]);
 
   useEffect(() => {
     if (initialCountry) setSelectedCountry(initialCountry);
@@ -216,6 +244,102 @@ export default function WoolmersUniversityGrid({
             Browse accredited public universities across all 27 European Union member states. 
             Inspect tuition fees, historical cutoffs, verified student housing, and consular visa requirements.
           </p>
+        </div>
+
+        {/* Personalized Matching & Test Case Simulation Control Bar */}
+        <div 
+          style={{
+            background: isProfileActive ? "rgba(46, 125, 50, 0.06)" : "#FFFFFF",
+            borderRadius: "14px",
+            border: isProfileActive ? "1px solid #81C784" : "1px solid var(--border-subtle)",
+            boxShadow: "var(--shadow-sm)",
+            padding: "16px 20px",
+            marginBottom: "18px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "14px"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+            <div 
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "5px 12px",
+                borderRadius: "999px",
+                background: isProfileActive ? "#2E7D32" : "#334155",
+                color: "#FFFFFF",
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                letterSpacing: "0.04em"
+              }}
+            >
+              <Sparkles size={13} />
+              <span>{isProfileActive ? "PERSONALIZED ENGINE: ACTIVE" : "STANDARD PUBLIC CATALOG"}</span>
+            </div>
+            <div style={{ fontSize: "0.88rem", color: "var(--text-secondary)", fontWeight: 500 }}>
+              {isProfileActive ? (
+                <span>
+                  Enforcing strict cutoffs for: <strong style={{ color: "var(--text-primary)" }}>{profile.currentDegree || "B.Tech CSE"}</strong> • Min CGPA Cutoff: <strong style={{ color: "var(--accent-green)" }}>≤ {profile.cgpa}</strong> • Programs requiring &gt; {profile.cgpa} strictly hidden.
+                </span>
+              ) : (
+                <span>
+                  Browsing unfiltered public database. Run the evaluator or simulate a profile to auto-filter by your CGPA and financial capacity.
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            {/* Automated Test Case Button */}
+            <button
+              type="button"
+              id="btn-simulate-test-profile"
+              onClick={() => setTestProfile()}
+              style={{
+                padding: "8px 16px",
+                borderRadius: "8px",
+                background: "linear-gradient(135deg, #1E293B, #0F172A)",
+                color: "#FFFFFF",
+                border: "1px solid #334155",
+                fontWeight: 600,
+                fontSize: "0.84rem",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "7px",
+                boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                transition: "all 0.2s ease"
+              }}
+              title="Simulate a user pursuing B.Tech in CSE with 7.0 CGPA"
+            >
+              <span>🧪</span>
+              <span>Simulate Test Profile (B.Tech CSE, 7.0 CGPA)</span>
+            </button>
+
+            {isProfileActive && (
+              <button
+                type="button"
+                id="btn-reset-profile-filter"
+                onClick={() => clearProfile()}
+                style={{
+                  padding: "8px 14px",
+                  borderRadius: "8px",
+                  background: "#FFFFFF",
+                  color: "#475569",
+                  border: "1px solid var(--border-warm)",
+                  fontWeight: 600,
+                  fontSize: "0.82rem",
+                  cursor: "pointer"
+                }}
+              >
+                Reset to Full Catalog
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Filter Toolbar */}
@@ -350,26 +474,109 @@ export default function WoolmersUniversityGrid({
           </div>
         )}
 
-        {/* Empty State */}
+        {/* Empty State: Zero Matches Found */}
         {!loading && filteredUniversities.length === 0 && (
-          <div style={{ textAlign: "center", padding: "60px 20px", background: "#FFFFFF", borderRadius: "14px", border: "1px solid var(--border-subtle)" }}>
-            <Building2 size={42} color="var(--text-muted)" style={{ margin: "0 auto 16px auto", opacity: 0.5 }} />
-            <h3 style={{ fontFamily: "var(--font-serif)", fontSize: "1.4rem", color: "var(--text-primary)", marginBottom: "8px" }}>
-              No Public Universities Found
+          <div 
+            id="zero-matches-feedback"
+            style={{ 
+              textAlign: "center", 
+              padding: "64px 24px", 
+              background: "#FFFFFF", 
+              borderRadius: "16px", 
+              border: "1px solid var(--border-subtle)",
+              boxShadow: "var(--shadow-sm)",
+              maxWidth: "680px",
+              margin: "0 auto"
+            }}
+          >
+            <div style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              background: "rgba(239, 68, 68, 0.1)",
+              color: "#DC2626",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 20px auto"
+            }}>
+              <Building2 size={30} />
+            </div>
+
+            <h3 style={{ 
+              fontFamily: "var(--font-serif)", 
+              fontSize: "1.55rem", 
+              color: "var(--text-primary)", 
+              marginBottom: "10px" 
+            }}>
+              Zero Matches Found
             </h3>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.92rem", marginBottom: "18px" }}>
-              Try loosening your search term or select another country from the top tabs.
+
+            <p style={{ 
+              color: "var(--text-secondary)", 
+              fontSize: "0.96rem", 
+              lineHeight: 1.6, 
+              marginBottom: "26px",
+              maxWidth: "520px",
+              margin: "0 auto 26px auto"
+            }}>
+              {isProfileActive
+                ? `No university programs meet all of your strict profile parameters (Degree: ${profile.degreeType}, Field: ${profile.field}, CGPA: ${profile.cgpa}). All programs requiring higher cutoffs or higher tuition have been filtered out.`
+                : "No public universities match your current search terms or selected filters. Try loosening your keywords or clearing filters."
+              }
             </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCountry("All");
-                setZeroTuitionOnly(false);
-              }}
-              className="btn btn-secondary"
-            >
-              Reset All Filters
-            </button>
+
+            <div style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              gap: "12px", 
+              flexWrap: "wrap" 
+            }}>
+              <button
+                type="button"
+                id="btn-zero-matches-adjust-filters"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCountry("All");
+                  setZeroTuitionOnly(false);
+                  clearProfile();
+                }}
+                className="btn btn-secondary"
+                style={{
+                  padding: "10px 18px",
+                  fontWeight: 600,
+                  fontSize: "0.88rem"
+                }}
+              >
+                Adjust Filters
+              </button>
+
+              <button
+                type="button"
+                id="btn-zero-matches-compensatory-exams"
+                onClick={() => {
+                  if (onStartEvaluation) {
+                    onStartEvaluation();
+                  } else {
+                    const el = document.getElementById("profile-intake-section");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                className="btn btn-primary"
+                style={{
+                  padding: "10px 20px",
+                  fontWeight: 600,
+                  fontSize: "0.88rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px"
+                }}
+              >
+                <span>View Compensatory Exams to Boost Chances</span>
+                <ArrowRight size={15} />
+              </button>
+            </div>
           </div>
         )}
 

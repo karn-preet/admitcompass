@@ -169,7 +169,7 @@ const btechStateUniProfile = {
 
 const evalRun = evaluateAcademicProfile(btechStateUniProfile);
 const rwthOrTum = evalRun.allMatches.find(m => 
-  m.university.id.includes("rwth") || m.university.id.includes("tum")
+  m.university.id.includes("rwth")
 );
 
 assert(!!rwthOrTum, "Found target German university (RWTH / TUM) in matches");

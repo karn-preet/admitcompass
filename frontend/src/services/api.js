@@ -30,6 +30,19 @@ export async function fetchUniversities(filters = {}) {
   return response.json();
 }
 
+export async function matchUniversities(profileData = {}) {
+  const response = await fetch(`${BASE_URL}/universities/match`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profileData)
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `HTTP error ${response.status}`);
+  }
+  return response.json();
+}
+
 export async function fetchVisaRules(country = "") {
   const url = country ? `${BASE_URL}/visa-rules/${country}` : `${BASE_URL}/visa-rules`;
   const response = await fetch(url);
