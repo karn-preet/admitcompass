@@ -7,18 +7,26 @@
 export function setupMobileOptimizations() {
   if (typeof window === "undefined") return;
 
-  // 1. Enforce passive event listeners by default for touch and wheel
+  // 1. Enforce passive event listeners by default for touch and wheel (except for 3D canvas and maps that must call preventDefault)
   const originalAddEventListener = EventTarget.prototype.addEventListener;
   EventTarget.prototype.addEventListener = function (type, listener, options) {
     if (["touchstart", "touchmove", "wheel", "mousewheel"].includes(type)) {
-      if (typeof options === "boolean") {
-        options = { capture: options, passive: true };
-      } else if (typeof options === "object" && options !== null) {
-        if (options.passive === undefined) {
-          options.passive = true;
+      const isTargetCanvasOrMap = this instanceof Element && (
+        this.tagName === "CANVAS" || 
+        this.classList.contains("leaflet-container") ||
+        Boolean(this.closest?.(".globe-canvas-wrapper, .leaflet-container"))
+      );
+
+      if (!isTargetCanvasOrMap) {
+        if (typeof options === "boolean") {
+          options = { capture: options, passive: true };
+        } else if (typeof options === "object" && options !== null) {
+          if (options.passive === undefined) {
+            options = { ...options, passive: true };
+          }
+        } else if (options === undefined) {
+          options = { passive: true };
         }
-      } else if (options === undefined) {
-        options = { passive: true };
       }
     }
     return originalAddEventListener.call(this, type, listener, options);

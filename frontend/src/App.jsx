@@ -158,7 +158,7 @@ export default function App() {
   });
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-main)" }}>
+    <div className="app-wrapper" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-main)", touchAction: "pan-y", overflowY: "auto" }}>
       
       {/* Sticky Top Navigation with Yellow Pro Button, Avatar, and Full-Width Yellow Alert Banner */}
       <ModernTopNav 
@@ -171,12 +171,13 @@ export default function App() {
       {/* Main Content Area with GPU Acceleration & Native Horizontal Tab Swiping */}
       <main 
         {...tabSwipeHandlers}
-        className="scrollable-feed"
+        className="main-feed scrollable-feed"
         style={{ 
           flex: 1, 
           padding: "0 0 40px 0",
           touchAction: "pan-y",
-          transform: `translate3d(${isTabDragging ? tabDragOffset * 0.35 : 0}px, 0, 0)`,
+          overflowY: "auto",
+          transform: isTabDragging ? `translate3d(${tabDragOffset * 0.35}px, 0, 0)` : "none",
           willChange: isTabDragging ? "transform" : "auto",
           transition: isTabDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
           overflowX: "hidden"

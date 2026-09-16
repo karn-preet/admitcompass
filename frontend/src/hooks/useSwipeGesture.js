@@ -32,27 +32,27 @@ export function useSwipeGesture({
       time: Date.now()
     };
     isHorizontalGestureRef.current = false;
-    setIsDragging(true);
     setDragOffset(0);
   }, [ignoreSelectors]);
 
   const handleTouchMove = useCallback((e) => {
-    if (!isDragging || e.touches.length !== 1) return;
+    if (e.touches.length !== 1) return;
     const touch = e.touches[0];
     const diffX = touch.clientX - touchStartRef.current.x;
     const diffY = touch.clientY - touchStartRef.current.y;
 
-    // Check angle: if diffY > diffX on initial movement, let native vertical scroll take over
+    // Check angle: only activate horizontal drag if horizontal intent clearly exceeds vertical
     if (!isHorizontalGestureRef.current) {
-      if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
-        if (Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+      if (Math.abs(diffX) > 12 || Math.abs(diffY) > 12) {
+        if (Math.abs(diffX) > Math.abs(diffY) * 1.5 && Math.abs(diffX) > 15) {
           isHorizontalGestureRef.current = true;
+          setIsDragging(true);
         } else {
-          // Vertical scroll detected, abort horizontal swipe
-          setIsDragging(false);
-          setDragOffset(0);
+          // Vertical scroll detected, abort horizontal swipe completely to preserve native vertical scroll
           return;
         }
+      } else {
+        return;
       }
     }
 
@@ -61,7 +61,7 @@ export function useSwipeGesture({
       const resistance = Math.sign(diffX) * Math.pow(Math.abs(diffX), 0.85) * (1 - swipeResistance);
       setDragOffset(resistance);
     }
-  }, [isDragging, swipeResistance]);
+  }, [swipeResistance]);
 
   const handleTouchEnd = useCallback(() => {
     if (!isDragging) return;
