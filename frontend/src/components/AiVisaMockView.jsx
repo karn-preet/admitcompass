@@ -119,7 +119,7 @@ export default function AiVisaMockView() {
             Simulate realistic grilling tailored to destination-specific refusal triggers (e.g. US 214b immigrant intent vs Germany APS & Blocked Account verification).
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "28px" }}>
+          <div className="responsive-grid-2" style={{ gap: "16px", marginBottom: "28px" }}>
             {[
               { id: "USA", flag: "🇺🇸", name: "USA F-1 Visa", desc: "INA 214(b) immigrant intent & sponsor ITR testing" },
               { id: "Germany", flag: "🇩🇪", name: "Germany Student Visa", desc: "APS, blocked account & German curriculum motivation" },

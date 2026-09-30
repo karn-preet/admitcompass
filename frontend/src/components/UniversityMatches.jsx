@@ -586,7 +586,7 @@ export default function UniversityMatches({
       )}
 
       {/* University Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(390px, 1fr))", gap: "20px" }}>
+      <div className="responsive-card-grid" style={{ gap: "20px" }}>
         {filteredMatches.map(({ university: uni, probabilityScore, category, positiveFactors, riskFactors }) => {
           const isSafe = category === "Safe";
           const isTarget = category === "Target";

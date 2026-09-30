@@ -12,6 +12,7 @@ export default function BottomNavBar({ activeTab, onSelectTab, cartCount = 0 }) 
 
   return (
     <nav
+      className="bottom-nav-mobile-only"
       style={{
         position: "fixed",
         bottom: 0,
@@ -22,7 +23,7 @@ export default function BottomNavBar({ activeTab, onSelectTab, cartCount = 0 }) 
         backgroundColor: "#FFFFFF",
         borderTop: "1px solid #E2E8F0",
         boxShadow: "0 -2px 12px rgba(0, 0, 0, 0.04)",
-        zIndex: 100,
+        zIndex: 90,
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "space-around",

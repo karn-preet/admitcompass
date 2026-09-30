@@ -151,7 +151,7 @@ export default function RateMyChancesView() {
       </div>
 
       {/* Main Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", alignItems: "start" }}>
+      <div className="responsive-grid-2" style={{ gap: "32px", alignItems: "start" }}>
         
         {/* Left Column: Input Form */}
         <div className="glass-panel" style={{ padding: "28px" }}>
@@ -231,7 +231,7 @@ export default function RateMyChancesView() {
                     </span>
                   </div>
                   
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", textAlign: "center" }}>
+                  <div className="responsive-grid-4" style={{ gap: "8px", textAlign: "center" }}>
                     <div style={{ padding: "8px 4px", background: "var(--bg-surface, #ffffff)", borderRadius: "6px", border: "1px solid var(--border-subtle, #e2e8f0)" }}>
                       <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: "600" }}>Min CGPA</div>
                       <div style={{ fontSize: "0.95rem", fontWeight: "800", color: "var(--text-primary)" }}>{activeUni.minCGPA10 || 7.0}/10</div>
@@ -263,7 +263,7 @@ export default function RateMyChancesView() {
             </div>
 
             {/* Degree & Field */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "18px" }}>
+            <div className="responsive-grid-2" style={{ gap: "14px", marginBottom: "18px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.86rem", fontWeight: "600", color: "var(--text-primary)", marginBottom: "6px" }}>
                   Degree Level
@@ -314,7 +314,7 @@ export default function RateMyChancesView() {
             </div>
 
             {/* CGPA & Scale */}
-            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "14px", marginBottom: "18px" }}>
+            <div className="responsive-grid-2" style={{ gap: "14px", marginBottom: "18px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.86rem", fontWeight: "600", color: "var(--text-primary)", marginBottom: "6px" }}>
                   Current CGPA
@@ -362,7 +362,7 @@ export default function RateMyChancesView() {
             </div>
 
             {/* Standardized Tests: GRE & IELTS */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "18px" }}>
+            <div className="responsive-grid-2" style={{ gap: "14px", marginBottom: "18px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.86rem", fontWeight: "600", color: "var(--text-primary)", marginBottom: "6px" }}>
                   GRE Score (Optional)
@@ -411,7 +411,7 @@ export default function RateMyChancesView() {
             </div>
 
             {/* Work Exp & Research Papers */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+            <div className="responsive-grid-3" style={{ gap: "12px", marginBottom: "24px" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.82rem", fontWeight: "600", color: "var(--text-primary)", marginBottom: "6px" }}>
                   Work Exp (Mos)
@@ -565,7 +565,7 @@ export default function RateMyChancesView() {
                 Official Minimum Cutoffs vs Admitted Cohort
               </h4>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginBottom: "20px" }}>
+              <div className="responsive-grid-3" style={{ gap: "10px", marginBottom: "20px" }}>
                 <div style={{ background: "var(--bg-surface-elevated, #f8fafc)", border: "1px solid var(--border-subtle, #e2e8f0)", borderRadius: "10px", padding: "12px" }}>
                   <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: "600" }}>CGPA Cutoff (10-Pt)</div>
                   <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>

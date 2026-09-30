@@ -158,7 +158,7 @@ export default function ScholarshipsView() {
           </p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))", gap: "20px" }}>
+        <div className="responsive-card-grid" style={{ gap: "20px" }}>
           {scholarships.map((sch) => (
             <div 
               key={sch.id} 

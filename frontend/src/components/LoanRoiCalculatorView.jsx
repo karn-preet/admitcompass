@@ -85,7 +85,7 @@ export default function LoanRoiCalculatorView() {
       </div>
 
       {/* Main Grid: Calculator on Left, Result on Right */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", marginBottom: "48px" }}>
+      <div className="responsive-grid-2" style={{ gap: "32px", marginBottom: "48px" }}>
         
         {/* Left Column: Interactive Sliders */}
         <div className="glass-panel" style={{ padding: "28px" }}>
@@ -260,7 +260,7 @@ export default function LoanRoiCalculatorView() {
               </div>
 
               {/* Breakdown Grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
+              <div className="responsive-grid-2" style={{ gap: "12px", marginBottom: "20px" }}>
                 <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "14px" }}>
                   <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Principal Borrowed</div>
                   <div style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-primary)", marginTop: "2px" }}>

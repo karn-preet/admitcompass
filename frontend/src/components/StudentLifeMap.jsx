@@ -457,46 +457,54 @@ export default function StudentLifeMap({
       />
 
       {/* Map Symbology Legend Badge (Floating Over Map) */}
-      <div style={{
-        position: "absolute",
-        bottom: "16px",
-        left: "16px",
-        zIndex: 500,
-        background: "rgba(15, 23, 42, 0.88)",
-        backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.15)",
-        borderRadius: "10px",
-        padding: "8px 12px",
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-        fontSize: "0.74rem",
-        color: "#f8fafc",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.4)"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#8b5cf6" }} />
+      {/* Map Symbology Legend Badge (Floating Over Map, Responsive on Mobile & Desktop) */}
+      <div 
+        className="map-legend-badge"
+        style={{
+          position: "absolute",
+          bottom: "12px",
+          left: "12px",
+          maxWidth: "calc(100% - 24px)",
+          zIndex: 500,
+          background: "rgba(15, 23, 42, 0.88)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
+          borderRadius: "10px",
+          padding: "6px 10px",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "6px 10px",
+          fontSize: "0.7rem",
+          color: "#f8fafc",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+          pointerEvents: "none"
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#8b5cf6" }} />
           <span>🎓 Campus</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#10b981" }} />
-          <span>🛏️ Official Dorm</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+          <span>🛏️ Dorm</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#0284c7" }} />
-          <span>🏠 Private / WG</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#0284c7" }} />
+          <span>🏠 Private</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#f59e0b" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#f59e0b" }} />
           <span>🏋️ Gym</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#6366f1" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#6366f1" }} />
           <span>📚 Library</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", background: "#06b6d4" }} />
-          <span>🛒 Groceries & Transit</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#06b6d4" }} />
+          <span>🛒 Groceries</span>
         </div>
       </div>
 
@@ -515,6 +523,7 @@ export default function StudentLifeMap({
           zIndex: 500,
           background: "rgba(15, 23, 42, 0.9)",
           backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
           color: "#ffffff",
           padding: "6px 12px",

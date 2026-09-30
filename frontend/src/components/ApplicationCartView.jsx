@@ -216,7 +216,7 @@ export default function ApplicationCartView({
           </button>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", gap: "16px" }}>
+        <div className="responsive-card-grid" style={{ gap: "16px" }}>
           {Object.entries(portals).map(([portalKey, pData]) => {
             const isUniAssist = portalKey === "Uni-assist";
             const isSweden = portalKey === "University Admissions Sweden";
@@ -328,7 +328,7 @@ export default function ApplicationCartView({
       </div>
 
       {/* Row: Standardized Exams & Document Legalization */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "16px", marginBottom: "26px" }}>
+      <div className="responsive-grid-2" style={{ gap: "16px", marginBottom: "26px" }}>
         
         {/* Standardized Exams */}
         <div className="glass-panel" style={{ padding: "18px", borderRadius: "14px" }}>
@@ -443,7 +443,7 @@ export default function ApplicationCartView({
           Itemized Pre- vs. Post-Admission Breakdown for Shortlisted Programs ({itemBreakdowns.length})
         </h3>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))", gap: "16px" }}>
+        <div className="responsive-card-grid" style={{ gap: "16px" }}>
           {itemBreakdowns.map((b) => (
             <div 
               key={b.universityId}
@@ -471,7 +471,7 @@ export default function ApplicationCartView({
               </div>
 
               {/* The Two Cards Side by Side */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+              <div className="responsive-grid-2" style={{ gap: "10px" }}>
                 
                 {/* Card 1: Pre-Admission Costs */}
                 <div style={{

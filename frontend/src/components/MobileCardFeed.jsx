@@ -222,7 +222,7 @@ export default function MobileCardFeed({
         }}
       >
         {/* Left Side: Content */}
-        <div style={{ flex: 1, pr: "12px" }}>
+        <div style={{ flex: 1, paddingRight: "12px" }}>
           
           {/* Dark Pill Badge ("NEW RULES") */}
           <div style={{ marginBottom: "10px" }}>
@@ -354,7 +354,7 @@ export default function MobileCardFeed({
         }}
       >
         {/* Left Side: Content */}
-        <div style={{ flex: 1, pr: "12px" }}>
+        <div style={{ flex: 1, paddingRight: "12px" }}>
           
           {/* Dark Pill Badge ("€30M+ FUNDING") */}
           <div style={{ marginBottom: "10px" }}>

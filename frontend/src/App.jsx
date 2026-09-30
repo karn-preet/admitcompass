@@ -160,28 +160,24 @@ export default function App() {
   });
 
   return (
-    <div className="app-wrapper" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-main)", touchAction: "pan-y", overflowY: "auto" }}>
+    <div className="app-wrapper" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-main)", overflowY: "auto" }}>
       
-      {/* Sticky Top Navigation with Yellow Pro Button, Avatar, and Full-Width Yellow Alert Banner */}
+      {/* Sticky Top Navigation with Desktop Navigation Tabs, Mobile Header, Yellow Pro Button, and Avatar */}
       <ModernTopNav 
+        activeTab={activeTab}
         onSelectTab={handleTabChange}
         onOpenCart={() => setIsCartModalOpen(true)}
         cartCount={cartItems.length}
         onOpenCitations={() => setIsCitationsModalOpen(true)}
       />
 
-      {/* Main Content Area with GPU Acceleration & Native Horizontal Tab Swiping */}
+      {/* Main Content Area with Native Smooth Scrolling & Zero Stacking-Context Interference */}
       <main 
-        {...tabSwipeHandlers}
         className="main-feed scrollable-feed"
         style={{ 
           flex: 1, 
           padding: "0 0 40px 0",
-          touchAction: "pan-y",
           overflowY: "auto",
-          transform: isTabDragging ? `translate3d(${tabDragOffset * 0.35}px, 0, 0)` : "none",
-          willChange: isTabDragging ? "transform" : "auto",
-          transition: isTabDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
           overflowX: "hidden"
         }}
       >

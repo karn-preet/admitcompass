@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Compass, Star, ChevronRight, Bell, Sparkles, X, Calendar, ShieldCheck, CheckCircle2 } from "lucide-react";
 
 export default function ModernTopNav({
+  activeTab = "home",
   onSelectTab,
   onOpenCart,
   cartCount = 0,
@@ -10,6 +11,26 @@ export default function ModernTopNav({
   const [isAlertVisible, setIsAlertVisible] = useState(true);
   const [isProModalOpen, setIsProModalOpen] = useState(false);
   const [isDeadlinesModalOpen, setIsDeadlinesModalOpen] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
+
+  const mainNavLinks = [
+    { id: "home", label: "Home" },
+    { id: "universities", label: "147 Universities" },
+    { id: "map", label: "Campus Map" },
+    { id: "visas", label: "Visa Solvency" },
+    { id: "profile", label: "Admission Odds" }
+  ];
+
+  const toolsLinks = [
+    { id: "cheapUnis", label: "€0 Tuition Explorer", badge: "Free" },
+    { id: "rateMyChances", label: "RateMyChances Calculator", badge: "AI" },
+    { id: "decisions", label: "Admits & Rejects Database", badge: "100+" },
+    { id: "visaMock", label: "AI Consular Visa Mock", badge: "214(b)" },
+    { id: "sopStudio", label: "AI SOP Studio & Reviewer", badge: "SOP" },
+    { id: "scholarships", label: "Scholarships Directory", badge: "Grants" },
+    { id: "loans", label: "Loan & ROI Calculator", badge: "80E" },
+    { id: "community", label: "Community Discussions", badge: "Q&A" }
+  ];
 
   return (
     <>
@@ -20,18 +41,20 @@ export default function ModernTopNav({
           zIndex: 90,
           backgroundColor: "#FFFFFF",
           borderBottom: "1px solid #E2E8F0",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.03)"
+          boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+          paddingTop: "env(safe-area-inset-top, 0px)"
         }}
       >
         {/* Main Sticky Top Bar */}
         <div
           style={{
-            maxWidth: "1100px",
+            maxWidth: "1280px",
             margin: "0 auto",
-            padding: "12px 18px",
+            padding: "10px 18px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            gap: "14px"
           }}
         >
           {/* Far Left: Logo */}
@@ -45,14 +68,15 @@ export default function ModernTopNav({
               alignItems: "center",
               gap: "10px",
               cursor: "pointer",
-              userSelect: "none"
+              userSelect: "none",
+              flexShrink: 0
             }}
           >
             <div
               style={{
-                width: "38px",
-                height: "38px",
-                borderRadius: "12px",
+                width: "36px",
+                height: "36px",
+                borderRadius: "10px",
                 background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
                 display: "flex",
                 alignItems: "center",
@@ -60,14 +84,14 @@ export default function ModernTopNav({
                 boxShadow: "0 3px 10px rgba(15, 23, 42, 0.2)"
               }}
             >
-              <Compass size={22} color="#FDE047" />
+              <Compass size={20} color="#FDE047" />
             </div>
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span
                   style={{
                     fontFamily: "var(--font-brand)",
-                    fontSize: "1.38rem",
+                    fontSize: "1.32rem",
                     fontWeight: "800",
                     letterSpacing: "-0.5px",
                     display: "inline-flex",
@@ -81,10 +105,10 @@ export default function ModernTopNav({
                       fontFamily: "var(--font-gurmukhi)",
                       color: "#0F172A",
                       backgroundColor: "#FDE047",
-                      padding: "2px 8px",
-                      borderRadius: "8px",
+                      padding: "1px 7px",
+                      borderRadius: "6px",
                       fontWeight: "900",
-                      fontSize: "1.22rem",
+                      fontSize: "1.15rem",
                       lineHeight: "1.25",
                       boxShadow: "0 2px 6px rgba(253, 224, 71, 0.45)"
                     }}
@@ -94,11 +118,11 @@ export default function ModernTopNav({
                 </span>
                 <span
                   style={{
-                    fontSize: "0.62rem",
+                    fontSize: "0.58rem",
                     fontWeight: "800",
                     background: "#0F172A",
                     color: "#FDE047",
-                    padding: "2px 6px",
+                    padding: "2px 5px",
                     borderRadius: "999px",
                     letterSpacing: "0.04em"
                   }}
@@ -109,22 +133,152 @@ export default function ModernTopNav({
             </div>
           </div>
 
+          {/* Center: Desktop Navigation Bar (macOS & PC Large Screen Experience) */}
+          <nav 
+            className="desktop-nav-menu"
+            style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: "4px"
+            }}
+          >
+            {mainNavLinks.map(link => {
+              const isActive = activeTab === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => {
+                    if (onSelectTab) onSelectTab(link.id);
+                    setIsToolsOpen(false);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  style={{
+                    background: isActive ? "rgba(15, 23, 42, 0.07)" : "transparent",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "7px 12px",
+                    fontSize: "0.85rem",
+                    fontWeight: isActive ? "800" : "600",
+                    color: isActive ? "#0F172A" : "#475569",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                    whiteSpace: "nowrap"
+                  }}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
+
+            {/* Tools Dropdown for Desktop */}
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                onClick={() => setIsToolsOpen(prev => !prev)}
+                style={{
+                  background: isToolsOpen ? "rgba(15, 23, 42, 0.07)" : "transparent",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "7px 12px",
+                  fontSize: "0.85rem",
+                  fontWeight: "600",
+                  color: "#475569",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  transition: "all 0.15s ease",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                <span>Tools</span>
+                <ChevronRight 
+                  size={14} 
+                  style={{ 
+                    transform: isToolsOpen ? "rotate(90deg)" : "rotate(0deg)", 
+                    transition: "transform 0.2s ease" 
+                  }} 
+                />
+              </button>
+
+              {isToolsOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 8px)",
+                    right: 0,
+                    width: "260px",
+                    background: "#FFFFFF",
+                    borderRadius: "14px",
+                    boxShadow: "0 12px 32px rgba(0, 0, 0, 0.14)",
+                    border: "1px solid #E2E8F0",
+                    padding: "8px",
+                    zIndex: 150,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "2px"
+                  }}
+                >
+                  {toolsLinks.map(tool => (
+                    <button
+                      key={tool.id}
+                      onClick={() => {
+                        if (onSelectTab) onSelectTab(tool.id);
+                        setIsToolsOpen(false);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "8px 12px",
+                        background: activeTab === tool.id ? "rgba(15, 23, 42, 0.06)" : "transparent",
+                        border: "none",
+                        borderRadius: "8px",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: activeTab === tool.id ? "#0F172A" : "#334155",
+                        fontSize: "0.82rem",
+                        fontWeight: activeTab === tool.id ? "700" : "500",
+                        transition: "background 0.15s ease"
+                      }}
+                    >
+                      <span>{tool.label}</span>
+                      <span 
+                        style={{ 
+                          fontSize: "0.65rem", 
+                          fontWeight: "700", 
+                          background: "#F1F5F9", 
+                          color: "#475569", 
+                          padding: "2px 6px", 
+                          borderRadius: "4px" 
+                        }}
+                      >
+                        {tool.badge}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+
           {/* Far Right: Pill-shaped Yellow Button with Star Icon & Circular Avatar */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             
             {/* Pill-Shaped Yellow Subscribe / Pro Button */}
             <button
               onClick={() => setIsProModalOpen(true)}
               className="btn-yellow"
               style={{
-                padding: "8px 16px",
-                fontSize: "0.85rem",
+                padding: "7px 14px",
+                fontSize: "0.82rem",
                 borderRadius: "9999px",
                 boxShadow: "0 2px 8px rgba(253, 224, 71, 0.45)"
               }}
               title="View Premium Access Status"
             >
-              <Star size={15} fill="#0F172A" color="#0F172A" />
+              <Star size={14} fill="#0F172A" color="#0F172A" />
               <span>Premium</span>
             </button>
 
@@ -132,10 +286,11 @@ export default function ModernTopNav({
             <div
               onClick={() => {
                 if (onSelectTab) onSelectTab("profile");
+                setIsToolsOpen(false);
               }}
               style={{
-                width: "40px",
-                height: "40px",
+                width: "36px",
+                height: "36px",
                 borderRadius: "50%",
                 background: "linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)",
                 border: "2px solid #FFFFFF",
@@ -152,7 +307,7 @@ export default function ModernTopNav({
               <span
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: "0.95rem",
+                  fontSize: "0.88rem",
                   fontWeight: "800",
                   color: "#0F172A"
                 }}
@@ -165,8 +320,8 @@ export default function ModernTopNav({
                   position: "absolute",
                   bottom: "0px",
                   right: "0px",
-                  width: "10px",
-                  height: "10px",
+                  width: "9px",
+                  height: "9px",
                   borderRadius: "50%",
                   backgroundColor: "#10B981",
                   border: "2px solid #FFFFFF"
@@ -185,30 +340,31 @@ export default function ModernTopNav({
               color: "#0F172A",
               borderTop: "1px solid rgba(0, 0, 0, 0.05)",
               borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-              padding: "10px 18px",
+              padding: "8px 16px",
               boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4)"
             }}
           >
             <div
               style={{
-                maxWidth: "1100px",
+                maxWidth: "1280px",
                 margin: "0 auto",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                gap: "12px",
-                fontSize: "0.86rem",
-                fontWeight: "700"
+                gap: "10px",
+                fontSize: "0.82rem",
+                fontWeight: "700",
+                flexWrap: "wrap"
               }}
             >
               {/* Left Text */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ fontSize: "1rem" }}>⚡</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <span style={{ fontSize: "0.95rem" }}>⚡</span>
                 <span>Application Deadlines Approaching: Winter 2026 Admissions Open</span>
               </div>
 
               {/* Actionable Link on the Right */}
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginLeft: "auto" }}>
                 <button
                   onClick={() => setIsDeadlinesModalOpen(true)}
                   style={{
@@ -216,7 +372,7 @@ export default function ModernTopNav({
                     border: "none",
                     color: "#0F172A",
                     fontWeight: "800",
-                    fontSize: "0.86rem",
+                    fontSize: "0.82rem",
                     cursor: "pointer",
                     display: "inline-flex",
                     alignItems: "center",
@@ -226,7 +382,7 @@ export default function ModernTopNav({
                   }}
                 >
                   <span>Check Dates</span>
-                  <ChevronRight size={14} />
+                  <ChevronRight size={13} />
                 </button>
                 <button
                   onClick={() => setIsAlertVisible(false)}
@@ -234,18 +390,18 @@ export default function ModernTopNav({
                     background: "rgba(0,0,0,0.06)",
                     border: "none",
                     borderRadius: "50%",
-                    width: "22px",
-                    height: "22px",
+                    width: "20px",
+                    height: "20px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     cursor: "pointer",
-                    color: "#0F172A",
-                    marginLeft: "6px"
+                    color: "#0F172A"
                   }}
                   title="Dismiss alert"
+                  aria-label="Dismiss alert"
                 >
-                  <X size={13} />
+                  <X size={12} />
                 </button>
               </div>
             </div>

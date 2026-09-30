@@ -167,7 +167,8 @@ export default function StudentLifeMapView({
         border: "1px solid rgba(255, 255, 255, 0.1)",
         padding: "20px 24px",
         borderRadius: "16px",
-        backdropFilter: "blur(12px)"
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)"
       }}>
         <div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(56, 189, 248, 0.12)", border: "1px solid rgba(56, 189, 248, 0.25)", padding: "4px 12px", borderRadius: "999px", marginBottom: "8px" }}>
@@ -219,13 +220,14 @@ export default function StudentLifeMapView({
         </div>
       </div>
 
-      {/* Main Grid: Sidebar Filters + Map Canvas + Details Inspector Card */}
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "310px 1fr 340px", 
-        gap: "20px", 
-        alignItems: "start" 
-      }}>
+      {/* Main Grid: Sidebar Filters + Map Canvas + Details Inspector Card (Responsive on Mobile, Tablet & Mac) */}
+      <div 
+        className="student-life-map-grid"
+        style={{ 
+          gap: "20px", 
+          alignItems: "start" 
+        }}
+      >
 
         {/* ------------------------------------------------------------------ */}
         {/* 1. FILTER SIDEBAR (Left Column) */}
@@ -238,7 +240,8 @@ export default function StudentLifeMapView({
           display: "flex",
           flexDirection: "column",
           gap: "20px",
-          backdropFilter: "blur(8px)"
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)"
         }}>
           
           {/* Header */}
@@ -621,7 +624,8 @@ export default function StudentLifeMapView({
           display: "flex",
           flexDirection: "column",
           gap: "16px",
-          backdropFilter: "blur(8px)"
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)"
         }}>
           
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", paddingBottom: "10px" }}>

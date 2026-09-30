@@ -165,7 +165,7 @@ export default function AiSopStudioView() {
 
       {/* TAB 1: SOP GENERATOR */}
       {activeTab === "generator" && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "32px", alignItems: "start" }}>
+        <div className="responsive-grid-2" style={{ gap: "32px", alignItems: "start" }}>
           
           {/* Input Form */}
           <div className="glass-panel" style={{ padding: "28px" }}>
@@ -175,7 +175,7 @@ export default function AiSopStudioView() {
             </h3>
 
             <form onSubmit={handleGenerate}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
+              <div className="responsive-grid-2" style={{ gap: "12px", marginBottom: "14px" }}>
                 <div>
                   <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Target University</label>
                   <input
@@ -200,7 +200,7 @@ export default function AiSopStudioView() {
                 </div>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
+              <div className="responsive-grid-2" style={{ gap: "12px", marginBottom: "14px" }}>
                 <div>
                   <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Undergrad Major</label>
                   <input
@@ -360,7 +360,7 @@ export default function AiSopStudioView() {
 
       {/* TAB 2: SOP REVIEWER & CLICHÉ AUDITOR */}
       {activeTab === "reviewer" && (
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "32px", alignItems: "start" }}>
+        <div className="responsive-grid-2" style={{ gap: "32px", alignItems: "start" }}>
           
           {/* Paste Form */}
           <div className="glass-panel" style={{ padding: "28px" }}>
@@ -425,7 +425,7 @@ export default function AiSopStudioView() {
                 </h3>
 
                 {/* Scores Grid */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "24px" }}>
+                <div className="responsive-grid-3" style={{ gap: "10px", marginBottom: "24px" }}>
                   <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
                     <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>Overall Quality</div>
                     <div style={{ fontSize: "1.4rem", fontWeight: "800", color: (reviewResult.overallScore || reviewResult.hookScore) >= 70 ? "#047857" : "#b45309", marginTop: "2px" }}>

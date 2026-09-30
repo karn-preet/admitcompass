@@ -139,7 +139,7 @@ export default function AdmitsRejectsView() {
       </div>
 
       {/* Stats Summary Bar */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "28px" }}>
+      <div className="responsive-grid-4" style={{ gap: "16px", marginBottom: "28px" }}>
         <div className="glass-panel" style={{ padding: "18px 22px", display: "flex", alignItems: "center", gap: "14px" }}>
           <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "rgba(59, 130, 246, 0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Database size={22} color="#2563eb" />
@@ -304,7 +304,7 @@ export default function AdmitsRejectsView() {
           </p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+        <div className="responsive-grid-2" style={{ gap: "16px" }}>
           {decisions.map((dec) => {
             const isAdmit = dec.status === "Admit";
             return (
@@ -347,7 +347,7 @@ export default function AdmitsRejectsView() {
                 </div>
 
                 {/* Metric Pills */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", background: "var(--bg-secondary)", padding: "10px 12px", borderRadius: "8px", marginBottom: "12px", border: "1px solid var(--border-subtle)" }}>
+                <div className="responsive-grid-4" style={{ gap: "8px", background: "var(--bg-secondary)", padding: "10px 12px", borderRadius: "8px", marginBottom: "12px", border: "1px solid var(--border-subtle)" }}>
                   <div>
                     <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>CGPA</div>
                     <div style={{ fontSize: "0.88rem", fontWeight: "700", color: "var(--text-primary)" }}>
@@ -443,7 +443,7 @@ export default function AdmitsRejectsView() {
               </div>
             ) : (
               <form onSubmit={handleCreateDecision}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
+                <div className="responsive-grid-2" style={{ gap: "12px", marginBottom: "14px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>University Name</label>
                     <input 
@@ -475,7 +475,7 @@ export default function AdmitsRejectsView() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "12px", marginBottom: "14px" }}>
+                <div className="responsive-grid-2" style={{ gap: "12px", marginBottom: "14px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>Program / Major</label>
                     <input 
@@ -500,7 +500,7 @@ export default function AdmitsRejectsView() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "14px" }}>
+                <div className="responsive-grid-3" style={{ gap: "10px", marginBottom: "14px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>CGPA</label>
                     <input 
@@ -535,7 +535,7 @@ export default function AdmitsRejectsView() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "14px" }}>
+                <div className="responsive-grid-3" style={{ gap: "10px", marginBottom: "14px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-primary)", fontWeight: "600", marginBottom: "4px" }}>IELTS / TOEFL</label>
                     <input 

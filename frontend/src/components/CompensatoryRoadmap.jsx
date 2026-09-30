@@ -71,7 +71,7 @@ export default function CompensatoryRoadmap({ evaluationData }) {
       </div>
 
       {/* Action Plan Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))", gap: "20px" }}>
+      <div className="responsive-card-grid" style={{ gap: "20px" }}>
         {compensatoryActionPlan.map((plan, index) => (
           <div 
             key={index} 
