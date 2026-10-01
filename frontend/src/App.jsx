@@ -30,12 +30,31 @@ import { Sparkles, AlertCircle, Compass, ShieldCheck, MapPin, Award, ExternalLin
 import { useSwipeGesture } from "./hooks/useSwipeGesture";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const searchTab = new URLSearchParams(window.location.search).get("tab");
+      return searchTab || "home";
+    } catch (_) {
+      return "home";
+    }
+  });
   const [selectedCountry, setSelectedCountry] = useState("Germany");
   const [evaluationResult, setEvaluationResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isCitationsModalOpen, setIsCitationsModalOpen] = useState(false);
+
+  // Sync activeTab with browser forward/back buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      try {
+        const tab = new URLSearchParams(window.location.search).get("tab") || "home";
+        setActiveTab(tab);
+      } catch (_) {}
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // Search & Filter State passed between Hero, 3D Globe, and University Grid
   const [heroSearchQuery, setHeroSearchQuery] = useState("");
@@ -108,6 +127,11 @@ export default function App() {
     setActiveTab(tabId);
     setErrorMessage("");
     window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      const url = new URL(window.location);
+      url.searchParams.set("tab", tabId);
+      window.history.pushState({ tab: tabId }, "", url);
+    } catch (_) {}
   };
 
   const scrollToSection = (sectionId) => {
